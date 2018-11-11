@@ -1,7 +1,12 @@
 /node_modules
+<<<<<<< HEAD
 /hello
 /hpzgh
 /hpzgh-qy.json
 *.log
 /ljxTools/union
 /node_modules
+=======
+
+/我在改变的
+>>>>>>> 4fabb28595bb0f836f531e890e749ac8e69c3333
