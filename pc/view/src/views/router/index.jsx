@@ -19,8 +19,7 @@ class Content extends React.Component {
     }
   }
 
-  toggle (e) {
-    let index =e.target.parentNode.parentNode.dataset.index
+  toggle (index) {
     let info = this.state.info
     info[index].dropdownOpen = !info[index].dropdownOpen
     this.setState({
@@ -141,7 +140,7 @@ class Content extends React.Component {
                 <td width="30px" data-index={index}>
                   <ButtonDropdown
                     isOpen={item.dropdownOpen}
-                    toggle={this.toggle}
+                    toggle={this.toggle.bind(this,index)}
                   >
                     <DropdownToggle caret>操作</DropdownToggle>
                     <DropdownMenu>
