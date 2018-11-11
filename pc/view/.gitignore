@@ -3,4 +3,5 @@
 /hpzgh
 /hpzgh-qy.json
 *.log
-/ljxTools/union.
+/ljxTools/union
+/node_modules
