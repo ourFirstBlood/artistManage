@@ -1,0 +1,17 @@
+{
+  "name": "server",
+  "version": "0.0.1",
+  "description": "server",
+  "main": "index.js",
+  "author": "ljx",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "xtemplate": "^4.6.1",
+    "xtpl": "^3.4.0"
+  },
+  "scripts": {
+    "serve": "nodemon index.js"
+  }
+}
