@@ -1,30 +1,28 @@
-import React from 'react'
-import {Menu} from 'element-react'
-import './css/Header.css'
+import React from "react"
+import {Link} from 'react-router-dom'
+import './css/header.css'
+
 
 class Header extends React.Component {
-    onSelect() {
-
-    }
-    render() {
+    render()　{
         return (
-            <div className="header">
-                <div className="ivv-header">
-                    <h3 className="ivv-header-tit">艺人管理系统</h3>
-                    <div>
-                        <Menu defaultActive="1" className="el-menu-demo" mode="horizontal">
-                            <Menu.Item index="1">主页</Menu.Item>
-                            <Menu.Item index="2">权限管理</Menu.Item>
-                            <Menu.SubMenu index="3" title="我的">
-                                <Menu.Item index="3-1">个人详情</Menu.Item>
-                                <Menu.Item index="3-3">退出</Menu.Item>
-                            </Menu.SubMenu>
-                        </Menu>
-                    </div>
-                </div>  
-            </div> 
+            <div className="ivv-header">
+                <h2><Link to="/index">艺人管理系统</Link></h2>
+                <ul className="ivv-nav">
+                    <li><Link to="/index">主页</Link></li>
+                    <li><Link to="/jurisdiction">权限管理</Link></li>
+                    <li>
+                        我的
+                        <i className="el-icon-caret-bottom ivv-angle"></i>
+                        <div className="ivv-pos-nav">
+                            <span>退出</span>
+                            <span>退出</span>
+                            <span>退出</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         )
     }
 }
-
 export default Header
