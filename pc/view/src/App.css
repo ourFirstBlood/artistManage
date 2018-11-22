@@ -1,11 +1,10 @@
 .App {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-}
+} 
 .ivv {
     width: 90%;
     min-width: 1040px;
+    margin: 0 auto;
 }
 .ivv-content {
     display: flex;
@@ -42,11 +41,13 @@
     justify-content: space-around;
     align-items: center;
 }
-.ivv-form-auto .ivv-radio-form .ivv-span-margin {
-    margin-left: -140px;
+.ivv-form-auto .ivv-form-span {
+    display: flex;
+    width: 80px;
+    flex-direction: row-reverse;
 }
-.ivv-height-div .ivv-span-height {
-    margin-left: -30px;
+.ivv-form-auto .ivv-form-input {
+    width: 170px;
 }
 .ivv-form-auto .ivv-form-button {
     display: flex;

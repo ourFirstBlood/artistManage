@@ -54,32 +54,37 @@ class FormField extends React.Component {
             <div className="ivv-form">
                 <div className="ivv-form-auto">
                     <div className="ivv-height-div">
-                        类型： 
+                        <span className="ivv-form-span">类型：</span>
+                        <div className="ivv-form-input">
                         <AutoComplete
                             placeholder="请选择"
                             value={this.state.value1}
                             fetchSuggestions={this.querySearch.bind(this)}
                             onSelect={this.handleSelect.bind(this)}
-                    ></AutoComplete>
+                    ></AutoComplete></div>
                     </div>
                     <div className="ivv-height-div">
-                        长度：<div><Input placeholder="请输入内容" /></div>
+                        <span className="ivv-form-span">长度：</span>
+                        <div className="ivv-form-input"><Input placeholder="请输入内容" /></div>
                     </div>
                     
                     <div className="ivv-radio-form">
-                        <span className="ivv-span-margin">是否必填：</span>
+                        <span className="ivv-form-span">是否必填：</span>
+                        <div className="ivv-form-input">
                         <Radio value="1" checked={this.state.value === 1} onChange={this.onChange.bind(this)}>是</Radio>
                         <Radio value="2" checked={this.state.value === 2} onChange={this.onChange.bind(this)}>否</Radio>
+                        </div>
                     </div>
 
                     <div className="ivv-height-div">
-                        <span className="ivv-span-height">字段判断：</span>
+                        <span className="ivv-form-span">字段判断：</span>
+                        <div className="ivv-form-input">
                         <AutoComplete
                             placeholder="请选择"
                             value={this.state.value1}
                             fetchSuggestions={this.querySearch.bind(this)}
                             onSelect={this.handleSelect.bind(this)}
-                    ></AutoComplete>
+                    ></AutoComplete></div>
                     </div>
                     
                     <div className="ivv-form-button">
