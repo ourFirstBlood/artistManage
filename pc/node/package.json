@@ -8,6 +8,8 @@
   "dependencies": {
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
+    "mysql": "^2.16.0",
+    "querystring": "^0.2.0",
     "xtemplate": "^4.6.1",
     "xtpl": "^3.4.0"
   },
