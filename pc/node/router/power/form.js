@@ -1,8 +1,8 @@
 var qs = require('querystring')
 var mysqlconnection = require('../../mysql/index.js')
 mysqlconnection.handleDisconnection()
-var connection = mysqlconnection.connection
 const edit_form = (req, res) => {
+  var connection = mysqlconnection.connection
   if (!('custom' in req.body) || !('fixed' in req.body)) {
     res.send({ code: 999, data: [], msg: '参数不完整' })
     return
@@ -33,6 +33,7 @@ const edit_form = (req, res) => {
 }
 
 const get_form = (req, res) => {
+  var connection = mysqlconnection.connection
   var sql = 'SELECT * FROM form_custom WHERE id = 4'
   //查
   connection.query(sql, function(err, result) {

@@ -8,6 +8,7 @@ const power = require('./router/power/index.js')
 const user = require('./router/user/index.js')
 const login = require('./router/login/index.js')
 
+
 app.use(bodyParser.json())
 app.use(
   bodyParser.urlencoded({
@@ -24,10 +25,10 @@ app.all('*', function(req, res, next) {
   else next()
 })
 
-app.use('/artist',artist)
-app.use('/power',power)
-app.use('/user',user)
-app.use('/login',login)
+app.use('/artist', artist)
+app.use('/power', power)
+app.use('/user', user)
+app.use('/login', login)
 
 // 设置静态资源文件夹为static
 app.use(express.static('./dist'))
@@ -37,7 +38,6 @@ app.set('views', './dist')
 app.set('views engine', '.html')
 //设置解析views/.html模板的方法xtpl.renderFile,它会自动代替res.render()方法，从而使得程序的扩展性变强
 app.engine('html', xtpl.renderFile)
-
 
 app.listen('8080', () => {
   console.log('http://127.0.0.1:8080')
