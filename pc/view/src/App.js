@@ -9,15 +9,15 @@ import axios from 'axios'
 class App extends Component {
 
   componentDidMount() {
-    
+
     axios.post(
-      'http://www.ivvmedia.com:8080/login',
+      '/login',
       {
         user_name: 'admin',
         password: 'adminpass'
       }
     ).then((res) => {
-      console.log(res)
+      // window.location.reload()
     })
   }
   render() {

@@ -51,7 +51,7 @@ class Soncontent extends React.Component {
                 loading: true
             }, () => {
                 axios_(
-                    'http://www.ivvmedia.com:8080/power/form/edit_form',
+                    '/power/form/edit_form',
                     {
                         custom: JSON.stringify(this.state.customField),
                         fixed: JSON.stringify(this.state.fixField)
@@ -60,7 +60,7 @@ class Soncontent extends React.Component {
                 info('保存成功')
                 // console.log(res)
                 // if (res.code === 0) {
-                //     
+                //
                 //     this.setState({
                 //         fixField: this.state.saveFix,
                 //         saveCustom: JSON.parse(JSON.stringify(this.state.customField)),
@@ -80,7 +80,7 @@ class Soncontent extends React.Component {
     componentDidMount() {
         /* 查询字段 */
         axios.post(
-            "http://www.ivvmedia.com:8080/power/form/get_form"
+            "/power/form/get_form"
         ).then((msg) => {
             const data = msg.data
             if (data.code === 0) {
