@@ -1,0 +1,31 @@
+.ivv-edit {
+    display: flex;
+    width: 90%;
+    margin: 15px auto;
+    justify-content: center;
+    background-color: #F8F8F8;
+    border-radius: 8px;
+}
+.ivv-edit .ivv-edit-ul {
+    display: flex;
+    flex-direction: column;
+}
+.ivv-edit .ivv-edit-ul .ivv-edit-li{
+    display: flex;
+    flex-wrap: nowrap;
+}
+.ivv-edit .ivv-edit-name {
+    display: flex;
+    width: 150px;
+    margin-top: 15px;
+    padding-right: 15px;
+    justify-content: flex-end;
+}
+.ivv-edit .ivv-edit-name i {
+    color: red;
+}
+.ivv-edit .ivv-edit-input {
+    display: flex;
+    padding-left: 15px;
+    margin-top: 15px;
+}

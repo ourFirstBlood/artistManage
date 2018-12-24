@@ -1,59 +1,63 @@
 .App {
+    width: 100%;
+    height: 100%;
+}
+.ivv-table {
     display: flex;
-} 
-.ivv {
     width: 90%;
-    min-width: 1040px;
+    margin: 5px auto;
+    justify-content: center;
+}
+.table-loading {
+    width: 100%;
+    height: 100%
+}
+.ivv-pagination {
+    display: flex;
+    width: 90%;
+    margin: 25px auto;
+    flex-direction: row-reverse;
+}
+.table-nav{
+    width: 90%;
     margin: 0 auto;
+    display: flex;
+    align-items: center;
+    height: 77px;
+}
+.table-nav .el-input{
+    width: 150px;
+    margin: 0 20px;
+}
+.ivv-router {
+    width: 100%;
+    height: 100%;
 }
 .ivv-content {
     display: flex;
-    width: 100%;
+    width: 90%;
+    margin: 0 auto;
+    height: calc(100% - 90px);
 }
-/* 表单弹窗 */
-.ivv-form {
-    position: fixed;
-    z-index: 999;
+.ivv-content .ivv-menusider {
+    width: 260px;
+    height: 100%;
+    background-color: #F8F8F8;
+    border-right: 1px solid #eee;
+}
+.ivv-content .ivv-menusider ul {
     display: flex;
     width: 100%;
     height: 100%;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(0, 0, 0, .6);
-}
-.ivv-form-auto {
-    display: flex;
-    width: 500px;
-    padding: 15px 10px;
     flex-direction: column;
-    background-color: #FFF;
-    border-radius: 5px;
 }
-.ivv-form-auto .ivv-height-div {
+.ivv-content .ivv-menusider ul li {
     display: flex;
-    margin: 10px;
+    width: 100%;
+    height: 60px;
     justify-content: center;
-    align-items: center;
+    align-items: flex-end;
 }
-.ivv-form-auto .ivv-radio-form {
-    display: flex;
-    margin: 10px auto;
-    justify-content: space-around;
-    align-items: center;
-}
-.ivv-form-auto .ivv-form-span {
-    display: flex;
-    width: 80px;
-    flex-direction: row-reverse;
-}
-.ivv-form-auto .ivv-form-input {
-    width: 170px;
-}
-.ivv-form-auto .ivv-form-button {
-    display: flex;
-    padding: 0 20px;
-    flex-direction: row-reverse;
-}
-.ivv-form-auto .ivv-form-button button {
-    margin: 0 10px;
+.ivv-content .ivv-menusider .active {
+    color: #20a0ff;
 }

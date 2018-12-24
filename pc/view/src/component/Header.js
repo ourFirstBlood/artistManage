@@ -1,26 +1,25 @@
-import React from "react"
-import {Link} from 'react-router-dom'
+import React from 'react'
 import './css/header.css'
-
+import {NavLink} from 'react-router-dom'
+import logo from './img/logo.png'
 
 class Header extends React.Component {
-    render()　{
+    render() {
         return (
             <div className="ivv-header">
-                <h2><Link to="/index">艺人管理系统</Link></h2>
-                <ul className="ivv-nav">
-                    <li><Link to="/index">主页</Link></li>
-                    <li><Link to="/jurisdiction">权限管理</Link></li>
-                    <li>
-                        我的
-                        <i className="el-icon-caret-bottom ivv-angle"></i>
-                        <div className="ivv-pos-nav">
-                            <span>退出</span>
-                            <span>退出</span>
-                            <span>退出</span>
-                        </div>
-                    </li>
-                </ul>
+                <div className="header">
+                    <div className="ivv-logo">
+                        <img className="logo" src={logo} alt="..."/>
+                        <h1 className="logo-letter">艺人管理系统</h1>
+                    </div>
+                    <ul className="ivv-nav">
+                        <li><NavLink to="/ivvtable">主页</NavLink></li>
+                        <li><NavLink to="/content/Soncontent">权限管理</NavLink></li>
+                        <li>
+                            我的
+                        </li>
+                    </ul>
+                </div>
             </div>
         )
     }

@@ -1,0 +1,68 @@
+.ivv-form {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    padding: 25px;
+    flex-direction: column;
+    background-color: #F8F8F8;
+}
+.ivv-form .ivv-table-title {
+    display: flex;
+    width: 800px;
+    margin-top: 10px;
+    justify-content: space-around;
+}
+.ivv-form .ivv-table-title li {
+    display: flex;
+    width: 100px;
+    justify-content: center;
+}
+.ivv-form .ivv-table-field {
+    display: flex;
+    width: 800px;
+    margin-top: 10px;
+    justify-content: space-around;
+}
+.ivv-form .ivv-table-field li {
+    display: flex;
+    width: 100px;
+    justify-content: center;
+}
+.ivv-form .ivv-table-field li:last-child {
+    justify-content: space-around;
+}
+.ivv-form .ivv-custom span{ 
+    display: inline-block;
+    width: 150px;
+    margin-top: 40px;
+}
+.ivv-form .ivv-field-add {
+    color: #20a0ff;
+}
+.ivv-form .ivv-field-add:hover {
+    cursor: pointer;
+}
+.ivv-table-field .ivv-form-edit{
+    color: #20a0ff;
+}
+.ivv-table-field .ivv-form-edit:hover {
+    cursor: pointer;
+}
+.ivv-table-field .ivv-form-del{
+    color: #FF5722;
+}
+.ivv-table-field .ivv-form-del:hover {
+    cursor: pointer;
+}
+.ivv-table-field .ivv-form-no {
+    color: #666;
+}
+.ivv-table-field .ivv-form-no:hover {
+    cursor: not-allowed;
+}
+.ivv-form .ivv-save {
+    display: flex;
+    margin-top: 30px;
+    padding-right: 30px;
+    justify-content: flex-end;
+}
