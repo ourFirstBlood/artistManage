@@ -7,42 +7,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
   </head>
 
-  <body></body>
+  <body>
+    <button id="btn">登录</button>
+  </body>
 </html>
 <script src="./jquery-1.12.4.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
-  let custom = JSON.stringify([
-    {
-      name: '备注',
-      type: 'textarea',
-      length: 100,
-      required: true,
-      regex: 'e_mail'
-    },
-    {
-      name: '备注',
-      type: 'textarea',
-      length: 100,
-      required: true,
-      regex: 'e_mail'
-    },
-    {
-      name: '备注',
-      type: 'textarea',
-      length: 100,
-      required: true,
-      regex: 'e_mail'
-    }
-  ])
-  let formData = new FormData()
-  formData.append('custom',custom)
-  formData.append('fixed',custom)
-  let params = {custom,fixed:custom}
-  // axios.post('http://www.ivvmedia.com:8080/power/form/edit_form',params).then(res=>{
-  //   console.log(res)
-  // })
-  $.ajax({
+  $('#btn').on('click', function() {
+    axios
+      .post(
+        'http://www.ivvmedia.com:8080/login',
+        `user_name=admin&password=adminpass`,
+        { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }
+      )
+      .then(res => {
+        window.location.href = './login.html'
+      })
+  })
+  /* $.ajax({
     url: 'http://www.ivvmedia.com:8080/power/form/edit_form', //请求的url地址
     dataType: 'json', //返回格式为json
     async: true, //请求是否异步，默认为异步，这也是ajax重要特性
@@ -52,5 +35,5 @@
       console.log(req)
       //请求成功时处理
     }
-  })
+  }) */
 </script>

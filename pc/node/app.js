@@ -3,11 +3,12 @@ const bodyParser = require('body-parser')
 const xtpl = require('xtpl')
 const fs = require('fs')
 const app = express()
+const cookieParase = require('cookie-parser');
 const artist = require('./router/artist/index.js')
 const power = require('./router/power/index.js')
 const user = require('./router/user/index.js')
 const login = require('./router/login/index.js')
-
+const md5 = require('./router/utils/util.js')
 
 app.use(bodyParser.json())
 app.use(
@@ -15,11 +16,21 @@ app.use(
     extended: false
   })
 )
+app.use(cookieParase());
 app.all('*', function(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*')
   res.header('Access-Control-Allow-Headers', 'content-type')
   res.header('Access-Control-Allow-Methods', 'POST,GET')
   res.header('Content-Type', 'application/json;charset=utf-8')
+
+  if(req.path!=='/login' && !req.cookies._ivv_token){
+    res.send({
+      code: 996,
+      data: [],
+      msg: '登陆超时'
+    })
+    return
+  }
   if (req.method.toLowerCase() == 'options') res.send(200)
   else next()
 })

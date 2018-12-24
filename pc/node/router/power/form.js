@@ -1,5 +1,6 @@
 var qs = require('querystring')
 var mysqlconnection = require('../../mysql/index.js')
+var { decodemd5 } = require('../utils/util.js')
 mysqlconnection.handleDisconnection()
 const edit_form = (req, res) => {
   var connection = mysqlconnection.connection
@@ -34,6 +35,17 @@ const edit_form = (req, res) => {
 
 const get_form = (req, res) => {
   var connection = mysqlconnection.connection
+  console.log(req.cookies._ivv_token)
+  // console.log(decodemd5(req.cookies._ivv_token))
+  /* var selectSql =
+    "SELECT * FROM user_admin WHERE user_name='" + req.cookies.user_name + "'"
+  connection.query(selectSql, function(err, result) {
+    if (err) {
+      console.log('[SELECT ERROR] - ', err.message)
+      res.send({ code: 999, data: [], msg: err.message })
+      return
+    }
+  } */
   var sql = 'SELECT * FROM form_custom WHERE id = 4'
   //查
   connection.query(sql, function(err, result) {

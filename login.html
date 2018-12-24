@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset='utf-8' />
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <title>Page Title</title>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+</head>
+
+<body>
+</body>
+
+</html>
+<script src="./jquery-1.12.4.js"></script>
+<script>
+   let custom = JSON.stringify([
+    {
+      name: '备注',
+      type: 'textarea',
+      length: 100,
+      required: true,
+      regex: 'e_mail'
+    },
+    {
+      name: '备注',
+      type: 'textarea',
+      length: 100,
+      required: true,
+      regex: 'e_mail'
+    },
+    {
+      name: '备注',
+      type: 'textarea',
+      length: 100,
+      required: true,
+      regex: 'e_mail'
+    }
+  ])
+  let fixed = custom
+  let params = { custom: [], fixed: 21 }
+
+   $.ajax({
+    url: 'http://www.ivvmedia.com:8080/power/form/edit_form', //请求的url地址
+    dataType: 'json', //返回格式为json
+    async: true, //请求是否异步，默认为异步，这也是ajax重要特性
+    data: params, //参数值
+    type: 'POST', //请求方式
+    success: function(req) {
+      console.log(req)
+      //请求成功时处理
+    }
+  })
+</script>

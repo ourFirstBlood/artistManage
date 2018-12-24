@@ -20,6 +20,7 @@ const login = (req, res) => {
       })
     } else {
       if (md5(req.body.password) == result[0].password) {
+        res.cookie('_ivv_token', md5(req.body.user_name),{maxAge:1000*60*30});
         res.send({
           code: 0,
           data: [],
