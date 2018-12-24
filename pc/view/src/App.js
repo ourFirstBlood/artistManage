@@ -4,21 +4,11 @@ import Header from './component/Header'
 import Ivvform from './component/Ivvform'
 import Route from './Route'
 import './App.css';
-import axios from 'axios'
+import history from './history';
 
 class App extends Component {
 
   componentDidMount() {
-
-    axios.post(
-      '/login',
-      {
-        user_name: 'admin',
-        password: 'adminpass'
-      }
-    ).then((res) => {
-      // window.location.reload()
-    })
   }
   render() {
     return (
@@ -26,7 +16,7 @@ class App extends Component {
         <BrowserRouter>
           <div className="ivv-router">
             <Header />
-            <Route />
+            <Route history={history} />
             <Ivvform />
           </div>
         </BrowserRouter>
