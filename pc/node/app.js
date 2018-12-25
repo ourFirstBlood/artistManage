@@ -16,14 +16,14 @@ app.use(
     extended: false
   })
 )
-app.use(cookieParase());
+app.use(cookieParase('_ivv_token_sign_key'));
 app.all('*', function(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*')
   res.header('Access-Control-Allow-Headers', 'content-type')
   res.header('Access-Control-Allow-Methods', 'POST,GET')
   res.header('Content-Type', 'application/json;charset=utf-8')
 
-  if(req.path!=='/login' && !req.cookies._ivv_token){
+  if(req.path!=='/login' && !req.signedCookies._ivv_token){
     res.send({
       code: 996,
       data: [],
