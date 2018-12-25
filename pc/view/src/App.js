@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter } from 'react-router-dom'
-import Header from './component/Header'
-import Ivvform from './component/Ivvform'
+import Header from './component/header/Header'
+import Ivvform from './views/Ivvform'
 import Route from './Route'
 import './App.css';
 import history from './history';

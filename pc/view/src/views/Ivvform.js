@@ -1,6 +1,10 @@
+/*
+*  表单设置页面
+*/
+
 import React from 'react'
 import { Input, Button, Select, Radio, Message} from 'element-react'
-import Event from './Event'
+import Event from './js/Event'
 import './css/ivvform.css'
 
 class Ivvform extends React.Component {
