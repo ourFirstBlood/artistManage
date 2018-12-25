@@ -1,3 +1,7 @@
+/*
+*  表格显示页面
+*/
+
 import React from 'react'
 import axios from 'axios'
 import { Button, Table, Input, Pagination, Loading, MessageBox, Message } from 'element-react'

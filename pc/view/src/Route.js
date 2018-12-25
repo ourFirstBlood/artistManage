@@ -1,10 +1,10 @@
 import React from 'react'
 import {Route, Redirect} from 'react-router-dom'
-import Login from './component/login/Login'
-import Ivvtable from './component/Ivvtable'
-import Content from './component/Content'
-import Detail from './component/Detail'
-import Edit from './component/Edit'
+import Login from './views/Login'
+import Ivvtable from './views/Ivvtable'
+import Content from './views/Content'
+import Detail from './views/Detail'
+import Edit from './views/Edit'
 
 
 export default () => {

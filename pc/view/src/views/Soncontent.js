@@ -1,9 +1,12 @@
+/*
+*  字段展示页面
+*/
+
 import React from 'react'
 import axios from 'axios'
-import Event from './Event'
-import { axios_, info } from './common'
+import Event from './js/Event'
+import { axios_, info } from './js/common'
 import { Button, Loading } from 'element-react'
-
 
 import './css/soncontent.css'
 

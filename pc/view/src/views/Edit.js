@@ -1,3 +1,7 @@
+/*
+* 编辑信息页面
+*/
+
 import React from 'react'
 import axios from 'axios'
 import './css/edit.css'
