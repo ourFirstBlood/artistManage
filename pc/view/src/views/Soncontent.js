@@ -3,7 +3,6 @@
 */
 
 import React from 'react'
-import axios from 'axios'
 import Event from './js/Event'
 import { axios_, info } from './js/common'
 import { Button, Loading } from 'element-react'
@@ -53,24 +52,19 @@ class Soncontent extends React.Component {
             this.setState({
                 loading: true
             }, () => {
-                axios_(
-                    '/power/form/edit_form',
-                    {
-                        custom: JSON.stringify(this.state.customField),
-                        fixed: JSON.stringify(this.state.fixField)
-                    }
-                )
+                const res = axios_({
+                    url: '/power/form/edit_form',
+                    params: { custom: JSON.stringify(this.state.customField), fixed: JSON.stringify(this.state.fixField)}
+                })
+                res.then((success) => {
+                    this.setState({
+                        fixField: this.state.saveFix,
+                        saveCustom: JSON.parse(JSON.stringify(this.state.customField)),
+                        showSave: false,
+                        loading: false
+                    })
+                })
                 info('保存成功')
-                // console.log(res)
-                // if (res.code === 0) {
-                //
-                //     this.setState({
-                //         fixField: this.state.saveFix,
-                //         saveCustom: JSON.parse(JSON.stringify(this.state.customField)),
-                //         showSave: false,
-                //         loading: false
-                //     })
-                // }
             })
         } else {
             this.setState({
@@ -82,23 +76,18 @@ class Soncontent extends React.Component {
     }
     componentDidMount() {
         /* 查询字段 */
-        axios.post(
-            "/power/form/get_form"
-        ).then((msg) => {
-            const data = msg.data
-            if (data.code === 0) {
-                this.setState({
-                    fixField: data.data.fixed,
-                    customField: data.data.custom,
-                    loading: false,
-                    saveFix: data.data.fixed,
-                    saveCustom: JSON.parse(JSON.stringify(data.data.custom))
-                })
-            } else {
-                throw data.msg
-            }
-        }).catch((error) => {
-            console.log(error)
+        const res = axios_({
+            url: "/power/form/get_form",
+        })
+        res.then((success) => {
+            const data = success.data
+            this.setState({
+                fixField: data.fixed,
+                customField: data.custom,
+                loading: false,
+                saveFix: JSON.parse(JSON.stringify(data.fixed)),
+                saveCustom: JSON.parse(JSON.stringify(data.custom))
+            })
         })
         /* 装载保存 */
         Event.addListener('setShowSave', this.setShowSave)

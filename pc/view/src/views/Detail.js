@@ -4,7 +4,7 @@
 */
 
 import React from 'react'
-import axios from 'axios'
+import {axios_} from './js/common'
 import './css/detail.css'
 
 class Detail extends React.Component {
@@ -15,30 +15,20 @@ class Detail extends React.Component {
         }
     }
     componentDidMount() {
-        // console.log(this.props.match.params.id)
-        axios.post(
-            'http://www.ivvmedia.com:8080/artist/detail',
-            {
-                id: this.props.match.params.id
-            }
-        ).then((request) => {
-            if (request.data.code === 0) {
-                let data = request.data.data
-                this.setState({
-                    data: data
-                })
-
-            } else {
-                throw request.data.msg
-            }
-        }).catch((err) => {
-
+        console.log(this.props.match)
+        const res = axios_({
+            url: '/artist/detail',
+            params: {id: this.props.match.params.id}
+        })
+        res.then((success)=>{
+            const data = success.data
+            this.setState({data})
         })
     }
     render() {
         const spans = this.state.data.map((values, index) => {
             return (
-                <li key="index" className="ivv-detail-li">
+                <li key={index} className="ivv-detail-li">
                     <span className="ivv-detail-name">{values.name}:</span>
                     <span className="ivv-detail-value">{values.value}</span>
                 </li>

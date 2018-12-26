@@ -10,7 +10,6 @@ import Edit from './views/Edit'
 export default () => {
     return [
         <Route path="/" key="normal" exact render={()=><Redirect to="/index"/>} />,
-        // <Route path="/index" key="index" component={Login}/>,
         <Route path="/ivvtable" key="ivvtable" component={Ivvtable}/>,
         <Route path="/content" key="content" component={Content}/>,
         <Route path="/detail/:id" key="detail" component={Detail}/>,

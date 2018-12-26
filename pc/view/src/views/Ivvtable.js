@@ -3,7 +3,7 @@
 */
 
 import React from 'react'
-import axios from 'axios'
+import {axios_} from './js/common'
 import { Button, Table, Input, Pagination, Loading, MessageBox, Message } from 'element-react'
 
 class Ivvtable extends React.Component {
@@ -34,36 +34,22 @@ class Ivvtable extends React.Component {
       data: []
     }
   }
-  handleData(id, type, index) {
+  handleData(id) {
     MessageBox.confirm('此操作将永久删除该文件, 是否继续?', '提示', {
       type: 'warning'
     }).then(() => {
       // 删除数据请求
-      axios.post(
-        'http://www.ivvmedia.com:8080/artist/detele_artists',
-        { id: id }
-      ).then((data) => {
-        if (data.data.code === 0) {
-          Message({
-            type: 'success',
-            message: '删除成功!'
-          });
-          let vdata = this.state.data
-          vdata.splice(index, 1)
-          this.setState({
-            data: vdata,
-            total: this.state.total - 1
-          })
-        } else {
-          Message({
-            type: 'info',
-            message: '删除失败！因为' + data.data.msg
-          });
-        }
-      }).catch((error) => {
-
+      const res = axios_({
+        url: "/artist/detele_artists",
+        params: {id: id}
       })
-
+      res.then(()=>{
+        Message({
+          type: 'success',
+          message: '删除成功!'
+        });
+        this.getTableData()
+      })
     }).catch(() => {
       Message({
         type: 'info',
@@ -82,69 +68,60 @@ class Ivvtable extends React.Component {
   }
   //获取数据
   getTableData = () => {
-    let that = this
     this.setState({ loading: true })
-    axios.post(
-      'http://www.ivvmedia.com:8080/artist/get_artistsList',
-      {
+    const res = axios_({
+      url: "/artist/get_artistsList",
+      params: {
         page: this.state.currentPage,
         page_size: this.state.pageSize
       }
-    ).then((data) => {
-      if (data.data.code === 0) {
-        const xdata = data.data.data
-        console.log(xdata.list)
-        if (xdata.count !== 0) {
-          let columns = [], vdata = []
-          //字段名
-          //columns.push({ type: 'selection' }) 
-          for (let i = 0; i < xdata.list[0].info.length; i++) {
-            columns.push({
-              label: xdata.list[0].info[i].name,
-              prop: 'key' + i
-            })
-          }
-          //数据
-          vdata = xdata.list.reduce((data, value, index) => {
-            let obj_1 = {}
-            obj_1.index = index
-            obj_1.id = value.id //存所需要控制的 id 
-            for (let i = 0; i < value.info.length; i++) {
-              obj_1['key' + i] = value.info[i].value
-            }
-            data.push(obj_1)
-            return data
-          }, [])
-          // handle 删除
-          columns.push(
-            {
-              label: "操作",
-              prop: "address",
-              render: function (row) {
-                return (
-                  <span>
-                    <Button plain={true} type="info" onClick={() => {window.location.pathname= "edit/" + row.id}} size="small">编辑</Button>
-                    <Button plain={true} type="info" onClick={()=>{window.location.pathname = "detail/" + row.id}} size="small">详情</Button>
-                    <Button onClick={that.handleData.bind(that, row.id, 'del', row.index)} type="danger" size="small">删除</Button>
-                  </span>
-                )
-              }
-            }
-          )
-          this.setState({
-            columns: columns,
-            data: vdata
+    })
+    res.then((success)=>{
+      const xdata = success.data
+      if (xdata.count !== 0) {
+        let columns = [], vdata = []
+        for (let i = 0; i < xdata.list[0].info.length; i++) {
+          columns.push({
+            label: xdata.list[0].info[i].name,
+            prop: 'key' + i
           })
         }
+        //数据
+        vdata = xdata.list.reduce((data, value, index) => {
+          let obj_1 = {}
+          obj_1.index = index
+          obj_1.id = value.id //存所需要控制的 id 
+          for (let i = 0; i < value.info.length; i++) {
+            obj_1['key' + i] = value.info[i].value
+          }
+          data.push(obj_1)
+          return data
+        }, [])
+        // handle 删除
+        columns.push(
+          {
+            label: "操作",
+            prop: "address",
+            render: (row) => {
+              return (
+                <span>
+                  <Button plain={true} type="info" onClick={() => {this.props.history.replace("/edit/" + row.id)}} size="small">编辑</Button>
+                  <Button plain={true} type="info" onClick={()=>{this.props.history.replace("/detail/" + row.id)}} size="small">详情</Button>
+                  <Button onClick={this.handleData.bind(this, row.id)} type="danger" size="small">删除</Button>
+                </span>
+              )
+            }
+          }
+        )
         this.setState({
-          total: xdata.count,
-          loading: false
+          columns: columns,
+          data: vdata
         })
-      } else {
-        throw data.data.msg
       }
-    }).catch((error) => {
-      console.log(error)
+      this.setState({
+        total: xdata.count,
+        loading: false
+      })
     })
   }
   componentDidMount() {
