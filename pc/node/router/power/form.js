@@ -1,9 +1,7 @@
 var qs = require('querystring')
-var mysqlconnection = require('../../mysql/index.js')
-var { decodemd5 } = require('../utils/util.js')
-mysqlconnection.handleDisconnection()
+var common = require('../utils/util.js')
+
 const edit_form = (req, res) => {
-  var connection = mysqlconnection.connection
   if (!('custom' in req.body) || !('fixed' in req.body)) {
     res.send({ code: 999, data: [], msg: '参数不完整' })
     return
@@ -22,59 +20,34 @@ const edit_form = (req, res) => {
     qs.stringify(qs.parse(req.body.custom)),
     qs.stringify(qs.parse(req.body.fixed))
   ]
-
-  connection.query(userModSql, userModSql_Params, function(err, result) {
-    if (err) {
-      console.log('[UPDATE ERROR] - ', err.message)
-      res.send({ code: 999, data: [], msg: err.message })
-      return
-    }
-    res.send({ code: 0, data: [], msg: '成功' })
+  common.sql_update(userModSql, userModSql_Params, res).then(() => {
+    common.success(res)
   })
 }
 
 const get_form = (req, res) => {
-  var connection = mysqlconnection.connection
-  console.log(req.cookies._ivv_token)
-  // console.log(decodemd5(req.cookies._ivv_token))
-  /* var selectSql =
-    "SELECT * FROM user_admin WHERE user_name='" + req.cookies.user_name + "'"
-  connection.query(selectSql, function(err, result) {
-    if (err) {
-      console.log('[SELECT ERROR] - ', err.message)
-      res.send({ code: 999, data: [], msg: err.message })
-      return
-    }
-  } */
-  var sql = 'SELECT * FROM form_custom WHERE id = 4'
-  //查
-  connection.query(sql, function(err, result) {
-    if (err) {
-      console.log('[SELECT ERROR] - ', err.message)
-      res.send({ code: 999, data: [], msg: err.message })
-      return
-    }
-    res.send({
-      code: 0,
-      data: {
-        custom: (() => {
-          let arrStr = ''
-          for (let key in qs.parse(result[0].custom)) {
-            arrStr = key
-          }
-          return JSON.parse(arrStr)
-        })(),
-        fixed: (() => {
-          let arrStr = ''
-          for (let key in qs.parse(result[0].fixed)) {
-            arrStr = key
-          }
-          return JSON.parse(arrStr)
-        })()
-      },
-      msg: '成功'
+  common.getPower(req, res).then(() => {
+    let sql = 'SELECT * FROM form_custom WHERE id = 4'
+    common.sql_select(sql, res).then(result => {
+      common.success(res, {
+        data: {
+          custom: (() => {
+            let arrStr = ''
+            for (let key in qs.parse(result[0].custom)) {
+              arrStr = key
+            }
+            return JSON.parse(arrStr)
+          })(),
+          fixed: (() => {
+            let arrStr = ''
+            for (let key in qs.parse(result[0].fixed)) {
+              arrStr = key
+            }
+            return JSON.parse(arrStr)
+          })()
+        }
+      })
     })
   })
 }
-
 module.exports = { edit_form, get_form }
