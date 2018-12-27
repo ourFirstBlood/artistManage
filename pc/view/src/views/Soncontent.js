@@ -29,20 +29,24 @@ class Soncontent extends React.Component {
         }
     }
     //弹框
-    setShow = (data, index) => {
-        this.setState({ index: index })
-        Event.emit('setShow', data)
+    setShow = (data, index, setWhat) => {
+        this.setState({ index }) //编辑的某个字段及index位置
+        Event.emit('setShow', data, setWhat)
     }
     setShowSave = (data) => {
-        let customField = this.state.customField
-        if (this.state.index === -1) {
-            customField.push(data)
+        const setWhat = data.setWhat
+        delete(data.setWhat)
+        if(setWhat === 'custom') {
+            const customField = this.state.customField
+            this.state.index === -1 ? customField.push(data) : (customField[this.state.index] = data)
+            this.setState(customField)
         } else {
-            customField[this.state.index] = data
+            const fixField = this.state.fixField
+            this.state.index === -1 ? fixField.push(data) : (fixField[this.state.index] = data)
+            this.setState({fixField})
         }
         this.setState({
-            showSave: true,
-            customField: customField,
+            showSave: true
         })
     }
     // save 数据
@@ -58,17 +62,17 @@ class Soncontent extends React.Component {
                 })
                 res.then((success) => {
                     this.setState({
-                        fixField: this.state.saveFix,
+                        saveField: JSON.parse(JSON.stringify(this.state.fixField)),
                         saveCustom: JSON.parse(JSON.stringify(this.state.customField)),
                         showSave: false,
                         loading: false
                     })
+                    info("保存成功")
                 })
-                info('保存成功')
             })
         } else {
             this.setState({
-                fixField: this.state.saveFix,
+                fixField: JSON.parse(JSON.stringify(this.state.saveFix)),
                 customField: JSON.parse(JSON.stringify(this.state.saveCustom)),
                 showSave: false
             })
@@ -92,11 +96,17 @@ class Soncontent extends React.Component {
         /* 装载保存 */
         Event.addListener('setShowSave', this.setShowSave)
     }
-    delData = (index) => {
-        let custom = this.state.customField
-        custom.splice(index, 1)
+    delData = (index, setWhat) => {
+        if(setWhat === 'custom'){
+            const customField = this.state.customField
+            customField.splice(index, 1)
+            this.setState({customField})
+        }else{
+            const fixField = this.state.fixField
+            fixField.splice(index, 1)
+            this.setState({fixField})
+        }        
         this.setState({
-            customField: custom,
             showSave: true
         })
     }
@@ -114,13 +124,13 @@ class Soncontent extends React.Component {
                     <li>{val['name']}</li>
                     <li>{trans[val['type']]}</li>
                     {bool ? <li>
-                        <span onClick={this.setShow.bind(this, val, index)} className="ivv-form-edit">编辑</span>
-                        <span onClick={this.delData.bind(this, index)} className="ivv-form-del">删除</span>
+                        <span onClick={this.setShow.bind(this, val, index,'custom')} className="ivv-form-edit">编辑</span>
+                        <span onClick={this.delData.bind(this, index, 'custom')} className="ivv-form-del">删除</span>
                     </li> :
-                        <li>
-                            <span className="ivv-form-no">编辑</span>
-                            <span className="ivv-form-no">删除</span>
-                        </li>
+                    <li>
+                        <span onClick={this.setShow.bind(this, val, index,'fixed')} className="ivv-form-edit">编辑</span>
+                        <span onClick={this.delData.bind(this, index,'fixed')} className="ivv-form-del">删除</span>
+                    </li>
                     }
                 </ul>
             )
@@ -138,7 +148,7 @@ class Soncontent extends React.Component {
         return (
             <Loading style={{ width: 'calc(100% - 260px)' }} loading={this.state.loading}>
                 <div className="ivv-form">
-                    <p>固定字段</p>
+                    <p>展示字段</p>
                     <ul className="ivv-table-title">
                         <li>序号</li>
                         <li>字段名</li>
@@ -146,7 +156,7 @@ class Soncontent extends React.Component {
                         <li>操作</li>
                     </ul>
                     {this.getFieldList(this.state.fixField, false)}
-                    <p className="ivv-custom"><span>自定义字段</span> <span className="ivv-field-add" onClick={this.setShow.bind(this, field, -1)}>添加字段+</span></p>
+                    <p className="ivv-custom"><span>更多字段</span> <span className="ivv-field-add" onClick={this.setShow.bind(this, field, -1, 'custom')}>添加字段+</span></p>
                     {this.getFieldList(this.state.customField, true)}
                     {this.state.showSave ? (<div className="ivv-save">
                         <Button onClick={this.isSaveData.bind(this, false)}>取消</Button>

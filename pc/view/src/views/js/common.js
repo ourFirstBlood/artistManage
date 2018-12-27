@@ -4,7 +4,8 @@ import qs from 'querystring'
 import history from "../../history"
 //请求axios 封装
 function axios_({url , params={}, type='POST', header={'Content-Type': 'application/x-www-form-urlencoded'}}) {
-    console.log(qs.stringify(params))
+    console.log(qs.parse(qs.stringify(params)))
+
     return new Promise((resolve, reject)=>{
         axios({
             method: type,

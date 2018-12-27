@@ -2,13 +2,14 @@
 *  表单设置页面
 */
 import React from 'react'
-import { Input, Button, Select, Radio, Message} from 'element-react'
+import { Input, Button, Select, Radio, Message } from 'element-react'
 import Event from './js/Event'
 import './css/ivvform.css'
 class Ivvform extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
+            setWhat: 'custom',
             typeOptions: [
                 {
                     value: 'text',
@@ -54,7 +55,7 @@ class Ivvform extends React.Component {
                     label: '邮箱'
                 }
             ],
-            options: ["", "", ""],
+            options: ["", ""],
             show: false,
         }
     }
@@ -62,26 +63,32 @@ class Ivvform extends React.Component {
     onChange(isValue) {
         this.setState({ isValue })
     }
+    //该字段是否展示设置
+    onSetWhat(setWhat) {
+        this.setState({setWhat})
+    }
     //field name 设置
     changeName = (name) => {
         this.setState({ name })
     }
     //field.length 设置
     changeLength = (length) => {
-        if(!isNaN(length)) {
+        if (!isNaN(length)) {
             this.setState({ length })
         }
     }
     //当前页面是否显示
-    setShow = (data) => {
+    setShow = (data, setWhat) => {
+        console.log(data)
         //data存在为编辑数据
         this.setState({
+            setWhat: setWhat,
             name: data.name,
             type: data.type,
             isValue: data.required ? 1 : 0,
             length: data.length || '',
             regex: data.regex || '',
-            options: data.options || ['', '', ''],
+            options: data.options || ['', ''],
             show: !this.state.show,
         })
     }
@@ -109,26 +116,27 @@ class Ivvform extends React.Component {
                 message: '请选择字段类型',
                 type: 'warning'
             });
-        } else if((this.state.type === "textarea" || this.state.type === "text") && this.state.length === '') { //类型为单行文本
+        } else if ((this.state.type === "textarea" || this.state.type === "text") && this.state.length === '') { //类型为单行文本
             Message({
                 message: '请设置字段长度',
                 type: 'warning'
             });
-        } else if(this.state.type === "text" && this.state.regex === '') {
+        } else if (this.state.type === "text" && this.state.regex === '') {
             Message({
                 message: '请设置验证方式',
                 type: 'warning'
             });
-        } else if((this.state.type === "radio" || this.state.type === "checkbox") && this.state.options.lastIndexOf('') !== -1) {
+        } else if ((this.state.type === "radio" || this.state.type === "checkbox") && this.state.options.lastIndexOf('') !== -1) {
             Message({
                 message: '您还有选项未设置，请先设置选项',
                 type: 'warning'
             });
         } else {
             let data = {}
+            data.setWhat = this.state.setWhat
             data.name = this.state.name
             data.required = this.state.isValue === 1
-            switch(this.state.type) {
+            switch (this.state.type) {
                 case 'text':
                     data.type = 'text'
                     data.length = this.state.length
@@ -146,12 +154,12 @@ class Ivvform extends React.Component {
                     data.type = 'checkbox'
                     data.options = this.state.options
                     break
-                default: 
+                default:
                     data.type = 'date'
             }
             //添加或者修改
             Event.emit('setShowSave', data)//保存显示
-            this.setState({show: false}) //隐藏弹窗
+            this.setState({ show: false }) //隐藏弹窗
         }
     }
     setTypeOrRegex(opt, value) {
@@ -183,6 +191,13 @@ class Ivvform extends React.Component {
             <div className="ivv-vform">
                 <ul className="vform">
                     <li>
+                        <span className="vform-name">是否展示：</span>
+                        <span className="vform-module">
+                            <Radio name="isShow" value='fixed' checked={this.state.setWhat === 'fixed'} onChange={this.onSetWhat.bind(this)}>是</Radio>
+                            <Radio name="isShow" value='custom' checked={this.state.setWhat === 'custom'} onChange={this.onSetWhat.bind(this)}>否</Radio>
+                        </span>
+                    </li>
+                    <li>
                         <span className="vform-name">字段名：</span>
                         <span className="vform-module"><Input onChange={this.changeName} placeholder="请输入字段名" value={this.state.name} /></span>
                     </li>
@@ -200,13 +215,13 @@ class Ivvform extends React.Component {
                     </li>
                     {this.state.type === "text" || this.state.type === "textarea" ? <li>
                         <span className="vform-name">长度：</span>
-                        <span className="vform-module"><Input onChange={this.changeLength}  value={this.state.length} placeholder="请输入内容" /></span>
+                        <span className="vform-module"><Input onChange={this.changeLength} value={this.state.length} placeholder="请输入内容" /></span>
                     </li> : null}
                     <li>
                         <span className="vform-name">是否必填：</span>
                         <span className="vform-module">
-                            <Radio value={1} checked={this.state.isValue === 1} onChange={this.onChange.bind(this)}>是</Radio>
-                            <Radio value={0} checked={this.state.isValue === 0} onChange={this.onChange.bind(this)}>否</Radio>
+                            <Radio name="isRequire" value={1} checked={this.state.isValue === 1} onChange={this.onChange.bind(this)}>是</Radio>
+                            <Radio name="isRequire" value={0} checked={this.state.isValue === 0} onChange={this.onChange.bind(this)}>否</Radio>
                         </span>
                     </li>
                     {this.state.type === "text" ? <li>

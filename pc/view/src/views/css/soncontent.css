@@ -54,12 +54,6 @@
 .ivv-table-field .ivv-form-del:hover {
     cursor: pointer;
 }
-.ivv-table-field .ivv-form-no {
-    color: #666;
-}
-.ivv-table-field .ivv-form-no:hover {
-    cursor: not-allowed;
-}
 .ivv-form .ivv-save {
     display: flex;
     margin-top: 30px;
