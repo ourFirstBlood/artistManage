@@ -16,7 +16,7 @@ class Detail extends React.Component {
     }
     componentDidMount() {
         console.log(this.props.match)
-        const res = axios_({
+        const res = axios_.call(this, {
             url: '/artist/detail',
             params: {id: this.props.match.params.id}
         })

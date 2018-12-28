@@ -39,7 +39,7 @@ class Ivvtable extends React.Component {
       type: 'warning'
     }).then(() => {
       // 删除数据请求
-      const res = axios_({
+      const res = axios_.call(this, {
         url: "/artist/detele_artists",
         params: {id: id}
       })
@@ -69,7 +69,7 @@ class Ivvtable extends React.Component {
   //获取数据
   getTableData = () => {
     this.setState({ loading: true })
-    const res = axios_({
+    const res = axios_.call(this, {
       url: "/artist/get_artistsList",
       params: {
         page: this.state.currentPage,

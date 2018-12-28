@@ -1,11 +1,9 @@
 import axios from 'axios'
 import {Message} from 'element-react'
 import qs from 'querystring'
-import history from "../../history"
 //请求axios 封装
 function axios_({url , params={}, type='POST', header={'Content-Type': 'application/x-www-form-urlencoded'}}) {
-    console.log(qs.parse(qs.stringify(params)))
-
+    console.log(this)
     return new Promise((resolve, reject)=>{
         axios({
             method: type,
@@ -16,8 +14,7 @@ function axios_({url , params={}, type='POST', header={'Content-Type': 'applicat
             if(res.data.code === 0) {
                resolve(res.data) 
             } else if(res.data.code === 996) {
-                history.push('/login', true)
-                console.log(history)
+                this.props.history.push('/login', true)
             } else {
                 throw res.data
             }

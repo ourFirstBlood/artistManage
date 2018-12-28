@@ -17,6 +17,9 @@
     width: 100px;
     justify-content: center;
 }
+.ivv-form .ivv-table-title li:last-child {
+    width: 200px;
+}
 .ivv-form .ivv-table-field {
     display: flex;
     width: 800px;
@@ -29,6 +32,7 @@
     justify-content: center;
 }
 .ivv-form .ivv-table-field li:last-child {
+    width: 200px;
     justify-content: space-around;
 }
 .ivv-form .ivv-custom span{ 
@@ -52,6 +56,18 @@
     color: #FF5722;
 }
 .ivv-table-field .ivv-form-del:hover {
+    cursor: pointer;
+}
+.ivv-table-field .ivv-form-up {
+    color: #58B7FF;
+}
+.ivv-table-field .ivv-form-up:hover {
+    cursor: pointer;
+}
+.ivv-table-field .ivv-form-down {
+    color: #1D8CE0;
+}
+.ivv-table-field .ivv-form-down {
     cursor: pointer;
 }
 .ivv-form .ivv-save {

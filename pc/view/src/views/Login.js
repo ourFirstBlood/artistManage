@@ -17,7 +17,7 @@ class Login extends React.Component {
     }
     login(){
         const {user_name,password} = this.state
-        const res = axios_({
+        const res = axios_.call(this,{
             url: "/login",
             params: {
                 user_name,

@@ -56,13 +56,13 @@ class Soncontent extends React.Component {
             this.setState({
                 loading: true
             }, () => {
-                const res = axios_({
+                const res = axios_.call(this, {
                     url: '/power/form/edit_form',
                     params: { custom: JSON.stringify(this.state.customField), fixed: JSON.stringify(this.state.fixField)}
                 })
                 res.then((success) => {
                     this.setState({
-                        saveField: JSON.parse(JSON.stringify(this.state.fixField)),
+                        saveFix: JSON.parse(JSON.stringify(this.state.fixField)),
                         saveCustom: JSON.parse(JSON.stringify(this.state.customField)),
                         showSave: false,
                         loading: false
@@ -78,9 +78,78 @@ class Soncontent extends React.Component {
             })
         }
     }
+    //删除
+    delData = (index, setWhat) => {
+        if(setWhat === 'custom'){
+            const customField = this.state.customField
+            customField.splice(index, 1)
+            this.setState({customField})
+        }else{
+            const fixField = this.state.fixField
+            fixField.splice(index, 1)
+            this.setState({fixField})
+        }        
+        this.setState({
+            showSave: true
+        })
+    }
+    //上移
+    moveUp = (index, setWhat) => {
+        if(index === 0) return
+        this.setState({showSave: true})
+        if(setWhat === "custom") {
+            let customField = this.state.customField;
+            [customField[index], customField[index-1]] = [customField[index-1], customField[index]]
+            this.setState({customField})
+        } else {
+            let fixField = this.state.fixField;
+            [fixField[index], fixField[index-1]] = [fixField[index-1], fixField[index]]
+            this.setState({fixField})
+        }
+    }
+    //下移
+    moveDown = (index, setWhat) =>{
+        if(setWhat === "custom") {
+            if(index+1 === this.state.customField.length) return
+            let customField = this.state.customField;
+            [customField[index], customField[index+1]] = [customField[index+1], customField[index]]
+            this.setState({customField, showSave: true})
+        } else {
+            if(index+1 === this.state.fixField.length) return
+            let fixField = this.state.fixField;
+            [fixField[index], fixField[index+1]] = [fixField[index+1], fixField[index]]
+            this.setState({fixField, showSave:true})
+        }
+    }
+    /* 获取字段 */
+    getFieldList = (field, bool) => {
+        const trans = this.state.trans
+        return field.map((val, index) => {
+            return (
+                <ul key={index} className="ivv-table-field">
+                    <li>{index + 1}</li>
+                    <li>{val['name']}</li>
+                    <li>{trans[val['type']]}</li>
+                    {bool ? <li>
+                        <span onClick={this.setShow.bind(this, val, index,'custom')} className="ivv-form-edit">编辑</span>
+                        <span onClick={this.delData.bind(this, index, 'custom')} className="ivv-form-del">删除</span>
+                        <span onClick={this.moveUp.bind(this, index, 'custom')} className="ivv-form-up">上移</span>
+                        <span onClick={this.moveDown.bind(this, index, 'custom')} className="ivv-form-down">下移</span>
+                    </li> :
+                    <li>
+                        <span onClick={this.setShow.bind(this, val, index,'fixed')} className="ivv-form-edit">编辑</span>
+                        <span onClick={this.delData.bind(this, index,'fixed')} className="ivv-form-del">删除</span>
+                        <span onClick={this.moveUp.bind(this, index, 'fixed')} className="ivv-form-up">上移</span>
+                        <span onClick={this.moveDown.bind(this, index, 'fixed')} className="ivv-form-down">下移</span>
+                    </li>
+                    }
+                </ul>
+            )
+        })
+    }
     componentDidMount() {
         /* 查询字段 */
-        const res = axios_({
+        const res = axios_.call(this, {
             url: "/power/form/get_form",
         })
         res.then((success) => {
@@ -96,45 +165,9 @@ class Soncontent extends React.Component {
         /* 装载保存 */
         Event.addListener('setShowSave', this.setShowSave)
     }
-    delData = (index, setWhat) => {
-        if(setWhat === 'custom'){
-            const customField = this.state.customField
-            customField.splice(index, 1)
-            this.setState({customField})
-        }else{
-            const fixField = this.state.fixField
-            fixField.splice(index, 1)
-            this.setState({fixField})
-        }        
-        this.setState({
-            showSave: true
-        })
-    }
     componentWillUnmount() {
         console.log(this.state)
         Event.removeListener('setShowSave', this.setShowSave)
-    }
-    /* 获取字段 */
-    getFieldList = (field, bool) => {
-        const trans = this.state.trans
-        return field.map((val, index) => {
-            return (
-                <ul key={index} className="ivv-table-field">
-                    <li>{index + 1}</li>
-                    <li>{val['name']}</li>
-                    <li>{trans[val['type']]}</li>
-                    {bool ? <li>
-                        <span onClick={this.setShow.bind(this, val, index,'custom')} className="ivv-form-edit">编辑</span>
-                        <span onClick={this.delData.bind(this, index, 'custom')} className="ivv-form-del">删除</span>
-                    </li> :
-                    <li>
-                        <span onClick={this.setShow.bind(this, val, index,'fixed')} className="ivv-form-edit">编辑</span>
-                        <span onClick={this.delData.bind(this, index,'fixed')} className="ivv-form-del">删除</span>
-                    </li>
-                    }
-                </ul>
-            )
-        })
     }
     render() {
         let field = {

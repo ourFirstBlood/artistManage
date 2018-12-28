@@ -3,7 +3,7 @@
 */
 
 import React from 'react'
-import axios from 'axios'
+import {axios_} from './js/common'
 import './css/edit.css'
 
 class Edit extends React.Component {
@@ -17,21 +17,13 @@ class Edit extends React.Component {
         const id = parseInt(this.props.match.params.id)
         if (id !== 0) {
             // 修改
-            axios.post(
-                'http://www.ivvmedia.com:8080/artist/detail',
-                { id: id }
-            ).then((request) => {
-                if (request.data.code === 0) {
-                    const data = request.data.data
-                    this.setState({
-                        data: data
-                    })
-                } else {
-                    throw request.data.msg
-                }
-
-            }).catch((error) => {
-                console.log(error)
+            const res = axios_.call(this, {
+                url: '/artist/detail',
+                params: {id: id}
+            })
+            res.then((success) => {
+                const data = success.data
+                this.setState({data})
             })
         } else {
             //添加
