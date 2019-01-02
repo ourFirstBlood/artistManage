@@ -101,6 +101,7 @@ class Ivvtable extends React.Component {
         columns.push(
           {
             label: "操作",
+            fixed: 'right',
             prop: "address",
             render: (row) => {
               return (
@@ -131,7 +132,7 @@ class Ivvtable extends React.Component {
     return (
       <div>
         <div className="table-nav">
-          <Button type="primary">新增</Button>
+          <Button type="primary" onClick={()=>this.props.history.replace('/edit/0')}>新增</Button>
           <Input type="password" placeholder="请输入内容" />
         </div>
         <div className="ivv-table">

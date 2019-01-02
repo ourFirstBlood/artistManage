@@ -3,48 +3,59 @@
 */
 import React from 'react'
 import './css/login.css'
-import {axios_, info} from './js/common'
+import { Button, Input } from 'element-react'
+import { axios_, info } from './js/common'
 class Login extends React.Component {
-     constructor(props) {
+    constructor(props) {
         super(props)
         this.state = {
-            user_name:'',
-            password:''
+            user_name: '',
+            password: ''
         }
-        this.login = this.login.bind(this)
-        this.userChange = this.userChange.bind(this)
-        this.pwChange = this.pwChange.bind(this)
     }
-    login(){
-        const {user_name,password} = this.state
-        const res = axios_.call(this,{
+    login() {
+        const { user_name, password } = this.state
+        const res = axios_.call(this, {
             url: "/login",
             params: {
                 user_name,
                 password
             }
         })
-        res.then(()=>{
-            info('登陆成功')  
-            this.props.history.replace('/content/Soncontent') 
+        res.then(() => {
+            info('登陆成功')
+            this.props.history.replace('/content/Soncontent')
         })
-        
+
     }
-    userChange(e){
-        this.setState({user_name:e.target.value})
+    userChange(user_name) {
+        this.setState({ user_name })
     }
-    pwChange(e){
-         this.setState({password:e.target.value})
+    pwChange(password) {
+        this.setState({ password })
+    }
+    reset() {
+        this.setState({
+            user_name: '',
+            password: ''
+        })
     }
     render() {
         return (
-            <div className="">
-                <div>
-                    <span>用户名</span>
-                    <input type="text" onChange={this.userChange}/>
-                    <span>密码</span>
-                    <input type="password" onChange={this.pwChange}/>
-                    <button onClick={this.login}>登录</button>
+            <div className="ivv-login">
+                <div className="login">
+                    <label className="login-label">
+                        <span className="login-label-name">用户名:</span>
+                        <Input className="login-label-input" type="text" value={this.state.user_name} onChange={this.userChange.bind(this)} />
+                    </label>
+                    <label className="login-label">
+                        <span className="login-label-name">密码:</span>
+                        <Input className="login-label-input" type="password" value={this.state.password} onChange={this.pwChange.bind(this)} />
+                    </label>
+                    <label className="login-label">
+                        <Button onClick={this.reset.bind(this)}>重置</Button>
+                        <Button onClick={this.login.bind(this)}>登录</Button>
+                    </label>
                 </div>
             </div>
         )

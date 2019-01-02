@@ -1,0 +1,31 @@
+.ivv-login {
+    width: 90%;
+    height: calc(100% - 65px);
+    min-height: 500px;
+    margin: 0 auto;
+    background-color: #F8F8F8;
+}
+.ivv-login .login {
+    display: flex;
+    width: 300px;
+    height: 100%;
+    margin: 0 auto;
+    flex-wrap: wrap;
+    align-content: center;
+}
+.ivv-login .login .login-label {
+    display:flex;
+    width: 300px;
+    height: 60px;
+    align-items: center;
+    justify-content: flex-end;
+}
+.ivv-login .login .login-label .login-label-name {
+    display: flex;
+    width: 100px;
+    padding-right: 15px;
+    flex-direction: row-reverse;  
+}
+.ivv-login .login .login-label .login-label-input {
+    width: 200px;
+}

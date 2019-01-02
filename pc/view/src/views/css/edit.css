@@ -13,6 +13,7 @@
 .ivv-edit .ivv-edit-ul .ivv-edit-li{
     display: flex;
     flex-wrap: nowrap;
+    align-items: center;
 }
 .ivv-edit .ivv-edit-name {
     display: flex;

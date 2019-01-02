@@ -3,7 +3,6 @@ import {Message} from 'element-react'
 import qs from 'querystring'
 //请求axios 封装
 function axios_({url , params={}, type='POST', header={'Content-Type': 'application/x-www-form-urlencoded'}}) {
-    console.log(this)
     return new Promise((resolve, reject)=>{
         axios({
             method: type,
