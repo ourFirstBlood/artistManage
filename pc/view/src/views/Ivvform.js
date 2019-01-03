@@ -2,7 +2,8 @@
 *  表单设置页面
 */
 import React from 'react'
-import { Input, Button, Select, Radio, Message } from 'element-react'
+import { Input, Button, Select, Radio} from 'element-react'
+import {info} from './js/common'
 import Event from './js/Event'
 import './css/ivvform.css'
 class Ivvform extends React.Component {
@@ -74,6 +75,7 @@ class Ivvform extends React.Component {
     //field.length 设置
     changeLength = (length) => {
         if (!isNaN(length)) {
+            length = parseInt(length)
             this.setState({ length })
         }
     }
@@ -107,30 +109,11 @@ class Ivvform extends React.Component {
     //是否显示保存
     setShowSave = () => {
         if (this.state.name === '') {
-            Message({
-                message: '请填写字段名',
-                type: 'warning'
-            });
+            info('请填写字段名', 'warning');
         } else if (this.state.type === '') {
-            Message({
-                message: '请选择字段类型',
-                type: 'warning'
-            });
-        } else if ((this.state.type === "textarea" || this.state.type === "text") && this.state.length === '') { //类型为单行文本
-            Message({
-                message: '请设置字段长度',
-                type: 'warning'
-            });
-        } else if (this.state.type === "text" && this.state.regex === '') {
-            Message({
-                message: '请设置验证方式',
-                type: 'warning'
-            });
+            info('请选择字段类型', 'warning');
         } else if ((this.state.type === "radio" || this.state.type === "checkbox") && this.state.options.lastIndexOf('') !== -1) {
-            Message({
-                message: '您还有选项未设置，请先设置选项',
-                type: 'warning'
-            });
+            info('您还有选项未设置，请先设置选项', 'warning');
         } else {
             let data = {}
             data.setWhat = this.state.setWhat
@@ -144,7 +127,6 @@ class Ivvform extends React.Component {
                     break
                 case 'textarea':
                     data.type = 'textarea'
-                    data.length = this.state.length
                     break
                 case 'radio':
                     data.type = 'radio'
@@ -213,7 +195,7 @@ class Ivvform extends React.Component {
                             </Select>
                         </span>
                     </li>
-                    {this.state.type === "text" || this.state.type === "textarea" ? <li>
+                    {this.state.type === "text" ? <li>
                         <span className="vform-name">长度：</span>
                         <span className="vform-module"><Input onChange={this.changeLength} value={this.state.length} placeholder="请输入内容" /></span>
                     </li> : null}

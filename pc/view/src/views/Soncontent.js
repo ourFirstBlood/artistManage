@@ -176,7 +176,7 @@ class Soncontent extends React.Component {
             required: true,
             length: '',
             regex: '',
-            options: ["", "", ""]
+            options: ["", ""]
         }
         return (
             <Loading style={{ width: 'calc(100% - 260px)' }} loading={this.state.loading}>
