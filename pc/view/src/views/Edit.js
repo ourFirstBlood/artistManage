@@ -4,7 +4,7 @@
 
 import React from 'react'
 import { Input, Radio, Checkbox, DatePicker, Button } from 'element-react'
-import { axios_ } from './js/common'
+import { axios_, info } from './js/common'
 import './css/edit.css'
 
 class Edit extends React.Component {
@@ -44,18 +44,18 @@ class Edit extends React.Component {
         if (data[index].type === "text") {
             if(data[index].length !== ""){
                 data[index].value = value.slice(0, data[index].length) 
-                this.setState({data}) 
             } else if(data[index].regex === "number") {
                 if(!isNaN(value)) data[index].value = value
-                this.setState({data})
+            } else {
+                data[index].value = value   
             }
         } else {
             data[index].value = value
-            this.setState({data})
         }
+        this.setState({data})
     }
     //checkbox 设置
-    setCheckbox(index, value, bool){
+    setCheckbox(index, value, bool) {
         const data = this.state.data
         if(!data[index].value)  data[index].value = []
         if(bool){
@@ -65,8 +65,25 @@ class Edit extends React.Component {
         }
         this.setState({data})
     }
+    save() {
+        if(0) {
+
+        } else {
+            //提交数据
+            const res = axios_({
+                url: '/artist/add_artists',
+                params: {
+                    info: JSON.stringify(this.state.data),
+                    id: this.props.match.params.id
+                }
+            })
+            res.then(()=>{
+                info("成功")
+            })
+            this.props.history.replace('/ivvtable')
+        }
+    }
     render() {
-        console.log(this.state.data)
         let lis = this.state.data.map((obj, index) => {
             let input = null
             if (obj.type === "text") {
@@ -81,16 +98,17 @@ class Edit extends React.Component {
                 })
             } else if (obj.type === "date") {
                 input = <DatePicker
-                    value={obj.value}
+                    value={obj.value?new Date(obj.value):null}
                     placeholder="选择日期"
                     onChange={date => {
                         const data = this.state.data
-                        data[index].value = date
+                        data[index].value = date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate()
                         this.setState({ data: data })
                     }} />
             } else if (obj.type === "textarea") {
                 input = <Input className="ivv-edit-textarea"
                     type="textarea" onChange={this.setData.bind(this, index)}
+                    value={obj.value}
                     autosize={{ minRows: 5, maxRows: 5 }}
                     placeholder={"请输入"+obj.name}
                 />
@@ -109,7 +127,7 @@ class Edit extends React.Component {
                     {lis}
                 </ul>
                 <div className="ivv-edit-primary">
-                    <Button type="primary">{this.props.match.params.id===0?"提交":"修改"}</Button>
+                    <Button onClick={this.save.bind(this)} type="primary">{this.props.match.params.id==="0"?"提交":"修改"}</Button>
                 </div>
             </div>
         )
