@@ -3,7 +3,7 @@
 */
 
 import React from 'react'
-import { Input, Radio, Checkbox, DatePicker, Button } from 'element-react'
+import { Input, Radio, Checkbox, DatePicker, Button, Loading } from 'element-react'
 import { axios_, info } from './js/common'
 import './css/edit.css'
 
@@ -11,6 +11,7 @@ class Edit extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
+            loading: true,
             data: []
         }
     }
@@ -24,7 +25,7 @@ class Edit extends React.Component {
             })
             res.then((success) => {
                 const data = success.data
-                this.setState({ data })
+                this.setState({ data,loading:false })
             })
         } else {
             //添加
@@ -34,7 +35,7 @@ class Edit extends React.Component {
             res.then(success => {
                 const data = success.data
                 let newData = [].concat(data.fixed, data.custom)
-                this.setState({ data: newData })
+                this.setState({ data: newData, loading: false })
             })
         }
     }
@@ -42,34 +43,51 @@ class Edit extends React.Component {
     setData(index, value) {
         const data = this.state.data
         if (data[index].type === "text") {
-            if(data[index].length !== ""){
-                data[index].value = value.slice(0, data[index].length) 
-            } else if(data[index].regex === "number") {
-                if(!isNaN(value)) data[index].value = value
+            if (data[index].length !== "") {
+                data[index].value = value.slice(0, data[index].length)
+            } else if (data[index].regex === "number") {
+                if (!isNaN(value)) data[index].value = value
             } else {
-                data[index].value = value   
+                data[index].value = value
             }
         } else {
             data[index].value = value
         }
-        this.setState({data})
+        this.setState({ data })
     }
     //checkbox 设置
     setCheckbox(index, value, bool) {
         const data = this.state.data
-        if(!data[index].value)  data[index].value = []
-        if(bool){
+        if (!data[index].value) data[index].value = []
+        if (bool) {
             data[index].value.push(value)
         } else {
             data[index].value.splice(data[index].value.indexOf(value), 1)
         }
-        this.setState({data})
+        this.setState({ data })
     }
     save() {
-        if(0) {
-
+        const data = this.state.data
+        const isRequired = data.some(obj => {
+            return obj.required&&(obj.value===null||obj.value===undefined||obj.value==="")
+        })
+        const isRegex = data.some(obj=>{
+            if(obj.regex === 'phone'){
+                const phoneRegex = /^[1][3,4,5,7,8](\d{9})$/
+                return !phoneRegex.test(obj.value)
+            } else if(obj.regex === "e_mail") {
+                const mailRegex = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/
+                return !mailRegex.test(obj.value)
+            }
+            return false
+        })
+        if (isRequired) {
+            info("您还有必填项未填写", "error")
+        } else if(isRegex) {
+            info("您的手机号或邮箱未填写正确", "error")
         } else {
             //提交数据
+            this.setState({loading: true})
             const res = axios_({
                 url: '/artist/add_artists',
                 params: {
@@ -77,7 +95,7 @@ class Edit extends React.Component {
                     id: this.props.match.params.id
                 }
             })
-            res.then(()=>{
+            res.then(() => {
                 info("成功")
             })
             this.props.history.replace('/ivvtable')
@@ -87,22 +105,22 @@ class Edit extends React.Component {
         let lis = this.state.data.map((obj, index) => {
             let input = null
             if (obj.type === "text") {
-                input = <Input placeholder={"请输入"+obj.name} value={obj.value} onChange={this.setData.bind(this, index)} />
+                input = <Input placeholder={"请输入" + obj.name} value={obj.value} onChange={this.setData.bind(this, index)} />
             } else if (obj.type === "radio") {
                 input = obj.options.map((val, key) => {
                     return <Radio onChange={this.setData.bind(this, index)} value={val} key={key} name={'name' + index} checked={obj.value === val}>{val}</Radio>
                 })
             } else if (obj.type === "checkbox") {
                 input = obj.options.map((val, key) => {
-                    return <Checkbox onChange={this.setCheckbox.bind(this, index, val)} checked={obj.value&&obj.value.indexOf(val)>=0} key={key}>{val}</Checkbox>
+                    return <Checkbox onChange={this.setCheckbox.bind(this, index, val)} checked={obj.value && obj.value.indexOf(val) >= 0} key={key}>{val}</Checkbox>
                 })
             } else if (obj.type === "date") {
                 input = <DatePicker
-                    value={obj.value?new Date(obj.value):null}
+                    value={obj.value ? new Date(obj.value) : null}
                     placeholder="选择日期"
                     onChange={date => {
                         const data = this.state.data
-                        data[index].value = date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate()
+                        data[index].value = date?date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate():null
                         this.setState({ data: data })
                     }} />
             } else if (obj.type === "textarea") {
@@ -110,7 +128,7 @@ class Edit extends React.Component {
                     type="textarea" onChange={this.setData.bind(this, index)}
                     value={obj.value}
                     autosize={{ minRows: 5, maxRows: 5 }}
-                    placeholder={"请输入"+obj.name}
+                    placeholder={"请输入" + obj.name}
                 />
             }
             //整理数据  重新设置
@@ -123,12 +141,14 @@ class Edit extends React.Component {
         })
         return (
             <div className="ivv-edit">
-                <ul className="ivv-edit-ul">
-                    {lis}
-                </ul>
-                <div className="ivv-edit-primary">
-                    <Button onClick={this.save.bind(this)} type="primary">{this.props.match.params.id==="0"?"提交":"修改"}</Button>
-                </div>
+                <Loading loading={this.state.loading}>
+                    <ul className="ivv-edit-ul">
+                        {lis}
+                    </ul>
+                    <div className="ivv-edit-primary">
+                        {this.state.data.length === 0?null:<Button onClick={this.save.bind(this)} type="primary">{this.props.match.params.id === "0" ? "提交" : "修改"}</Button>}
+                    </div>
+                </Loading>
             </div>
         )
     }
