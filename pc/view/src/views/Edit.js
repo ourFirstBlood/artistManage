@@ -71,34 +71,48 @@ class Edit extends React.Component {
         const isRequired = data.some(obj => {
             return obj.required&&(obj.value===null||obj.value===undefined||obj.value==="")
         })
+        if (isRequired) return info("您还有必填项未填写", "error")
+        let typeRegex = ""
         const isRegex = data.some(obj=>{
             if(obj.regex === 'phone'){
                 const phoneRegex = /^[1][3,4,5,7,8](\d{9})$/
-                return !phoneRegex.test(obj.value)
+                if(!phoneRegex.test(obj.value)){
+                    typeRegex = "手机号"
+                    return true
+                }
             } else if(obj.regex === "e_mail") {
                 const mailRegex = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/
-                return !mailRegex.test(obj.value)
+                if(!mailRegex.test(obj.value)){
+                    typeRegex = "邮箱"
+                    return true
+                }
+            } else if(obj.regex === "id_card") {
+                const cardRegex = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/
+                if(!cardRegex.test(obj.value)) {
+                    typeRegex = "身份证"
+                    return true
+                }
             }
             return false
         })
-        if (isRequired) {
-            info("您还有必填项未填写", "error")
-        } else if(isRegex) {
-            info("您的手机号或邮箱未填写正确", "error")
+        if(isRegex) {
+            info("对不起，您的"+typeRegex+"填写不合法", "error")
         } else {
             //提交数据
             this.setState({loading: true})
+            const id = this.props.match.params.id
             const res = axios_({
                 url: '/artist/add_artists',
                 params: {
                     info: JSON.stringify(this.state.data),
-                    id: this.props.match.params.id
+                    id: id
                 }
             })
             res.then(() => {
-                info("成功")
+                const str = id==="0"?"增加":"修改"
+                info(str+"成功")
+                this.props.history.replace('/ivvtable')
             })
-            this.props.history.replace('/ivvtable')
         }
     }
     render() {

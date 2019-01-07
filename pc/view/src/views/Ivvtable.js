@@ -18,17 +18,7 @@ class Ivvtable extends React.Component {
       columns: [
         {
           label: "日期",
-          prop: "date",
-          width: 150
-        },
-        {
-          label: "姓名",
-          prop: "name",
-          width: 160
-        },
-        {
-          label: "地址",
-          prop: "address"
+          prop: "date"
         }
       ],
       data: []
@@ -78,11 +68,14 @@ class Ivvtable extends React.Component {
     })
     res.then((success)=>{
       const xdata = success.data
+      console.log(xdata)
       if (xdata.count !== 0) {
         let columns = [], vdata = []
-        for (let i = 0; i < xdata.list[0].info.length; i++) {
+        const fixed = xdata.list[0].info.fixed
+        for (let i = 0; i < fixed.length; i++) {
           columns.push({
-            label: xdata.list[0].info[i].name,
+            label: fixed[i].name,
+            minWidth: 150,
             prop: 'key' + i
           })
         }
@@ -91,8 +84,8 @@ class Ivvtable extends React.Component {
           let obj_1 = {}
           obj_1.index = index
           obj_1.id = value.id //存所需要控制的 id 
-          for (let i = 0; i < value.info.length; i++) {
-            obj_1['key' + i] = value.info[i].value
+          for (let i = 0; i < value.info.fixed.length; i++) {
+            obj_1['key' + i] = value.info.fixed[i].value
           }
           data.push(obj_1)
           return data
@@ -102,6 +95,7 @@ class Ivvtable extends React.Component {
           {
             label: "操作",
             fixed: 'right',
+            width: 200,
             prop: "address",
             render: (row) => {
               return (
@@ -118,6 +112,16 @@ class Ivvtable extends React.Component {
           columns: columns,
           data: vdata
         })
+      }else{
+        this.setState({
+          columns: [
+            {
+              label: "姓名",
+              prop: "name"
+            }
+          ],
+          data: []
+        })
       }
       this.setState({
         total: xdata.count,
@@ -128,6 +132,7 @@ class Ivvtable extends React.Component {
   componentDidMount() {
     this.getTableData()
   }
+  
   render() {
     return (
       <div>
