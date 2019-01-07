@@ -52,10 +52,10 @@ class Login extends React.Component {
                         <span className="login-label-name">密码:</span>
                         <Input className="login-label-input" type="password" value={this.state.password} onChange={this.pwChange.bind(this)} />
                     </label>
-                    <label className="login-label">
-                        <Button onClick={this.reset.bind(this)}>重置</Button>
-                        <Button onClick={this.login.bind(this)}>登录</Button>
-                    </label>
+                    <span className="login-label">
+                        <Button plain={true} type="info" onClick={this.reset.bind(this)}>重置</Button>
+                        <Button plain={true} type="success" onClick={this.login.bind(this)}>登录</Button>
+                    </span>
                 </div>
             </div>
         )
