@@ -1,10 +1,22 @@
+.ivv-loading-form {
+    width: calc(100% - 260px);
+    min-height: 500px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+.ivv-loading-form::-webkit-scrollbar {
+    width: 12px;
+    background-color: #eee;
+}
+.ivv-loading-form::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background-color: #111;
+}
 .ivv-form {
     display: flex;
     width: 100%;
-    height: 100%;
     padding: 25px;
     flex-direction: column;
-    background-color: #F8F8F8;
 }
 .ivv-form .ivv-table-title {
     display: flex;
