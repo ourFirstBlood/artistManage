@@ -9,7 +9,7 @@ class Accounts extends React.Component {
         this.state = {
             user_name: '',
             password: '',
-            is_super: 1,
+            is_super: "1",
             name: ''
         }
     }
@@ -57,8 +57,8 @@ class Accounts extends React.Component {
                     <li>
                         <span className="accounts-name">超级管理员：</span>
                         <div className="accounts-input">
-                            <Radio value="1" onChange={this.setSuper.bind(this)} checked={this.state.is_super === 1} >是</Radio>
-                            <Radio value="0" onChange={this.setSuper.bind(this)} checked={this.state.is_super === 0} >否</Radio>
+                            <Radio value="1" onChange={this.setSuper.bind(this)} checked={this.state.is_super === "1"} >是</Radio>
+                            <Radio value="0" onChange={this.setSuper.bind(this)} checked={this.state.is_super === "0"} >否</Radio>
                         </div>
                     </li>
                     <li>

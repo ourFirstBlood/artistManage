@@ -15,7 +15,8 @@ function axios_({url , params={}, type='POST', header={'Content-Type': 'applicat
             } else if(res.data.code === 996) {
                 this.props.history.push('/login', true)
             } else {
-                throw res.data
+                info(res.data.msg, 'error')
+                this.props.history.push('/ivvtable', true)
             }
         }).catch((err)=>{
             reject(err)

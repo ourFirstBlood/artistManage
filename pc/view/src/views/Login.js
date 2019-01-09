@@ -24,7 +24,7 @@ class Login extends React.Component {
         })
         res.then(() => {
             info('登陆成功')
-            this.props.history.replace('/content/Soncontent')
+            this.props.history.replace('/ivvtable')
         })
 
     }
