@@ -16,7 +16,7 @@ function axios_({url , params={}, type='POST', header={'Content-Type': 'applicat
                 this.props.history.push('/login', true)
             } else {
                 info(res.data.msg, 'error')
-                this.props.history.push('/ivvtable', true)
+                //this.props.history.push('/ivvtable', true)
             }
         }).catch((err)=>{
             reject(err)
