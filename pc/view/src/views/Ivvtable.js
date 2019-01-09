@@ -3,8 +3,8 @@
 */
 
 import React from 'react'
-import {axios_} from './js/common'
-import { Button, Table, Input, Pagination, Loading, MessageBox, Message } from 'element-react'
+import {axios_, info} from './js/common'
+import { Button, Table, Pagination, Loading, MessageBox } from 'element-react'
 
 class Ivvtable extends React.Component {
   constructor(props) {
@@ -34,17 +34,11 @@ class Ivvtable extends React.Component {
         params: {id: id}
       })
       res.then(()=>{
-        Message({
-          type: 'success',
-          message: '删除成功!'
-        });
+        info('删除成功')
         this.getTableData()
       })
     }).catch(() => {
-      Message({
-        type: 'info',
-        message: '已取消删除'
-      });
+      info('已取消删除')
     });
   }
   //设置当前页 渲染数据
@@ -138,7 +132,6 @@ class Ivvtable extends React.Component {
       <div>
         <div className="table-nav">
           <Button type="primary" onClick={()=>this.props.history.replace('/edit/0')}>新增</Button>
-          <Input type="password" placeholder="请输入内容" />
         </div>
         <div className="ivv-table">
           <Loading className="table-loading" loading={this.state.loading} >

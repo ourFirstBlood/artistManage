@@ -8,7 +8,7 @@ class Menusider extends React.Component {
         return (
             <div className="ivv-menusider">
                 <ul>
-                    <li>账号管理</li>
+                    <li><NavLink to="/content/accounts">账号管理</NavLink></li>
                     <li>权限管理</li>
                     <li><NavLink to="/content/Soncontent">表单管理</NavLink></li>
                 </ul>

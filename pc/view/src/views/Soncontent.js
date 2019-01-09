@@ -179,7 +179,7 @@ class Soncontent extends React.Component {
             options: ["", ""]
         }
         return (
-            <Loading style={{ width: 'calc(100% - 260px)' }} loading={this.state.loading}>
+            <Loading className="ivv-loading-form" loading={this.state.loading}>
                 <div className="ivv-form">
                     <p>展示字段</p>
                     <ul className="ivv-table-title">
