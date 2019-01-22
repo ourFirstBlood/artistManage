@@ -36,14 +36,22 @@ const get_form = (req, res) => {
             for (let key in qs.parse(result[0].custom)) {
               arrStr = key
             }
-            return JSON.parse(arrStr)
+            let arr = JSON.parse(arrStr)
+            arr.forEach(item=>{
+              item.sign = 'custom'
+            })
+            return arr
           })(),
           fixed: (() => {
             let arrStr = ''
             for (let key in qs.parse(result[0].fixed)) {
               arrStr = key
             }
-            return JSON.parse(arrStr)
+            let arr = JSON.parse(arrStr)
+            arr.forEach(item=>{
+              item.sign = 'fixed'
+            })
+            return arr
           })()
         }
       })

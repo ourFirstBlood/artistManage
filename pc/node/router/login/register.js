@@ -1,5 +1,5 @@
 var mysqlconnection = require('../../mysql/index.js')
-var { md5 } = require('../utils/util.js')
+var { md5,fail } = require('../utils/util.js')
 mysqlconnection.handleDisconnection()
 
 const add_user = (req, res) => {
@@ -25,10 +25,22 @@ const add_user = (req, res) => {
         }
         if (!result.length) {
           var sql =
-            'INSERT INTO user_admin(Id,user_name,password,is_super) VALUES(0,?,?,?)'
+            'INSERT INTO user_admin(Id,user_name,password,is_super,name) VALUES(0,?,?,?,?)'
           //查
-          let { user_name, password, is_super } = req.body
-          connection.query(sql, [user_name, md5(password), is_super], function(
+          let { user_name, password, is_super,name } = req.body
+          if(user_name.length>11){
+            fail(res,{msg:'账号不能超过11个字符'})
+            return
+          }
+          if([0,1].indexOf(Number(is_super))===-1){
+            fail(res,{msg:'is_super格式错误'})
+            return
+          }
+          if(name.length>12){
+            fail(res,{msg:'昵称不能超过12个字符'})
+            return
+          }
+          connection.query(sql, [user_name, md5(password), is_super,name], function(
             error,
             response
           ) {
