@@ -38,6 +38,9 @@
     margin-top: 10px;
     justify-content: space-around;
 }
+.ivv-form .ivv-table-dot {
+    border: 1px dashed #000;
+}
 .ivv-form .ivv-table-field li {
     display: flex;
     width: 100px;

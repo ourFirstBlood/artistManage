@@ -13,6 +13,7 @@ class Soncontent extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
+            whatField: true, //true  customField字段  false fixField字段
             fixField: [],
             customField: [],
             showSave: false,
@@ -38,12 +39,22 @@ class Soncontent extends React.Component {
         delete(data.setWhat)
         if(setWhat === 'custom') {
             const customField = this.state.customField
-            this.state.index === -1 ? customField.push(data) : (customField[this.state.index] = data)
-            this.setState(customField)
+            if(this.state.index === -1) {
+                this.setState({index: customField.length})
+                customField.push(data)
+            } else {
+                customField[this.state.index] = data
+            }
+            this.setState({customField, whatField: true})
         } else {
             const fixField = this.state.fixField
-            this.state.index === -1 ? fixField.push(data) : (fixField[this.state.index] = data)
-            this.setState({fixField})
+            if(this.state.index === -1) {
+                this.setState({index: fixField.length})
+                fixField.push(data)
+            } else {
+                fixField[this.state.index] = data
+            }
+            this.setState({fixField, whatField: false})
         }
         this.setState({
             showSave: true
@@ -65,7 +76,8 @@ class Soncontent extends React.Component {
                         saveFix: JSON.parse(JSON.stringify(this.state.fixField)),
                         saveCustom: JSON.parse(JSON.stringify(this.state.customField)),
                         showSave: false,
-                        loading: false
+                        loading: false,
+                        index: -1
                     })
                     info("保存成功")
                 })
@@ -74,7 +86,8 @@ class Soncontent extends React.Component {
             this.setState({
                 fixField: JSON.parse(JSON.stringify(this.state.saveFix)),
                 customField: JSON.parse(JSON.stringify(this.state.saveCustom)),
-                showSave: false
+                showSave: false,
+                index: -1
             })
         }
     }
@@ -96,15 +109,15 @@ class Soncontent extends React.Component {
     //上移
     moveUp = (index, setWhat) => {
         if(index === 0) return
-        this.setState({showSave: true})
+        this.setState({showSave: true, index: index-1})
         if(setWhat === "custom") {
             let customField = this.state.customField;
             [customField[index], customField[index-1]] = [customField[index-1], customField[index]]
-            this.setState({customField})
+            this.setState({customField, whatField: true})
         } else {
             let fixField = this.state.fixField;
             [fixField[index], fixField[index-1]] = [fixField[index-1], fixField[index]]
-            this.setState({fixField})
+            this.setState({fixField, whatField: false})
         }
     }
     //下移
@@ -113,20 +126,22 @@ class Soncontent extends React.Component {
             if(index+1 === this.state.customField.length) return
             let customField = this.state.customField;
             [customField[index], customField[index+1]] = [customField[index+1], customField[index]]
-            this.setState({customField, showSave: true})
+            this.setState({customField, showSave: true, index: ++index, whatField: true})
         } else {
             if(index+1 === this.state.fixField.length) return
             let fixField = this.state.fixField;
             [fixField[index], fixField[index+1]] = [fixField[index+1], fixField[index]]
-            this.setState({fixField, showSave:true})
+            this.setState({fixField, showSave:true, index: ++index, whatField: false})
         }
     }
     /* 获取字段 */
     getFieldList = (field, bool) => {
-        const trans = this.state.trans
+        const trans = this.state.trans,
+              _index = this.state.index,
+              whatField = this.state.whatField
         return field.map((val, index) => {
             return (
-                <ul key={index} className="ivv-table-field">
+                <ul key={index} className={"ivv-table-field "+(whatField===bool&&_index===index?"ivv-table-dot":"")}>
                     <li>{index + 1}</li>
                     <li>{val['name']}</li>
                     <li>{trans[val['type']]}</li>

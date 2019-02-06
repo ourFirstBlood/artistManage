@@ -14,7 +14,7 @@ class Header extends React.Component {
                     </div>
                     <ul className="ivv-nav">
                         <li><NavLink to="/ivvtable">主页</NavLink></li>
-                        <li><NavLink to="/content/Soncontent">权限管理</NavLink></li>
+                        <li><NavLink to="/content">权限管理</NavLink></li>
                         <li>
                             我的
                         </li>
