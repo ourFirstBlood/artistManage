@@ -111,7 +111,7 @@ exports.get_artistsList = (req, res) => {
     }
     let count = result[0]['count(*)']
     var sql =
-      'SELECT * FROM artistsList limit ' +
+      'SELECT * FROM artistsList order by id desc limit ' +
       (page - 1) * page_size +
       ',' +
       page_size
@@ -128,9 +128,17 @@ exports.get_artistsList = (req, res) => {
         for (let key in qs.parse(item.info)) {
           arrStr = key
         }
+        let arr = JSON.parse(arrStr)
         list.push({
           id: item.id,
-          info: JSON.parse(arrStr)
+          info: {
+            custom: arr.filter(item=>{
+              return item.sign ==='custom'
+            }),
+            fixed: arr.filter(item=>{
+              return item.sign ==='fixed'
+            })
+          }
         })
       })
       res.send({
