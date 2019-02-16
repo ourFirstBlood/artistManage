@@ -1,5 +1,22 @@
 var crypto = require('crypto')
+const colors = require('colors');
+
 var mysqlconnection = require('../../mysql/index.js')
+
+colors.setTheme({
+    log: 'cyan',
+    warn: 'yellow',
+    error: 'red'
+});
+exports.log = function(str){
+  console.log(str.log)
+}
+exports.error = function(str){
+  console.log(str.error)
+}
+exports.warn = function(str){
+  console.log(str.warn)
+}
 
 exports.md5 = function(str) {
   let md5 = crypto.createHash('md5')
