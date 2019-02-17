@@ -28,7 +28,7 @@
 
 .ivv-detail .ivv-detail-value {
   display: flex;
-  width: 150px;
+  white-space: pre-wrap;
   padding-left: 15px;
   margin-top: 15px;
   /* color: #20a0ff; */

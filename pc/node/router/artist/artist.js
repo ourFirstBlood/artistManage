@@ -136,7 +136,7 @@ exports.exportsExcel = (req, res) => {
           caption: item.name,
           type: 'string',
           beforeCellWrite: function(row, cellData) {
-            return cellData.toUpperCase()
+            return cellData ? cellData.toUpperCase() : ''
           },
           width: 28.7109375
         })
