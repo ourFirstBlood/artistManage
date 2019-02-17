@@ -55,12 +55,12 @@ exports.success = function(res, obj = {}) {
 }
 
 exports.fail = function(res, obj = {}) {
-  console.log(obj)
   let { code = 999, data = [], msg = '失败' } = obj
   res.send({ code, data, msg })
   return
 }
 
+// 查询
 exports.sql_select = function(selectSql, res) {
   let connection = mysqlconnection.connection
   return new Promise((resolve, reject) => {
@@ -75,7 +75,7 @@ exports.sql_select = function(selectSql, res) {
     })
   })
 }
-
+// 更新
 exports.sql_update = function(selectSql, userModSql_Params, res) {
   let connection = mysqlconnection.connection
   return new Promise((resolve, reject) => {
@@ -90,3 +90,31 @@ exports.sql_update = function(selectSql, userModSql_Params, res) {
     })
   })
 }
+
+exports.formatTime = function(dateObj, fmt) {
+    if (/(Y+)/.test(fmt)) {
+      fmt = fmt.replace(
+        RegExp.$1,
+        (dateObj.getFullYear() + '').substr(4 - RegExp.$1.length)
+      )
+    }
+    let o = {
+      'M+': dateObj.getMonth() + 1 + '',
+      'D+': dateObj.getDate() + '',
+      'H+': dateObj.getHours() + '',
+      'm+': dateObj.getMinutes() + '',
+      's+': dateObj.getSeconds() + ''
+    }
+    for (let k in o) {
+      if (new RegExp(`(${k})`).test(fmt)) {
+        fmt = fmt.replace(
+          RegExp.$1,
+          RegExp.$1.length === 1 ? o[k] : addZero(o[k])
+        )
+      }
+    }
+    function addZero(str) {
+      return ('00' + str).substr(str.length)
+    }
+    return fmt
+  }
