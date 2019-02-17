@@ -9,7 +9,7 @@ import { Button, Table, Pagination, Loading, MessageBox } from 'element-react'
 class Ivvtable extends React.Component {
   constructor(props) {
     super(props);
-    
+
     this.state = {
       loading: false,
       total: 0,
@@ -77,7 +77,7 @@ class Ivvtable extends React.Component {
         vdata = xdata.list.reduce((data, value, index) => {
           let obj_1 = {}
           obj_1.index = index
-          obj_1.id = value.id //存所需要控制的 id 
+          obj_1.id = value.id //存所需要控制的 id
           for (let i = 0; i < value.info.fixed.length; i++) {
             obj_1['key' + i] = value.info.fixed[i].value
           }
@@ -126,12 +126,13 @@ class Ivvtable extends React.Component {
   componentDidMount() {
     this.getTableData()
   }
-  
+
   render() {
     return (
       <div>
         <div className="table-nav">
           <Button type="primary" onClick={()=>this.props.history.replace('/edit/0')}>新增</Button>
+          <Button type="default" onClick={()=>{window.location.href='/artist/exportsExcel'}}>导出</Button>
         </div>
         <div className="ivv-table">
           <Loading className="table-loading" loading={this.state.loading} >
