@@ -94,8 +94,8 @@ class Ivvtable extends React.Component {
             render: (row) => {
               return (
                 <span>
-                  <Button plain={true} type="info" onClick={() => {this.props.history.replace("/edit/" + row.id)}} size="small">编辑</Button>
-                  <Button plain={true} type="info" onClick={()=>{this.props.history.replace("/detail/" + row.id)}} size="small">详情</Button>
+                  <Button plain={true} type="info" onClick={() => {this.props.history.push("/edit/" + row.id)}} size="small">编辑</Button>
+                  <Button plain={true} type="info" onClick={()=>{this.props.history.push("/detail/" + row.id)}} size="small">详情</Button>
                   <Button onClick={this.handleData.bind(this, row.id)} type="danger" size="small">删除</Button>
                 </span>
               )
@@ -131,7 +131,7 @@ class Ivvtable extends React.Component {
     return (
       <div>
         <div className="table-nav">
-          <Button type="primary" onClick={()=>this.props.history.replace('/edit/0')}>新增</Button>
+          <Button type="primary" onClick={()=>this.props.history.push('/edit/0')}>新增</Button>
           <Button type="default" onClick={()=>{window.location.href='/artist/exportsExcel'}}>导出</Button>
         </div>
         <div className="ivv-table">
