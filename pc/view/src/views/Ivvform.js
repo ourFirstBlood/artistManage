@@ -74,8 +74,8 @@ class Ivvform extends React.Component {
     }
     //field.length 设置
     changeLength = (length) => {
-        if (!isNaN(length)) {
-            length = parseInt(length)
+        if (!Number.isNaN(length)) {
+            length = length ? Number.parseInt(length): null
             this.setState({ length })
         }
     }

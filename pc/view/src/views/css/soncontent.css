@@ -2,7 +2,7 @@
     width: calc(100% - 260px);
     min-height: 500px;
     overflow-x: hidden;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 .ivv-loading-form::-webkit-scrollbar {
     width: 12px;
