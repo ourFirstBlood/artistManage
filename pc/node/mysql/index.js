@@ -1,5 +1,10 @@
 var mysql = require('mysql')
-var { log,warn,error } = require('../router/utils/util.js')
+const colors = require('colors');
+colors.setTheme({
+    log: 'cyan',
+    warn: 'yellow',
+    error: 'red'
+});
 var mysql_config = {
   host: 'localhost',
   user: 'root',
@@ -12,15 +17,15 @@ function handleDisconnection() {
   var connection = mysql.createConnection(mysql_config)
   connection.connect(function(err) {
     if (err) {
-      log("error when connecting to db:"+ err);
+      console.log(("error when connecting to db:"+ err).warn);
       setTimeout('handleDisconnection()', 2000)
     }
   })
 
   connection.on('error', function(err) {
-    warn('db error :'+ err)
+    console.log(('db error :'+ err).warn)
     if (err.code === 'PROTOCOL_CONNECTION_LOST') {
-      log('db error执行重连:' + err.message)
+      console.log(('db error执行重连:' + err.message).log)
       handleDisconnection()
     } else {
       throw err
