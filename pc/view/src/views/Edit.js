@@ -43,7 +43,7 @@ class Edit extends React.Component {
     setData(index, value) {
         const data = this.state.data
         if (data[index].type === "text") {
-            if (data[index].length !== "") {
+            if (data[index].length) {
                 data[index].value = value.slice(0, data[index].length)
             } else if (data[index].regex === "number") {
                 if (!isNaN(value)) data[index].value = value
