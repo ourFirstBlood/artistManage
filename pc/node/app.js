@@ -8,7 +8,7 @@ const artist = require('./router/artist/index.js')
 const power = require('./router/power/index.js')
 const user = require('./router/user/index.js')
 const login = require('./router/login/index.js')
-const md5 = require('./router/utils/util.js')
+const router = express.Router()
 
 app.use(bodyParser.json())
 app.use(
@@ -17,7 +17,8 @@ app.use(
   })
 )
 app.use(cookieParase('_ivv_token_sign_key'));
-app.all('*', function(req, res, next) {
+
+app.post('*', function(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*')
   res.header('Access-Control-Allow-Headers', 'content-type')
   res.header('Access-Control-Allow-Methods', 'POST,GET')
@@ -35,19 +36,30 @@ app.all('*', function(req, res, next) {
   else next()
 })
 
-app.use('/artist', artist)
-app.use('/power', power)
-app.use('/user', user)
-app.use('/login', login)
-
 // 设置静态资源文件夹为static
-app.use(express.static('./dist'))
+app.use(express.static('../view/build'))
 //设置模板,会自动去views文件夹中查找.html
-app.set('views', './dist')
+app.set('views', '../view/build')
 //设置当前视图引擎中的模板的扩展名.html
 app.set('views engine', '.html')
 //设置解析views/.html模板的方法xtpl.renderFile,它会自动代替res.render()方法，从而使得程序的扩展性变强
 app.engine('html', xtpl.renderFile)
+
+router.get('*', (req, res) => {
+  res.render('index.html', {}, (err, content) => {
+    if (err) {
+      console.log(err)
+      return
+    }
+    res.end(content)
+  })
+})
+
+app.use('/artist', artist)
+app.use('/power', power)
+app.use('/user', user)
+app.use('/login', login)
+app.use('/',router)
 
 app.listen('8080', () => {
   console.log('http://127.0.0.1:8080')

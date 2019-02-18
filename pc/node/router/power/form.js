@@ -10,7 +10,9 @@ const edit_form = (req, res) => {
     try {
       JSON.parse(req.body[key])
     } catch (e) {
-      res.send({ code: 999, data: [], msg: key + '格式错误' })
+      common.fail(res, {
+        msg: key + '格式错误'
+      })
       return
     }
   }
@@ -37,7 +39,7 @@ const get_form = (req, res) => {
               arrStr = key
             }
             let arr = JSON.parse(arrStr)
-            arr.forEach(item=>{
+            arr.forEach(item => {
               item.sign = 'custom'
             })
             return arr
@@ -48,7 +50,7 @@ const get_form = (req, res) => {
               arrStr = key
             }
             let arr = JSON.parse(arrStr)
-            arr.forEach(item=>{
+            arr.forEach(item => {
               item.sign = 'fixed'
             })
             return arr

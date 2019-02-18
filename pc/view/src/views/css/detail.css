@@ -1,30 +1,48 @@
+.content{
+    width: 100%;
+    height: 100%;
+    background: #f1f1f1;
+    padding:0 5%;
+}
 .ivv-detail {
-    display: flex;
-    width: 90%;
-    margin: 15px auto;
-    justify-content: center;
-    background-color: #F8F8F8;
-    border-radius: 8px;
+    /* background: white; */
 }
+
 .ivv-detail .ivv-detail-ul {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
-.ivv-detail .ivv-detail-ul .ivv-detail-li{
-    display: flex;
-    flex-wrap: nowrap;
+
+.ivv-detail .ivv-detail-ul .ivv-detail-li {
+  display: flex;
+  flex-wrap: pre-wrap;
 }
+
 .ivv-detail .ivv-detail-name {
-    display: flex;
-    width: 150px;
-    margin-top: 15px;
-    padding-right: 15px;
-    justify-content: flex-end;
+  width: 150px;
+  text-align: right;
+  margin-top: 15px;
+  padding-right: 15px;
+  color: grey;
 }
+
 .ivv-detail .ivv-detail-value {
-    display: flex;
-    width: 150px;
-    padding-left: 15px;
-    margin-top: 15px;
-    color: #20a0ff;
+  display: flex;
+  white-space: pre-wrap;
+  padding-left: 15px;
+  margin-top: 15px;
+  /* color: #20a0ff; */
+}
+
+.title {
+  height: 70px;
+  display: flex;
+  align-items: center;
+  padding-left: 80px;
+  font-size: 25px;
+  border-bottom: 1px solid gainsboro;
+}
+
+.title>span {
+  margin-right: 20px;
 }
