@@ -1,0 +1,77 @@
+.form {
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: flex-start;
+    overflow: auto;
+    .form-layout {
+        width: 800px;
+        margin: 50px 80px;
+    }
+    .form-name {
+        width: 100%;
+        height: 35px;
+        line-height: 35px;
+    }
+    .form-props {
+        display: flex;
+        width: 100%;
+        margin: 15px 0;
+        padding-left: 15px;
+        justify-content: space-between;
+        span {
+            width: 150px;
+            text-align: center;
+        }
+        .operate {
+            width: 200px;
+        }
+    }
+    .form-cnt {
+        display: flex;
+        width: 100%;
+        margin: 8px 0;
+        padding-left: 15px;
+        justify-content: space-between;
+        span {
+            display: flex;
+            width: 150px;
+            justify-content: center;
+        }
+        .operate {
+            width: 200px;
+            justify-content:space-around;
+            color: #20A0FF;
+            em:hover {
+                cursor: pointer;
+            }
+        }
+    }
+    .line {
+        border: 1px dotted #000;
+    }
+    .add-form {
+        position: fixed;
+        left: 280px;
+        top: 75px;
+        width: 50px;
+        height: 50px;
+        text-align: center;
+        line-height: 50px;
+        font-size: 15px;
+        color: #fff;
+        background-color: #58B7FF;
+        border-radius: 25px;
+        transition: all 0.3s linear;
+    }
+    .add-form:hover {
+        background-color: #20A0FF;
+        cursor: pointer;
+    }
+    .form-btn {
+        display: flex;
+        width: 900px;
+        justify-content: flex-end;
+    }
+}

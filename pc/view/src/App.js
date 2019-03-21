@@ -1,29 +1,16 @@
 import React, { Component } from 'react';
-import { HashRouter } from 'react-router-dom'
-import Header from './component/header/Header'
-import Ivvform from './views/Ivvform'
-import Route from './Route'
-import './App.css';
-import history from './history';
-
+import Route from './route/Route'
+import { hot } from 'react-hot-loader/root'
+import './App.scss';
 
 class App extends Component {
-
-  componentDidMount() {
-  }
   render() {
     return (
-      <div className="App">
-        <HashRouter>
-          <div className="ivv-router">
-            <Header />
-            <Route history={history} />
-            <Ivvform />
-          </div>
-        </HashRouter>
-      </div>
+        <div className="App">
+          <Route/>
+        </div>
     );
   }
 }
 
-export default App;
+export default hot(App)
