@@ -24,14 +24,22 @@ app.post('*', function(req, res, next) {
   res.header('Access-Control-Allow-Headers', 'content-type')
   res.header('Access-Control-Allow-Methods', 'POST,GET')
   res.header('Content-Type', 'application/json;charset=utf-8')
-  if (req.path !== '/login' && !req.signedCookies._ivv_token) {
-    Ut.fail(res, { msg: '登陆超时' })
-    return
-  }
-  Ut.getUserInfo(req, res).then(result => {
+
+  const notJudge = ['/login'] //不校验登录的
+  if (notJudge.indexOf(req.path) === -1) {
+    if (!req.signedCookies._ivv_token) {
+      Ut.fail(res, { code: 996, msg: '登陆超时' })
+      return
+    } else {
+      Ut.getUserInfo(req, res).then(() => {
+        if (req.method.toLowerCase() == 'options') res.send(200)
+        else next()
+      })
+    }
+  } else {
     if (req.method.toLowerCase() == 'options') res.send(200)
     else next()
-  })
+  }
 })
 
 // 设置静态资源文件夹为static

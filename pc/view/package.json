@@ -31,5 +31,5 @@
   "devDependencies": {
     "node-sass": "^4.11.0"
   },
-  "proxy": "http://www.ivvmedia.com:8081/"
+  "proxy": "http://www.ivvmedia.cn"
 }
