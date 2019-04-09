@@ -3,11 +3,12 @@ const bodyParser = require('body-parser')
 const xtpl = require('xtpl')
 const fs = require('fs')
 const app = express()
-const cookieParase = require('cookie-parser');
+const cookieParase = require('cookie-parser')
 const artist = require('./router/artist/index.js')
 const power = require('./router/power/index.js')
 const user = require('./router/user/index.js')
 const login = require('./router/login/index.js')
+const Ut = require('./router/utils/util.js')
 const router = express.Router()
 
 app.use(bodyParser.json())
@@ -16,24 +17,21 @@ app.use(
     extended: false
   })
 )
-app.use(cookieParase('_ivv_token_sign_key'));
+app.use(cookieParase('_ivv_token_sign_key'))
 
 app.post('*', function(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*')
   res.header('Access-Control-Allow-Headers', 'content-type')
   res.header('Access-Control-Allow-Methods', 'POST,GET')
   res.header('Content-Type', 'application/json;charset=utf-8')
-
-  if(req.path!=='/login' && !req.signedCookies._ivv_token){
-    res.send({
-      code: 996,
-      data: [],
-      msg: '登陆超时'
-    })
+  if (req.path !== '/login' && !req.signedCookies._ivv_token) {
+    Ut.fail(res, { msg: '登陆超时' })
     return
   }
-  if (req.method.toLowerCase() == 'options') res.send(200)
-  else next()
+  Ut.getUserInfo(req, res).then(result => {
+    if (req.method.toLowerCase() == 'options') res.send(200)
+    else next()
+  })
 })
 
 // 设置静态资源文件夹为static
@@ -59,8 +57,8 @@ app.use('/artist', artist)
 app.use('/power', power)
 app.use('/user', user)
 app.use('/login', login)
-app.use('/',router)
+app.use('/', router)
 
-app.listen('8080', () => {
-  console.log('http://127.0.0.1:8080')
+app.listen('8081', () => {
+  console.log('http://127.0.0.1:8081')
 })

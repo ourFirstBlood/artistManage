@@ -1,6 +1,6 @@
 var crypto = require('crypto')
 var mysqlconnection = require('../../mysql/index.js')
-
+var that = this
 exports.md5 = function(str) {
   let md5 = crypto.createHash('md5')
   let newPas = md5.update(str).digest('hex')
@@ -22,10 +22,33 @@ exports.getPower = function(req, res) {
         return
       }
       if (result[0].is_super == 1) {
-        resolve()
+        resolve(result)
       } else {
-        reject()
+        reject(result)
         res.send({ code: 999, data: [], msg: '无权限操作' })
+      }
+    })
+  })
+}
+
+exports.getUserInfo = function(req, res) {
+  return new Promise((resolve, reject) => {
+    let connection = mysqlconnection.connection
+    let selectSql =
+      "SELECT * FROM user_admin WHERE user_name='" +
+      req.signedCookies._ivv_token +
+      "'"
+    connection.query(selectSql, function(err, result) {
+      if (err) {
+        console.log('[SELECT ERROR] - ', err.message)
+        reject(err)
+        res.send({ code: 999, data: [], msg: err.message })
+        return
+      }
+      if (result.length) {
+        resolve(result)
+      } else {
+        that.fail(res, { msg: '没有该账号' })
       }
     })
   })
@@ -75,29 +98,29 @@ exports.sql_update = function(selectSql, userModSql_Params, res) {
 }
 
 exports.formatTime = function(dateObj, fmt) {
-    if (/(Y+)/.test(fmt)) {
+  if (/(Y+)/.test(fmt)) {
+    fmt = fmt.replace(
+      RegExp.$1,
+      (dateObj.getFullYear() + '').substr(4 - RegExp.$1.length)
+    )
+  }
+  let o = {
+    'M+': dateObj.getMonth() + 1 + '',
+    'D+': dateObj.getDate() + '',
+    'H+': dateObj.getHours() + '',
+    'm+': dateObj.getMinutes() + '',
+    's+': dateObj.getSeconds() + ''
+  }
+  for (let k in o) {
+    if (new RegExp(`(${k})`).test(fmt)) {
       fmt = fmt.replace(
         RegExp.$1,
-        (dateObj.getFullYear() + '').substr(4 - RegExp.$1.length)
+        RegExp.$1.length === 1 ? o[k] : addZero(o[k])
       )
     }
-    let o = {
-      'M+': dateObj.getMonth() + 1 + '',
-      'D+': dateObj.getDate() + '',
-      'H+': dateObj.getHours() + '',
-      'm+': dateObj.getMinutes() + '',
-      's+': dateObj.getSeconds() + ''
-    }
-    for (let k in o) {
-      if (new RegExp(`(${k})`).test(fmt)) {
-        fmt = fmt.replace(
-          RegExp.$1,
-          RegExp.$1.length === 1 ? o[k] : addZero(o[k])
-        )
-      }
-    }
-    function addZero(str) {
-      return ('00' + str).substr(str.length)
-    }
-    return fmt
   }
+  function addZero(str) {
+    return ('00' + str).substr(str.length)
+  }
+  return fmt
+}
