@@ -32,6 +32,10 @@ app.post('*', function(req, res, next) {
       return
     } else {
       Ut.getUserInfo(req, res).then(() => {
+        res.cookie('_ivv_token', req.signedCookies._ivv_token, {
+          maxAge: 1000 * 60 * 120,
+          signed: true
+        })
         if (req.method.toLowerCase() == 'options') res.send(200)
         else next()
       })

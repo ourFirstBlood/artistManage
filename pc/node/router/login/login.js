@@ -10,7 +10,7 @@ module.exports = {
       } else {
         if (Ut.md5(req.body.password) == result[0].password) {
           res.cookie('_ivv_token', req.body.user_name, {
-            maxAge: 1000 * 60 * 30,
+            maxAge: 1000 * 60 * 120,
             signed: true
           })
           Ut.success(res, { msg: '登陆成功' })

@@ -1,62 +1,103 @@
 .nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  display: flex;
+  width: 100%;
+  height: 60px;
+  align-items: center;
+  background-color: #23262E;
+
+  .nav-title {
+    width: 260px;
+    text-align: center;
+    font-size: 16px;
+    color: #009688;
+    font-weight: normal;
+  }
+
+  .nav-lists {
+    position: relative;
     display: flex;
-    width: 100%;
-    height: 60px;
+
+    li {
+      display: flex;
+      height: 60px;
+      padding: 0 20px;
+      align-items: center;
+      font-size: 15px;
+
+      a {
+        color: #ccc;
+        text-decoration: none;
+      }
+
+      .active {
+        color: #20A0FF;
+        font-weight: bolder;
+      }
+    }
+  }
+
+  .nav-info {
+    position: absolute;
+    right: 20px;
+    top: 12px;
+    z-index: 99;
+    display: flex;
     align-items: center;
-    background-color: #23262E;
 
-    .nav-title {
-        width: 260px;
+    .avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      -webkit-border-radius: 50%;
+      -moz-border-radius: 50%;
+      -ms-border-radius: 50%;
+      -o-border-radius: 50%;
+    }
+
+    .me {
+      margin: 0 10px;
+      color: #fff;
+      opacity: .7;
+    }
+
+    .me:hover {
+      cursor: pointer;
+    }
+
+    .personal-list {
+      position: absolute;
+      height: 0;
+      width: 100%;
+      overflow: hidden;
+      background: white;
+      top: 100%;
+      z-index: 99999;
+      transition: height .5s;
+      -webkit-transition: height .5s;
+      -moz-transition: height .5s;
+      -ms-transition: height .5s;
+      -o-transition: height .5s;
+
+      li {
+        padding: 10px;
+        box-sizing: border-box;
+        cursor: pointer;
         text-align: center;
-        font-size: 16px;
-        color: #009688;
-        font-weight: normal;
-    }
-    .nav-lists {
-        position: relative;
-        display: flex;
-        li {
-            display: flex;
-            height: 60px;
-            padding: 0 20px; 
-            align-items: center;
-            font-size: 15px;
-            a {
-                color: #ccc;
-                text-decoration: none;
-            }
-            .active {
-                color: #20A0FF;
-                font-weight: bolder;
-            }
-        }
-    }
-    .nav-info {
-        position: absolute;
-        right: 20px;
-        top: 12px;
-        z-index: 99;
-        display: flex;
-        align-items: center;
 
-        .avatar { 
-            width: 36px;
-            height: 36px;
-            border-radius: 18px;
+        &:hover {
+          background: #23262E;
+          color: #efefef;
         }
-        .me {
-            margin: 0 10px;
-            color: #fff;
-            opacity: .7;
+
+        &~li {
+          border-top: 1px solid gainsboro;
         }
-        .me:hover {
-            opacity: 1;
-            cursor: pointer;
-        }
+      }
     }
-    
+  }
+
 }
