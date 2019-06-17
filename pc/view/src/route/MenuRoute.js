@@ -27,7 +27,7 @@ class RouteView extends Component {
         <Header
           history={this.props.history}
           height={height}
-          fn={this.extentAvatar.bind(this, 80)}
+          fn={this.extentAvatar.bind(this, 125)}
         />
         <Menu />
         <Route path="/index/list" key="List" component={List} />

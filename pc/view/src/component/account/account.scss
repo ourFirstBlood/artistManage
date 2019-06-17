@@ -1,42 +1,16 @@
 .account {
-  display: flex;
   width: 100%;
   height: 100%;
-  min-height: 600px;
-  justify-content: center;
-  align-items: center;
+  padding: 20px;
+}
+.el-icon-check{
+  color: #2F7DCD;
+}
+.el-icon-close{
+  color: #EC8B89;
+}
 
-  .account-layout {
-    width: 380px;
-
-    .account-title {
-      text-align: center;
-      margin-bottom: 25px;
-      font-size: 25px;
-    }
-
-    li {
-      display: flex;
-      width: 100%;
-      height: 50px;
-      margin-bottom: 15px;
-      justify-content: center;
-      align-items: center;
-    }
-
-    li:last-child {
-      justify-content: flex-end;
-    }
-
-    .account-name {
-      display: flex;
-      width: 120px;
-      margin-right: 15px;
-      flex-direction: row-reverse;
-    }
-
-    .account-input {
-      width: 200px;
-    }
-  }
+.add-btn{
+  margin-bottom: 10px !important;
+  text-align: right;
 }

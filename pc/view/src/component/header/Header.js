@@ -34,17 +34,15 @@ class Header extends Component {
       <div className="nav">
         <h1 className="nav-title">ivv后台管理系统</h1>
         <ul className="nav-lists">
-          <li>
-            <NavLink to="/index/list">主页</NavLink>
-          </li>
-          <li>
-            <NavLink to="/index/purview">权限管理</NavLink>
+          <li style={{flex:1}}>
+            <a href="http://www.ivvmedia.com">官网</a>
           </li>
         </ul>
         <div className="nav-info" onClick={fn}>
           <img className="avatar" alt="头像" src={require('./default.png')} />
           <span className="me">我的</span>
           <ul className="personal-list" style={{ height: height + 'px' }}>
+            <li>< NavLink to = "/index/purview" >权限管理</NavLink></li>
             <li>个人信息</li>
             <li onClick={this.singOut.bind(this)}>注销</li>
           </ul>

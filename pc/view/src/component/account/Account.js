@@ -1,19 +1,64 @@
 import React, { Component } from 'react'
-import { Input, Button, Radio } from 'element-react'
 import ajaxReq from '../../common/ajaxReq'
 import msg from '../../common/msg'
 import './account.scss'
-import { Loading } from 'element-react'
+import { Loading,Table, Button, Icon,Tag,Pagination, MessageBox,Input, Radio   } from 'element-react'
 class Account extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      user: '',
-      pwd: '',
-      isManager: 0,
-      name: '',
-      loading: false,
-      user_list: []
+       columns: [
+      {
+        type: 'index'
+      },
+      {
+        label: "账号",
+        prop: "date",
+        width: 150,
+        render: function(data){
+          return (
+          <span>
+            <span>{data.user_name}</span>
+          </span>)
+        }
+      },
+      {
+        label: "昵称",
+        prop: "name",
+        width: 160,
+        render: function(data){
+          return <span>{data.name || '--'}</span>
+        }
+      },
+      {
+        label: "是否超管",
+        prop: "name",
+        width: 160,
+        render: function(data){
+          return (
+            <span>
+                <Icon name={data.is_super === '1'?'check':'close'} />
+                <span style={{marginLeft:'10px'}}>{data.is_super === '1' ? '是': '否' }</span>
+            </span>
+          )
+        }
+      },
+      {
+        label: "操作",
+        prop: "address",
+        render: function(){
+          return (
+            <span>
+             <Button plain={true} type="info" size="small">编辑</Button>
+             <Button type="danger" size="small">删除</Button>
+            </span>
+          )
+        }
+      }
+    ],
+    userList: [],
+      loading: true
+
     }
   }
   setManage = isManager => {
@@ -49,90 +94,26 @@ class Account extends Component {
         }
       })
       .then(res => {
-        this.setState({ user_list: res.data, loading: false })
+        this.setState({
+          userList: res.data,
+          loading: false
+        })
       })
   }
   render() {
     return (
       <div className="account">
         <Loading loading={this.state.loading}>
-          <ul>
-            {this.state.user_list.map(function(item, key) {
-              return (
-                <li key={key}>
-                  <div>
-                    <span>账号:</span>
-                    <span>{item.user_name}</span>
-                  </div>
-                  <div>
-                    <span>昵称:</span>
-                    <span>{item.name}</span>
-                  </div>
-                  <div>
-                    <span>是否超管:</span>
-                    <span>{Number(item.is_super) ? '是' : '否'}</span>
-                  </div>
-                </li>
-              )
-            })}
-          </ul>
-          {/* <div className="account-layout">
-            <h1 className="account-title">添加新的子账户</h1>
-            <ul>
-              <li>
-                <span className="account-name">管理员账户：</span>
-                <span className="account-input">
-                  <Input
-                    value={this.state.user}
-                    onChange={user => this.setState({ user })}
-                  />
-                </span>
-              </li>
-              <li>
-                <span className="account-name">管理员密码：</span>
-                <span className="account-input">
-                  <Input
-                    type="password"
-                    value={this.state.pwd}
-                    onChange={pwd => this.setState({ pwd })}
-                  />
-                </span>
-              </li>
-              <li>
-                <span className="account-name">超级管理员：</span>
-                <span className="account-input">
-                  <Radio
-                    value={1}
-                    checked={this.state.isManager === 1}
-                    onChange={this.setManage.bind(this)}
-                  >
-                    是
-                  </Radio>
-                  <Radio
-                    value={0}
-                    checked={this.state.isManager === 0}
-                    onChange={this.setManage.bind(this)}
-                  >
-                    否
-                  </Radio>
-                </span>
-              </li>
-              <li>
-                <span className="account-name">管理员姓名：</span>
-                <span className="account-input">
-                  <Input
-                    value={this.state.name}
-                    onChange={name => this.setState({ name })}
-                  />
-                </span>
-              </li>
-              <li>
-                <Button onClick={this.addAccount} type="primary">
-                  添加
-                </Button>
-              </li>
-            </ul>
-          </div> */}
+          <Button type="primary" className="add-btn" icon="edit">新建管理员</Button>
+          <Table
+            style={{width: '100%'}}
+            columns={this.state.columns}
+            data={this.state.userList}
+            border={true}
+            height={250}
+            highlightCurrentRow={true}
+            onCurrentChange={item=>{console.log(item)}}
+            />
         </Loading>
       </div>
     )

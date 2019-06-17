@@ -8,6 +8,7 @@ class Menu extends Component {
         return (
             <div className="menu">
                 <ul className="menu-lists">
+                    <li><NavLink to="/index/list">艺人库</NavLink></li>
                     <li><NavLink to="/index/account">账号管理</NavLink></li>
                     <li><NavLink to="/index/form">表单管理</NavLink></li>
                     <li><NavLink to="/index/plus/">新增或修改</NavLink></li>
