@@ -7,11 +7,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
   </head>
 
-  <body></body>
+  <body>
+    <div>
+      <span>
+        <div>
+          <a href="">fun</a>
+        </div>
+      </span>
+    </div>
+  </body>
 </html>
 <script>
-  const obj = { a: 1, b: 2, c: 3 }
-  for (let [key, value] of Object.entries(obj)) {
-    console.log(key, value)
+  window.onload = function() {
+    console.log($('div'))
   }
 </script>

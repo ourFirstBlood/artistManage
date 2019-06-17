@@ -162,6 +162,7 @@ class List extends Component {
           style={{ width: '100%', height: '100%' }}
         >
           <div className="list-table">
+          <Button style={{marginBottom:'10px'}} onClick={()=>{window.open('/artist/exportsExcel')}}>导出</Button>
             <Table
               style={{ maxWidth: '100%' }}
               columns={this.state.columns}
