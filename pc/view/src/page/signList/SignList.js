@@ -17,8 +17,19 @@ class List extends Component {
       columns: [
         {
           label: '真实姓名',
-          prop: 'realname',
-          width: 120
+          width: 120,
+          render: item => {
+            return (
+              <span>
+                {item.type === 'love' ? (
+                  <i className="el-icon-circle-check icon-span"></i>
+                ) : item.type === 'important' ? (
+                  <i className="el-icon-star-on icon-span"></i>
+                ) : null}
+                {item.realname}
+              </span>
+            )
+          }
         },
         {
           label: '性别',
@@ -130,7 +141,7 @@ class List extends Component {
       data: [],
       options: [
         {
-          value: '',
+          value: 'admin',
           label: '全部'
         },
         {
@@ -206,10 +217,6 @@ class List extends Component {
     })
   }
 
-  // 列状态
-  rowClassName(row, index) {
-    return row.type
-  }
   //修改跳转
   update = row => {
     this.props.history.push(`/index/plus/${row.id}`)
@@ -231,7 +238,6 @@ class List extends Component {
             <Select
               style={{ marginBottom: '15px' }}
               value={this.state.value}
-              clearable={true}
               onChange={val => {
                 this.getList(val)
               }}
@@ -247,7 +253,6 @@ class List extends Component {
               })}
             </Select>
             <Table
-              rowClassName={this.rowClassName.bind(this)}
               style={{ maxWidth: '100%' }}
               columns={this.state.columns}
               maxHeight={700}
