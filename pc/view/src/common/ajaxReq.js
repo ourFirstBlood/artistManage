@@ -1,7 +1,7 @@
 import axios from 'axios'
 import msg from './msg'
 import qs from 'qs'
-function ajaxReq({ url, params = {} }) {
+function ajaxReq({ url, params = {}, alert = true }) {
   return new Promise((resolve, reject) => {
     axios({
       method: 'POST',
@@ -11,6 +11,10 @@ function ajaxReq({ url, params = {} }) {
     })
       .then(res => {
         if (res.status === 200) {
+          if (!alert) {
+            resolve(res.data)
+            return
+          }
           if (res.data.code === 0) {
             resolve(res.data)
           } else if (res.data.code === 996) {

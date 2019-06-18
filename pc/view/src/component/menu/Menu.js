@@ -8,7 +8,8 @@ class Menu extends Component {
         return (
             <div className="menu">
                 <ul className="menu-lists">
-                    <li><NavLink to="/artists">艺人管理</NavLink></li>
+                    <li><NavLink to="/index/artists">艺人管理</NavLink></li>
+                    <li><NavLink to="/index/signList">报名列表</NavLink></li>
                     <li><NavLink to="/power/account">账号管理</NavLink></li>
                     <li><NavLink to="/power/formManage">表单管理</NavLink></li>
                 </ul>
