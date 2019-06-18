@@ -1,16 +1,17 @@
-import React, { Component } from 'react'
-import { Route } from 'react-router-dom'
-import Header from '../component/header/Header'
-import Menu from '../component/menu/Menu'
-import List from '../component/list/List'
-import Account from '../component/account/Account'
-import Form from '../component/form/Form'
-import Plus from '../component/plus/Plus'
+import React, { Component } from "react"
+import { Route } from "react-router-dom"
+import Header from "../component/header/Header"
+import Menu from "../component/menu/Menu"
+import Artists from "../page/artist/Artists"
+import Account from "../page/account/Account"
+import FormManage from "../component/form/FormManage"
+import Mine from "../page/mine/Mine"
+import Plus from "../page/plus/Plus"
 class RouteView extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      height: 0
+      height: 0,
     }
   }
   extentAvatar(height, e) {
@@ -27,13 +28,14 @@ class RouteView extends Component {
         <Header
           history={this.props.history}
           height={height}
-          fn={this.extentAvatar.bind(this, 125)}
+          fn={this.extentAvatar.bind(this, 83)}
         />
         <Menu />
-        <Route path="/index/list" key="List" component={List} />
-        <Route path="/index/account" key="account" component={Account} />
-        <Route path="/index/form" key="form" component={Form} />
-        <Route path="/index/plus/:id?" key="plus" component={Plus} />
+        <Route path="/artists" key="List" component={Artists} exact />
+        <Route path="/artists/plus/:id?" key="plus" component={Plus} />
+        <Route path="/power/account" key="account" component={Account} />
+        <Route path="/power/formManage" key="form" component={FormManage} />
+        <Route path="/power/mine" key="mine" component={Mine} />
       </div>
     )
   }

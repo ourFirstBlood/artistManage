@@ -32,7 +32,7 @@ class Header extends Component {
     const fn = this.props.fn
     return (
       <div className="nav">
-        <h1 className="nav-title"><a href="/index/list">艺人管理系统</a></h1>
+        <h1 className="nav-title"><a href="/">艺人管理系统</a></h1>
         <ul className="nav-lists">
           <li style={{flex:1}}>
             <a href="http://www.ivvmedia.com">官网</a>
@@ -42,8 +42,7 @@ class Header extends Component {
           <img className="avatar" alt="头像" src={require('./default.png')} />
           <span className="me">我的</span>
           <ul className="personal-list" style={{ height: height + 'px' }}>
-            <li>< NavLink to = "/index/purview" >权限管理</NavLink></li>
-            <li>个人信息</li>
+            <li><NavLink to="/power/mine">个人信息</NavLink></li>
             <li onClick={this.singOut.bind(this)}>注销</li>
           </ul>
         </div>

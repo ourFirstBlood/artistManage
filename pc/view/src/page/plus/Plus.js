@@ -129,7 +129,7 @@ class Plus extends Component {
                 <Loading style={{width:'100%', height:'100%'}} loading={this.state.loading}>
                     <ul >
                         {forms}
-                        <li style={this.state.loading?{display:'none'}:null}><Button onClick={this.verifySave} type="primary">保存</Button></li>
+                        <li style={this.state.loading?{display:'none'}:null}><Button onClick={()=>{this.props.history.go(-1)}}>返回</Button><Button onClick={this.verifySave} type="primary">保存</Button></li>
                     </ul>
                 </Loading>
             </div>
