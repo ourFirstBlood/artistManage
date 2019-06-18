@@ -86,9 +86,14 @@ class List extends Component {
           width: 160
         },
         {
+          label: '个人经历',
+          prop: 'live_history',
+          width: 200
+        },
+        {
           label: '所在地',
           prop: 'address',
-          width: 200
+          width: 100
         },
         {
           label: '个人照片',
