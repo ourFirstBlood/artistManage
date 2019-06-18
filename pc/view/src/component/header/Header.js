@@ -32,7 +32,7 @@ class Header extends Component {
     const fn = this.props.fn
     return (
       <div className="nav">
-        <h1 className="nav-title">ivv后台管理系统</h1>
+        <h1 className="nav-title"><a href="/index/list">艺人管理系统</a></h1>
         <ul className="nav-lists">
           <li style={{flex:1}}>
             <a href="http://www.ivvmedia.com">官网</a>

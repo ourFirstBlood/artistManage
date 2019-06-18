@@ -15,18 +15,20 @@
        overflow: hidden;
     }
     .box-layout {
-        position: relative;
+        position: absolute;
         width: 420px;
-        height: 100%;
-        padding: 15px 20px;
-        background-color: #E5E9F2;
+        max-height: 100%;
+        padding: 25px 15px 20px;
+        background-color: white;
         border-radius: 8px;
         box-shadow: 0 0 5px #1F2D3D;
-        overflow: hidden auto;
+        overflow: hidden scroll;
         .box-close {
+            color: #a09e9e;
             position: absolute;
-            top: 10px;
-            right: 10px;
+            top: 15px;
+            right: 15px;
+            font-size: 20px;
         }
         .box-close:hover {
             cursor: pointer;
@@ -34,11 +36,9 @@
         .box-nav {
             text-align: center;
             margin-bottom: 15px;
+            font-size: 24px;
         }
         .box-data {
-            display: flex;
-            width: 100%;
-            flex-wrap: wrap;
             li {
                 display: flex;
                 width: 100%;
@@ -47,13 +47,15 @@
             }
             .box-props {
                 display: flex;
-                width: 200px;
+                width: 100px;
                 padding-right: 5px;
                 justify-content: flex-end;
+                color: #868686;
             }
             .box-val {
-                width:200px;
-                padding-left: 5px;
+                flex: 1;
+                white-space: pre-wrap;
+                padding-left: 25px;
             }
         }
     }

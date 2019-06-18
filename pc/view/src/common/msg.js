@@ -1,4 +1,4 @@
-import {Message} from 'element-react'
+import { Message } from 'element-react'
 
 export default function(msg, type=true) {
     Message({

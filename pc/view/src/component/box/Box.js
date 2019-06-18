@@ -30,7 +30,7 @@ class Box extends Component {
         return (
             <div className="box">
                 <div className="box-layout">
-                    <i onClick={this.props.show} className="el-icon-close box-close"></i>
+                    <i onClick={this.props.show} className="el-icon-circle-cross box-close"></i>
                     <h1 className="box-nav">
                         详情
                     </h1>

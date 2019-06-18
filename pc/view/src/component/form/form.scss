@@ -22,7 +22,7 @@
         justify-content: space-between;
         span {
             width: 150px;
-            text-align: center;
+            // text-align: center;
         }
         .operate {
             width: 200px;
@@ -34,16 +34,17 @@
         margin: 8px 0;
         padding-left: 15px;
         justify-content: space-between;
+        transition:all .5s;
         span {
             display: flex;
-            width: 150px;
+            // width: 150px;
             justify-content: center;
         }
         .operate {
             width: 200px;
             justify-content:space-around;
             color: #20A0FF;
-            em:hover {
+            em{
                 cursor: pointer;
             }
         }

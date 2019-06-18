@@ -46,10 +46,10 @@ class Form extends Component {
           <span>{val.name}</span>
           <span>{this.state.translation[val.type]}</span>
           <span className="operate">
-            <em onClick={this.setShowSet.bind(this, index, isShow)}>编辑</em>
-            <em onClick={this.handleDel.bind(this, index, isShow)}>删除</em>
-            <em onClick={this.handleUp.bind(this, index, isShow)}>上移</em>
-            <em onClick={this.handleDown.bind(this, index, isShow)}>下移</em>
+            <Button onClick={this.setShowSet.bind(this, index, isShow)} type="primary" icon="edit" size="mini"></Button>
+            <Button onClick={this.handleUp.bind(this, index, isShow)} type="success" icon="caret-top" size="mini" disabled={ index === 0 ? true : false }></Button>
+            <Button onClick={this.handleDown.bind(this, index, isShow)} type="success" icon="caret-bottom" size="mini" disabled={ data.length - 1 === index ? true : false }></Button>
+            <Button onClick={this.handleDel.bind(this, index, isShow)} size="mini" type="danger" icon="delete"></Button>
           </span>
         </li>
       )

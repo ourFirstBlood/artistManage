@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import ajaxReq from '../../common/ajaxReq'
 import msg from '../../common/msg'
 import './account.scss'
-import { Loading,Table, Button, Icon,Tag,Pagination, MessageBox,Input, Radio   } from 'element-react'
+import { Loading,Table, Button, Icon } from 'element-react'
 class Account extends Component {
   constructor(props) {
     super(props)
