@@ -46,10 +46,32 @@ class Form extends Component {
           <span>{val.name}</span>
           <span>{this.state.translation[val.type]}</span>
           <span className="operate">
-            <Button onClick={this.setShowSet.bind(this, index, isShow)} type="primary" icon="edit" size="mini"></Button>
-            <Button onClick={this.handleUp.bind(this, index, isShow)} type="success" icon="caret-top" size="mini" disabled={ index === 0 ? true : false }></Button>
-            <Button onClick={this.handleDown.bind(this, index, isShow)} type="success" icon="caret-bottom" size="mini" disabled={ data.length - 1 === index ? true : false }></Button>
-            <Button onClick={this.handleDel.bind(this, index, isShow)} size="mini" type="danger" icon="delete"></Button>
+            <Button
+              onClick={this.setShowSet.bind(this, index, isShow)}
+              type="primary"
+              icon="edit"
+              size="mini"
+            ></Button>
+            <Button
+              onClick={this.handleUp.bind(this, index, isShow)}
+              type="success"
+              icon="caret-top"
+              size="mini"
+              disabled={index === 0 ? true : false}
+            ></Button>
+            <Button
+              onClick={this.handleDown.bind(this, index, isShow)}
+              type="success"
+              icon="caret-bottom"
+              size="mini"
+              disabled={data.length - 1 === index ? true : false}
+            ></Button>
+            <Button
+              onClick={this.handleDel.bind(this, index, isShow)}
+              size="mini"
+              type="danger"
+              icon="delete"
+            ></Button>
           </span>
         </li>
       )
@@ -208,16 +230,16 @@ class Form extends Component {
           text="拼命加载中"
         >
           <div className="form-layout">
-            <div className="form-name">固定字段</div>
             <div className="form-props">
               <span>序号</span>
               <span>字段名</span>
               <span>类别</span>
               <span className="operate">操作</span>
             </div>
-            <ul>{this.setForm(this.state.showForm, true)}</ul>
+            <div className="form-name">固定字段</div>
+            <ul className="forms">{this.setForm(this.state.showForm, true)}</ul>
             <div className="form-name">展示字段</div>
-            <ul>{this.setForm(this.state.fixForm, false)}</ul>
+            <ul className="forms">{this.setForm(this.state.fixForm, false)}</ul>
           </div>
           <span onClick={this.setShowSet.bind(this, -1)} className="add-form">
             <i className="el-icon-plus" />
