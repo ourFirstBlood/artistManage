@@ -18,3 +18,5 @@ router.post('/get_user_info', (req,res)=>{
     success(res, { data })
   })
 })
+
+module.exports = router

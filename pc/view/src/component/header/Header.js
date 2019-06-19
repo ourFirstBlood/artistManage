@@ -43,7 +43,7 @@ class Header extends Component {
           <span className="me">我的</span>
           <ul className="personal-list" style={{ height: height + 'px' }}>
             <li><NavLink to="/power/mine">个人信息</NavLink></li>
-            <li onClick={this.singOut.bind(this)}>注销</li>
+            <li style={{color:'red'}} onClick={this.singOut.bind(this)}>注销</li>
           </ul>
         </div>
       </div>

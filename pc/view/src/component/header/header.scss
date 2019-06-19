@@ -41,6 +41,7 @@
 
       .active {
         color: #20A0FF;
+            // color: #13CE66;
         font-weight: bolder;
       }
     }
@@ -97,6 +98,9 @@
           text-decoration: none;
           color: black;
         }
+        .active {
+         color: #20A0FF;
+       }
         &:hover {
           background: #23262E;
           color: #efefef;
