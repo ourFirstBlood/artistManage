@@ -12,15 +12,10 @@ export default class Mine extends Component {
     this.setState({ loading: true })
     ajaxReq
       .call(this, {
-        url: "/login/get_users",
-        params: {
-          user_name: this.state.user,
-          password: this.state.pwd,
-          is_super: this.state.isManager,
-          name: this.state.name,
-        },
+        url: "/user/get_user_info",
       })
       .then(res => {
+        console.log(res.data)
         this.setState({
           userList: res.data,
           loading: false,

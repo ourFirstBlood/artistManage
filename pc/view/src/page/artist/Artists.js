@@ -98,7 +98,7 @@ class List extends Component {
   }
   //修改跳转
   update = row => {
-    this.props.history.push(`/index/plus/${row.id}`)
+    this.props.history.push(`/index/artists/plus/${row.id}`)
   }
   //初始化获取表单结构
   componentDidMount() {
@@ -162,7 +162,7 @@ class List extends Component {
           style={{ width: '100%', height: '100%' }}
         >
           <div className="list-table">
-          <Button style={{marginBottom:'10px'}} type="primary" onClick={()=>{this.props.history.push('/artists/plus')}}>新建</Button>
+          <Button style={{marginBottom:'10px'}} type="primary" onClick={()=>{this.props.history.push('/index/artists/plus')}}>新建</Button>
           <Button style={{marginBottom:'10px'}} onClick={()=>{window.open('/artist/exportsExcel')}}>导出</Button>
             <Table
               style={{ maxWidth: '100%' }}
