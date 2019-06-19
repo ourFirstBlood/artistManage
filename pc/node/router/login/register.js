@@ -1,4 +1,3 @@
-var mysqlconnection = require('../../mysql/index.js')
 var {
   md5,
   fail,
@@ -7,7 +6,6 @@ var {
   success,
   sql_update
 } = require('../utils/util.js')
-mysqlconnection.handleDisconnection()
 
 const add_user = (req, res) => {
   //判断格式
@@ -48,17 +46,7 @@ const add_user = (req, res) => {
   })
 }
 
-const get_user_info = (req, res) => {
-  var selectSql =
-    "SELECT * FROM user_admin WHERE user_name='" +
-    req.signedCookies._ivv_token +
-    "'"
-  sql_select(selectSql, res).then(result => {
-    delete result[0]['password']
-    const data = result[0]
-    success(res, { data })
-  })
-}
+
 
 const get_users = (req, res) => {
   getPower(req, res).then(() => {
@@ -72,4 +60,4 @@ const get_users = (req, res) => {
   })
 }
 
-module.exports = { add_user, get_user_info, get_users }
+module.exports = { add_user, get_users }
