@@ -200,9 +200,13 @@ data:{
   id:"0" ,  //0 =>新增  每一项id  =>修改
   "info":[   {
                 "name": "姓名",
-                "required": true,
-                "type": "text",
-                "length": 15,
+                "required": true, //是否必填字段
+                "type": "text", //表单类型,选项有['text','number','radio','checkbox','date']
+                "length": 15,//输入的长度,仅对 text number 类型有效,
+                options:[
+                    "男",
+                    "女"
+                ],     //radio和checkbox 才有,选项
                 "regex": "",
                 "sign": "custom",
                 "value":"12"
