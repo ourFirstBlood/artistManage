@@ -1,0 +1,342 @@
+#接口文档 更新于2019-11-24
+
+*接口返回格式:
+{
+    "code": 996, // 0 : 无错误  999 : 报错 996 未登录
+    "data": [], //数据源,为空时是空数组
+    "msg": "登陆超时" //提示语
+}
+
+<--登陆部分-->
+
+#登录接口
+url : /login
+method : post
+data : {
+    "password": "adminpass",
+    "user_name": "admin"
+}
+
+#注销
+url : /login/logout
+method : post
+data : {}
+
+<--表单管理部分-->
+
+#获取表单结构
+url : /power/form/get_form
+method : post
+data : {}
+response:{
+    "code": 0,
+    "data": {
+        "custom": [
+            {
+                "name": "姓名",
+                "required": true,
+                "type": "text",
+                "length": 15,
+                "regex": "",
+                "sign": "custom"
+            },
+            {
+                "name": "打算",
+                "required": true,
+                "type": "date",
+                "sign": "custom"
+            },
+            {
+                "name": "性别",
+                "required": true,
+                "type": "radio",
+                "options": [
+                    "男",
+                    "女"
+                ],
+                "sign": "custom"
+            }
+        ],
+        "fixed": [
+            {
+                "name": "平台id",
+                "type": "text",
+                "length": 15,
+                "required": true,
+                "regex": "",
+                "sign": "fixed"
+            },
+            {
+                "name": "平台",
+                "type": "text",
+                "length": 15,
+                "required": true,
+                "regex": "",
+                "sign": "fixed"
+            },
+            {
+                "name": "粉丝",
+                "type": "text",
+                "length": 10,
+                "required": true,
+                "regex": "",
+                "sign": "fixed"
+            }
+        ]
+    },
+    "msg": "成功"
+}
+
+#设置表单结构
+url : /power/form/get_form
+method : post
+data : {
+  custom:[
+            {
+                "name": "姓名",
+                "required": true,
+                "type": "text",
+                "length": 15,
+                "regex": ""
+            },
+            {
+                "name": "性别",
+                "required": true,
+                "type": "radio",
+                "options": [
+                    "男",
+                    "女"
+                ]
+            },
+            {
+                "name": "打算",
+                "required": true,
+                "type": "date"
+            }
+        ],
+        fixed:[
+            {
+                "name": "平台",
+                "type": "text",
+                "length": 15,
+                "required": true,
+                "regex": ""
+            },
+            {
+                "name": "平台id",
+                "type": "text",
+                "length": 15,
+                "required": true,
+                "regex": ""
+            },
+            {
+                "name": "粉丝",
+                "type": "text",
+                "length": 10,
+                "required": true,
+                "regex": ""
+            }
+        ]
+}
+
+<--账号管理部分-->
+
+#添加/修改 账号
+url : /power/form/get_form
+method : post
+data:{
+  "user_name":"test3878",//用户名
+  "password":123123", //修改信息的时候非必传,不能该别人密码
+  "is_super":0, //是否超管 1=>是 0=>否
+  "name":"好运来",//昵称
+  "id":"8" //修改账号的id,当0则为新增
+}
+
+#重置账号的密码(只有超管才有权限,重置后密码为123456)
+url : /login/reset_pw
+method : post
+data:{
+  "id":"7"
+}
+
+#删除账号(只有超管才有权限)
+url : /login/delete_users
+method : post
+data:{
+  "id":"7"
+}
+
+<--个人账号部分-->
+
+#查看本人的信息(获取个人资料)
+url : /user/get_user_info
+method : post
+data:{
+}
+response:{
+    "code": 0,
+    "data": {
+        "user_name": "admin",
+        "is_super": "1",
+        "id": 6,
+        "name": "超管"
+    },
+    "msg": "成功"
+}
+
+#修改本人的密码
+url : /user/edit_password
+method : post
+data:{
+  "password":"331332"
+}
+
+<--艺人管理部分-->
+
+#新增一条数据
+url : /artist/add_artists
+method : post
+data:{
+  id:"0" ,  //0 =>新增  每一项id  =>修改
+  "info":[   {
+                "name": "姓名",
+                "required": true,
+                "type": "text",
+                "length": 15,
+                "regex": "",
+                "sign": "custom",
+                "value":"12"
+            },
+            {
+                "name": "性别",
+                "required": true,
+                "type": "radio",
+                "options": [
+                    "男",
+                    "女"
+                ],
+                "sign": "custom",
+                "value":"男"
+            },
+            {
+                "name": "打算",
+                "required": true,
+                "type": "date",
+                "sign": "custom",
+                "value":"2019-12-12"
+            },
+             {
+                "name": "平台",
+                "type": "text",
+                "length": 15,
+                "required": true,
+                "regex": "",
+                "sign": "fixed",
+                "value":"熊猫TV"
+            },
+            {
+                "name": "平台id",
+                "type": "text",
+                "length": 15,
+                "required": true,
+                "regex": "",
+                "sign": "fixed",
+                 "value":"一头驴"
+            },
+            {
+                "name": "粉丝",
+                "type": "text",
+                "length": 10,
+                "required": true,
+                "regex": "",
+                "sign": "fixed",
+                "value":"10万"
+            }]
+}
+
+#获取艺人列表
+url : /artist/get_artistsList
+method : post,
+data:{
+  page:1,
+  page_size:10
+}
+
+#获取艺人详情
+url : /artist/detail
+method : post,
+data:{
+  id:10
+},
+response:{
+    "code": 0,
+    "data": [
+        {
+            "name": "姓名",
+            "required": true,
+            "type": "text",
+            "length": 15,
+            "regex": "",
+            "sign": "custom",
+            "value": "12"
+        },
+        {
+            "name": "性别",
+            "required": true,
+            "type": "radio",
+            "options": [
+                "男",
+                "女"
+            ],
+            "sign": "custom",
+            "value": "男"
+        },
+        {
+            "name": "打算",
+            "required": true,
+            "type": "date",
+            "sign": "custom",
+            "value": "2019-12-12"
+        },
+        {
+            "name": "平台",
+            "type": "text",
+            "length": 15,
+            "required": true,
+            "regex": "",
+            "sign": "fixed",
+            "value": "熊猫TV"
+        },
+        {
+            "name": "平台id",
+            "type": "text",
+            "length": 15,
+            "required": true,
+            "regex": "",
+            "sign": "fixed",
+            "value": "一头驴"
+        },
+        {
+            "name": "粉丝",
+            "type": "text",
+            "length": 10,
+            "required": true,
+            "regex": "",
+            "sign": "fixed",
+            "value": "10万"
+        }
+    ],
+    "msg": "成功"
+}
+
+#获取艺人数据
+url : /artist/detele_artists
+method : post,
+data:{
+  id:[1,2,3] //删除数据的集合,多选则传数组,单选可以数组可以数字
+}
+
+
+#艺人数据导出表格  (直接open 打开就行了)
+url:/artist/exportsExcel
+method: get
