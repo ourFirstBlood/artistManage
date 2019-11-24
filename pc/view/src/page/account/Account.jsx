@@ -10,7 +10,8 @@ import {
   Dialog,
   Input,
   Form,
-  Switch
+  Switch,
+  MessageBox
 } from 'element-react'
 class Account extends Component {
   constructor(props) {
@@ -71,11 +72,15 @@ class Account extends Component {
                 <Button
                   type="success"
                   size="small"
-                  onClick={this.openDialog.bind(this, item)}
+                  onClick={this.resetPw.bind(this, item)}
                 >
                   重置密码
                 </Button>
-                <Button type="danger" size="small">
+                <Button
+                  onClick={this.deleteItem.bind(this, item)}
+                  type="danger"
+                  size="small"
+                >
                   删除
                 </Button>
               </span>
@@ -100,16 +105,62 @@ class Account extends Component {
       ? {
           id: data.id,
           user_name: data.user_name,
-          is_super: data.is_super,
+          is_super: Number(data.is_super),
           name: data.name
         }
       : {
           user_name: '',
           password: '',
           is_super: 0,
-          name: ''
+          name: '',
+          id: 0
         }
     this.setState({ params, dialogVisible: true })
+  }
+
+  async resetPw({ user_name, name, id }) {
+    await MessageBox.confirm(`确定重置${name}(${user_name})的密码？`, '提示', {
+      type: 'warning'
+    })
+
+    this.setState({ loading: true })
+    ajaxReq
+      .call(this, {
+        url: '/login/reset_pw',
+        params: {
+          id
+        }
+      })
+      .then(() => {
+        msg('重置成功')
+        this.setState({ dialogVisible: false })
+        this.getUserList()
+      })
+      .catch(() => {
+        this.setState({ dialogVisible: false })
+      })
+  }
+
+  async deleteItem({ user_name, name, id }) {
+    await MessageBox.confirm(`确定要删除账号${name}(${user_name})？`, '提示', {
+      type: 'warning'
+    })
+    this.setState({ loading: true })
+    ajaxReq
+      .call(this, {
+        url: '/login/delete_users',
+        params: {
+          id
+        }
+      })
+      .then(() => {
+        msg('删除成功')
+        this.setState({ dialogVisible: false })
+        this.getUserList()
+      })
+      .catch(() => {
+        this.setState({ dialogVisible: false })
+      })
   }
 
   getUserList() {
@@ -133,7 +184,7 @@ class Account extends Component {
   }
 
   addAccount = () => {
-    let { user_name, password, is_super, name } = this.state.params
+    let { user_name, password, is_super, name, id } = this.state.params
     if (!user_name.trim()) {
       msg('请输入用户名', false)
       return
@@ -142,14 +193,18 @@ class Account extends Component {
       msg('用户名必须为英文加数字的组合', false)
       return
     }
-    if (!password.trim()) {
-      msg('请输入密码', false)
-      return
+    //如果不是新增就不用输入密码
+    if (!this.state.params.id) {
+      if (!password.trim()) {
+        msg('请输入密码', false)
+        return
+      }
+      if (password.trim().length < 6 || password.trim().length > 16) {
+        msg('密码应该在 6 ~ 16位之间', false, 3000)
+        return
+      }
     }
-    if (password.trim().length < 6 || password.trim().length > 16) {
-      msg('密码应该在 6 ~ 16位之间', false, 3000)
-      return
-    }
+
     if (!name.trim()) {
       msg('请输入昵称', false)
       return
@@ -162,13 +217,17 @@ class Account extends Component {
           user_name,
           password,
           is_super,
-          name
+          name,
+          id
         }
       })
       .then(() => {
         msg('添加成功')
         this.setState({ dialogVisible: false })
         this.getUserList()
+      })
+      .catch(() => {
+        this.setState({ dialogVisible: false })
       })
   }
   componentWillMount() {
