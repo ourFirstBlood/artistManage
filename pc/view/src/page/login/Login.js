@@ -1,7 +1,11 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
+
 import {Input, Button} from 'element-react'
 import ajaxReq from '../../common/ajaxReq'
 import './login.scss'
+
+import { connect } from 'react-redux'
+import { setUserInfo } from '../../store/action'
 
 class Login extends Component {
     constructor(props) {
@@ -26,10 +30,16 @@ class Login extends Component {
                 user_name: this.state.userVal,
                 password: this.state.pwd
             }
-        }).then(()=>{
+        }).then(async () => {
+             const res = await ajaxReq
+            .call(this, {
+                url: "/user/get_user_info",
+            })
+            this.props.setUserInfo(res.data)
             this.props.history.replace('/')
         })
     }
+
     render() {
         const bg = {
             background: `url(${require('./bg.jpg')})`,
@@ -55,4 +65,15 @@ class Login extends Component {
     }
 }
 
-export default Login
+const mapDispatchToProps = (
+  dispatch,
+  ownProps
+) => {
+  return {
+    setUserInfo: (info) => {
+      dispatch(setUserInfo(info));
+    }
+  };
+}
+
+export default connect(()=>{},mapDispatchToProps)(Login)

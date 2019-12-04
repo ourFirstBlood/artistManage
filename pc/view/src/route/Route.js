@@ -5,7 +5,7 @@ import Index from "../page/index/Index"
 
 import history from "./history"
 
-export default function() {
+export default function () {
   return (
     <BrowserRouter basename="/">
       <div className="route">

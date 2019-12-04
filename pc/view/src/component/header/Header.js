@@ -4,6 +4,10 @@ import { MessageBox } from 'element-react'
 import ajaxReq from '../../common/ajaxReq'
 import './header.scss'
 
+import { connect } from 'react-redux'
+
+import { setUserInfo } from '../../store/action'
+
 class Header extends Component {
   constructor(props) {
     super(props)
@@ -21,6 +25,7 @@ class Header extends Component {
             params: {}
           })
           .then(() => {
+            this.props.setUserInfo({})
             this.props.history.replace('/login')
             this.props.fn()
           })
@@ -51,4 +56,15 @@ class Header extends Component {
   }
 }
 
-export default Header
+const mapDispatchToProps = (
+  dispatch,
+  ownProps
+) => {
+  return {
+    setUserInfo: (info) => {
+      dispatch(setUserInfo(info));
+    }
+  };
+}
+
+export default connect(()=>{},mapDispatchToProps)(Header)

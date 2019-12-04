@@ -1,0 +1,5 @@
+.el-row {
+  & ~ .el-row {
+    margin-top: 20px;
+  }
+}

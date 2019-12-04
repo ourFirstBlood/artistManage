@@ -19,8 +19,7 @@ function ajaxReq({ url, params = {}, alert = true }) {
             resolve(res.data)
           } else if (res.data.code === 996) {
             msg('请先登陆再操作！', false)
-            console.log(this.props)
-            if (this.props) {
+            if (this.props && this.props.history) {
               this.props.history.push('/login')
             }
           } else {

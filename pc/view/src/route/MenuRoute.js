@@ -8,6 +8,8 @@ import FormManage from '../component/form/FormManage'
 import Mine from '../page/mine/Mine'
 import Plus from '../page/plus/Plus'
 import SignList from '../page/signList/SignList'
+
+
 class RouteView extends Component {
   constructor(props) {
     super(props)
@@ -31,7 +33,7 @@ class RouteView extends Component {
           height={height}
           fn={this.extentAvatar.bind(this, 83)}
         />
-        <Menu />
+        <Menu/>
         <Route path="/index/artists" key="List" component={Artists} exact />
         <Route path="/index/artists/plus/:id?" key="plus" component={Plus} />
         <Route path="/index/signList" key="signList" component={SignList} />
