@@ -28,8 +28,7 @@ const edit_form = (req, res) => {
 }
 
 const get_form = (req, res) => {
-  common.getPower(req, res).then(() => {
-    let sql = 'SELECT * FROM form_custom WHERE id = 4'
+  let sql = 'SELECT * FROM form_custom WHERE id = 4'
     common.sql_select(sql, res).then(result => {
       common.success(res, {
         data: {
@@ -58,6 +57,5 @@ const get_form = (req, res) => {
         }
       })
     })
-  })
 }
 module.exports = { edit_form, get_form }
