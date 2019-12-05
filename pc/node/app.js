@@ -8,13 +8,17 @@ const artist = require('./router/artist/index.js')
 const power = require('./router/power/index.js')
 const user = require('./router/user/index.js')
 const login = require('./router/login/index.js')
+const wage = require('./router/wage/index.js')
 const Ut = require('./router/utils/util.js')
 const router = express.Router()
+
+var multipart = require('connect-multiparty');
+var multipartMiddleware = multipart();
 
 app.use(bodyParser.json())
 app.use(
   bodyParser.urlencoded({
-    extended: false
+    extended: true
   })
 )
 app.use(cookieParase('_ivv_token_sign_key'))
@@ -69,6 +73,7 @@ app.use('/artist', artist)
 app.use('/power', power)
 app.use('/user', user)
 app.use('/login', login)
+app.use('/wage',multipartMiddleware, wage)
 app.use('/', router)
 
 app.listen('8081', () => {
