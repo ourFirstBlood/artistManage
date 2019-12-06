@@ -29,7 +29,7 @@ app.post('*', function(req, res, next) {
   res.header('Access-Control-Allow-Methods', 'POST,GET')
   res.header('Content-Type', 'application/json;charset=utf-8')
 
-  const notJudge = ['/login'] //不校验登录的
+  const notJudge = ['/login','/wage/get_list'] //不校验登录的
   if (notJudge.indexOf(req.path) === -1) {
     if (!req.signedCookies._ivv_token) {
       Ut.fail(res, { code: 996, msg: '登陆超时' })
