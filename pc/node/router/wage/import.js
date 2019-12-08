@@ -8,10 +8,10 @@ const {
 module.exports = async function (req, res) {
   const file = req.files.file
   const {
-    date
+    pid
   } = req.body
 
-  if (!date || !file) {
+  if (!pid || !file) {
     fail(res, {
       msg: '缺少参数'
     })
@@ -26,13 +26,13 @@ module.exports = async function (req, res) {
       if (index !== 0) {
         const [name, imcome] = item
         if (name && imcome) {
-          const opt = [0, name, imcome, new Date(date)]
+          const opt = [0, name, imcome, pid]
           arr.push(opt)
         }
       }
       return arr
     }, [])
-    const sql = "INSERT INTO wage(`id`,`name`,`income`,`date`) VALUES ?"
+    const sql = "INSERT INTO wage(`id`,`name`,`income`,`pid`) VALUES ?"
     await sql_update(sql, [list], res)
     success(res)
   } else {

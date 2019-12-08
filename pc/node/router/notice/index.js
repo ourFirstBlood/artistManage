@@ -1,13 +1,11 @@
 const express = require('express')
 const router = express.Router()
-const importExcel = require('./import.js')
+const add = require('./add.js')
+const del = require('./delete.js')
 const getList = require('./getList.js')
-const add = require('./add')
-const del = require('./delete')
 
-router.post('/import', importExcel)
-router.post('/get_list', getList)
 router.post('/add', add)
 router.post('/delete', del)
+router.post('/get_list', getList)
 
 module.exports = router
