@@ -9,7 +9,7 @@ export default function () {
   return (
     <BrowserRouter basename="/">
       <div className="route">
-        <Route path="/" key="/" exact render={() => <Redirect to="/index/artists" />} />
+        <Route path="/" key="/" exact render={() => <Redirect to="/index/notice" />} />
         <Route history={history} path="/index/" key="index" component={Index} />
         <Route history={history} path="/power" key="power" component={Index} />
         <Route path="/login" key="login" component={Login} />

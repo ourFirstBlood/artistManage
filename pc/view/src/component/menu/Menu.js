@@ -5,29 +5,37 @@ import './menu.scss'
 import { connect } from 'react-redux'
 
 class Menu extends Component {
-    render () {
-        const { is_super } = this.props.userInfo
-        return (
-            <div className="menu">
-                <ul className="menu-lists">
-                    <li><NavLink to="/index/artists">艺人管理</NavLink></li>
-                    <li><NavLink to="/index/signList">报名列表</NavLink></li>
-                    {
-                        is_super === '1'
-                            ?
-                            (
-                                <div>
-                                    <li><NavLink to="/power/account">账号管理</NavLink></li>
-                                    <li><NavLink to="/power/formManage">表单管理</NavLink></li>
-                                </div>
-                            )
-                            : ''
-                    }
-
-                </ul>
-            </div>
-        )
+  get menuList() {
+    const list = [
+      { path: '/index/notice', name: '通知公告' },
+      { path: '/index/artists', name: '艺人管理' },
+      { path: '/index/signList', name: '报名列表' },
+      { path: '/power/account', name: '账号管理', is_super: true },
+      { path: '/power/formManage', name: '表单管理', is_super: true }
+    ]
+    const { is_super } = this.props.userInfo
+    if (is_super === '1') {
+      return list
+    } else {
+      return list.filter(item => !item.is_super)
     }
+  }
+
+  render() {
+    return (
+      <div className="menu">
+        <ul className="menu-lists">
+          {this.menuList.map((item, index) => {
+            return (
+              <li key={index}>
+                <NavLink to={item.path}>{item.name}</NavLink>
+              </li>
+            )
+          })}
+        </ul>
+      </div>
+    )
+  }
 }
 
 const mapStateToProps = (state, ownProps) => {
@@ -36,4 +44,4 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-export default connect(mapStateToProps, ()=>{})(Menu)
+export default connect(mapStateToProps)(Menu)

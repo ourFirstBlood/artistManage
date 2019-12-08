@@ -1157,7 +1157,7 @@ ajv-errors@^1.0.0:
   version "1.0.1"
   resolved "https://registry.npm.taobao.org/ajv-errors/download/ajv-errors-1.0.1.tgz#f35986aceb91afadec4102fbd85014950cefa64d"
 
-ajv-keywords@^3.1.0:
+ajv-keywords@^3.1.0, ajv-keywords@^3.4.1:
   version "3.4.1"
   resolved "https://registry.npm.taobao.org/ajv-keywords/download/ajv-keywords-3.4.1.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fajv-keywords%2Fdownload%2Fajv-keywords-3.4.1.tgz#ef916e271c64ac12171fd8384eaae6b2345854da"
 
@@ -2475,6 +2475,23 @@ css-loader@1.0.0:
     postcss-value-parser "^3.3.0"
     source-list-map "^2.0.0"
 
+css-loader@^3.2.1:
+  version "3.2.1"
+  resolved "https://registry.npm.taobao.org/css-loader/download/css-loader-3.2.1.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fcss-loader%2Fdownload%2Fcss-loader-3.2.1.tgz#62849b45a414b7bde0bfba17325a026471040eae"
+  dependencies:
+    camelcase "^5.3.1"
+    cssesc "^3.0.0"
+    icss-utils "^4.1.1"
+    loader-utils "^1.2.3"
+    normalize-path "^3.0.0"
+    postcss "^7.0.23"
+    postcss-modules-extract-imports "^2.0.0"
+    postcss-modules-local-by-default "^3.0.2"
+    postcss-modules-scope "^2.1.1"
+    postcss-modules-values "^3.0.0"
+    postcss-value-parser "^4.0.2"
+    schema-utils "^2.6.0"
+
 css-prefers-color-scheme@^3.1.1:
   version "3.1.1"
   resolved "https://registry.npm.taobao.org/css-prefers-color-scheme/download/css-prefers-color-scheme-3.1.1.tgz#6f830a2714199d4f0d0d0bb8a27916ed65cff1f4"
@@ -2541,6 +2558,10 @@ cssesc@^0.1.0:
 cssesc@^2.0.0:
   version "2.0.0"
   resolved "https://registry.npm.taobao.org/cssesc/download/cssesc-2.0.0.tgz#3b13bd1bb1cb36e1bcb5a4dcd27f54c5dcb35703"
+
+cssesc@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.npm.taobao.org/cssesc/download/cssesc-3.0.0.tgz#37741919903b868565e1c09ea747445cd18983ee"
 
 cssnano-preset-default@^4.0.7:
   version "4.0.7"
@@ -4209,6 +4230,12 @@ icss-utils@^2.1.0:
   dependencies:
     postcss "^6.0.1"
 
+icss-utils@^4.0.0, icss-utils@^4.1.1:
+  version "4.1.1"
+  resolved "https://registry.npm.taobao.org/icss-utils/download/icss-utils-4.1.1.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Ficss-utils%2Fdownload%2Ficss-utils-4.1.1.tgz#21170b53789ee27447c2f47dd683081403f9a467"
+  dependencies:
+    postcss "^7.0.14"
+
 identity-obj-proxy@3.0.0:
   version "3.0.0"
   resolved "https://registry.npm.taobao.org/identity-obj-proxy/download/identity-obj-proxy-3.0.0.tgz#94d2bda96084453ef36fbc5aaec37e0f79f1fc14"
@@ -5324,7 +5351,7 @@ loader-runner@^2.3.0:
   version "2.4.0"
   resolved "https://registry.npm.taobao.org/loader-runner/download/loader-runner-2.4.0.tgz#ed47066bfe534d7e84c4c7b9998c2a75607d9357"
 
-loader-utils@1.2.3, loader-utils@^1.0.1, loader-utils@^1.0.2, loader-utils@^1.1.0:
+loader-utils@1.2.3, loader-utils@^1.0.1, loader-utils@^1.0.2, loader-utils@^1.1.0, loader-utils@^1.2.3:
   version "1.2.3"
   resolved "https://registry.npm.taobao.org/loader-utils/download/loader-utils-1.2.3.tgz#1ff5dc6911c9f0a062531a4c04b609406108c2c7"
   dependencies:
@@ -6726,12 +6753,27 @@ postcss-modules-extract-imports@^1.2.0:
   dependencies:
     postcss "^6.0.1"
 
+postcss-modules-extract-imports@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.npm.taobao.org/postcss-modules-extract-imports/download/postcss-modules-extract-imports-2.0.0.tgz#818719a1ae1da325f9832446b01136eeb493cd7e"
+  dependencies:
+    postcss "^7.0.5"
+
 postcss-modules-local-by-default@^1.2.0:
   version "1.2.0"
   resolved "https://registry.npm.taobao.org/postcss-modules-local-by-default/download/postcss-modules-local-by-default-1.2.0.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fpostcss-modules-local-by-default%2Fdownload%2Fpostcss-modules-local-by-default-1.2.0.tgz#f7d80c398c5a393fa7964466bd19500a7d61c069"
   dependencies:
     css-selector-tokenizer "^0.7.0"
     postcss "^6.0.1"
+
+postcss-modules-local-by-default@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.npm.taobao.org/postcss-modules-local-by-default/download/postcss-modules-local-by-default-3.0.2.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fpostcss-modules-local-by-default%2Fdownload%2Fpostcss-modules-local-by-default-3.0.2.tgz#e8a6561be914aaf3c052876377524ca90dbb7915"
+  dependencies:
+    icss-utils "^4.1.1"
+    postcss "^7.0.16"
+    postcss-selector-parser "^6.0.2"
+    postcss-value-parser "^4.0.0"
 
 postcss-modules-scope@^1.1.0:
   version "1.1.0"
@@ -6740,12 +6782,26 @@ postcss-modules-scope@^1.1.0:
     css-selector-tokenizer "^0.7.0"
     postcss "^6.0.1"
 
+postcss-modules-scope@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.npm.taobao.org/postcss-modules-scope/download/postcss-modules-scope-2.1.1.tgz?cache=0&sync_timestamp=1574936987092&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fpostcss-modules-scope%2Fdownload%2Fpostcss-modules-scope-2.1.1.tgz#33d4fc946602eb5e9355c4165d68a10727689dba"
+  dependencies:
+    postcss "^7.0.6"
+    postcss-selector-parser "^6.0.0"
+
 postcss-modules-values@^1.3.0:
   version "1.3.0"
   resolved "https://registry.npm.taobao.org/postcss-modules-values/download/postcss-modules-values-1.3.0.tgz#ecffa9d7e192518389f42ad0e83f72aec456ea20"
   dependencies:
     icss-replace-symbols "^1.1.0"
     postcss "^6.0.1"
+
+postcss-modules-values@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.npm.taobao.org/postcss-modules-values/download/postcss-modules-values-3.0.0.tgz#5b5000d6ebae29b4255301b4a3a54574423e7f10"
+  dependencies:
+    icss-utils "^4.0.0"
+    postcss "^7.0.6"
 
 postcss-nesting@^7.0.0:
   version "7.0.1"
@@ -6961,6 +7017,14 @@ postcss-selector-parser@^5.0.0, postcss-selector-parser@^5.0.0-rc.3, postcss-sel
     indexes-of "^1.0.1"
     uniq "^1.0.1"
 
+postcss-selector-parser@^6.0.0, postcss-selector-parser@^6.0.2:
+  version "6.0.2"
+  resolved "https://registry.npm.taobao.org/postcss-selector-parser/download/postcss-selector-parser-6.0.2.tgz#934cf799d016c83411859e09dcecade01286ec5c"
+  dependencies:
+    cssesc "^3.0.0"
+    indexes-of "^1.0.1"
+    uniq "^1.0.1"
+
 postcss-svgo@^4.0.2:
   version "4.0.2"
   resolved "https://registry.npm.taobao.org/postcss-svgo/download/postcss-svgo-4.0.2.tgz#17b997bc711b333bab143aaed3b8d3d6e3d38258"
@@ -6982,7 +7046,7 @@ postcss-value-parser@^3.0.0, postcss-value-parser@^3.3.0, postcss-value-parser@^
   version "3.3.1"
   resolved "https://registry.npm.taobao.org/postcss-value-parser/download/postcss-value-parser-3.3.1.tgz#9ff822547e2893213cf1c30efa51ac5fd1ba8281"
 
-postcss-value-parser@^4.0.2:
+postcss-value-parser@^4.0.0, postcss-value-parser@^4.0.2:
   version "4.0.2"
   resolved "https://registry.npm.taobao.org/postcss-value-parser/download/postcss-value-parser-4.0.2.tgz#482282c09a42706d1fc9a069b73f44ec08391dc9"
 
@@ -7005,6 +7069,14 @@ postcss@^6.0.1, postcss@^6.0.23:
 postcss@^7.0.0, postcss@^7.0.1, postcss@^7.0.14, postcss@^7.0.17, postcss@^7.0.2, postcss@^7.0.23, postcss@^7.0.5, postcss@^7.0.6:
   version "7.0.23"
   resolved "https://registry.npm.taobao.org/postcss/download/postcss-7.0.23.tgz?cache=0&sync_timestamp=1574116727709&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fpostcss%2Fdownload%2Fpostcss-7.0.23.tgz#9f9759fad661b15964f3cfc3140f66f1e05eadc1"
+  dependencies:
+    chalk "^2.4.2"
+    source-map "^0.6.1"
+    supports-color "^6.1.0"
+
+postcss@^7.0.16:
+  version "7.0.24"
+  resolved "https://registry.npm.taobao.org/postcss/download/postcss-7.0.24.tgz?cache=0&sync_timestamp=1575658538582&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fpostcss%2Fdownload%2Fpostcss-7.0.24.tgz#972c3c5be431b32e40caefe6c81b5a19117704c2"
   dependencies:
     chalk "^2.4.2"
     source-map "^0.6.1"
@@ -7839,6 +7911,13 @@ schema-utils@^1.0.0:
     ajv "^6.1.0"
     ajv-errors "^1.0.0"
     ajv-keywords "^3.1.0"
+
+schema-utils@^2.6.0:
+  version "2.6.1"
+  resolved "https://registry.npm.taobao.org/schema-utils/download/schema-utils-2.6.1.tgz#eb78f0b945c7bcfa2082b3565e8db3548011dc4f"
+  dependencies:
+    ajv "^6.10.2"
+    ajv-keywords "^3.4.1"
 
 scss-tokenizer@^0.2.3:
   version "0.2.3"

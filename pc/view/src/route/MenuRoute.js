@@ -8,6 +8,9 @@ import FormManage from '../component/form/FormManage'
 import Mine from '../page/mine/Mine'
 import Plus from '../page/plus/Plus'
 import SignList from '../page/signList/SignList'
+import Notice from '../page/notice/index'
+import Wage from '../page/wage/index'
+
 
 
 class RouteView extends Component {
@@ -34,6 +37,8 @@ class RouteView extends Component {
           fn={this.extentAvatar.bind(this, 83)}
         />
         <Menu/>
+        <Route path="/index/notice" key="Notice" component={Notice} exact />
+        <Route path="/index/notice/wage/:id" key="Wage" component={Wage} />
         <Route path="/index/artists" key="List" component={Artists} exact />
         <Route path="/index/artists/plus/:id?" key="plus" component={Plus} />
         <Route path="/index/signList" key="signList" component={SignList} />
