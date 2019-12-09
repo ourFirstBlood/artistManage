@@ -10,7 +10,8 @@ import {
   Input,
   Form,
   MessageBox,
-  Upload
+  Upload,
+  Pagination
 } from "element-react";
 class Account extends Component {
   constructor(props) {
@@ -132,6 +133,17 @@ class Account extends Component {
       });
   }
 
+  onSizeChange(page_size){
+    this.setState({
+      page_size
+    })
+  }
+  onCurrentChange(page){
+    this.setState({
+      page
+    })
+  }
+
   getList(initId) {
     this.setState({ loading: true });
     const { pid, page, page_size, name } = this.state;
@@ -193,6 +205,11 @@ class Account extends Component {
     this.setState({ pid: id });
     this.getList(id);
   }
+
+  componentDidUpdate(){
+
+  }
+
   render() {
     return (
       <div className="account wage-content">
@@ -238,6 +255,9 @@ class Account extends Component {
             border={true}
             highlightCurrentRow={true}
           />
+          <div className="footer">
+            <Pagination layout="total, sizes, prev, pager, next, jumper" total={this.state.count} pageSizes={[20, 50, 100, 200,300]} pageSize={this.state.page_size} currentPage={this.state.page} onSizeChange={this.onSizeChange.bind(this)} onCurrentChange={this.onCurrentChange.bind(this)}/>
+          </div>
           <Dialog
             className="add-info"
             title={this.state.params.id ? "修改资料" : "新增资料"}
