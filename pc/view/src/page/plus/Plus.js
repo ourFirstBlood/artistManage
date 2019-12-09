@@ -71,6 +71,7 @@ class Plus extends Component {
                 }
             }).then(() => {
                 msg('保存成功')
+                this.props.history.go(-1)
             })
         }
     }

@@ -1,0 +1,12 @@
+.footer {
+  margin-top: 20px;
+  text-align: right;
+}
+
+.table-container {
+  width: 100%;
+  height: calc(100vh - 200px);
+  .el-table .cell {
+    word-break: normal;
+  }
+}

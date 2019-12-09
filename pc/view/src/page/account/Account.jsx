@@ -100,7 +100,8 @@ class Account extends Component {
     }
   }
 
-  openDialog(data) {
+  openDialog (data) {
+    console.log(data)
     const params = data
       ? {
           id: data.id,
@@ -114,7 +115,8 @@ class Account extends Component {
           is_super: 0,
           name: '',
           id: 0
-        }
+      }
+    console.log(params)
     this.setState({ params, dialogVisible: true })
   }
 
@@ -137,7 +139,7 @@ class Account extends Component {
         this.getUserList()
       })
       .catch(() => {
-        this.setState({ dialogVisible: false })
+        this.setState({ dialogVisible: false, loading: false })
       })
   }
 
@@ -159,7 +161,7 @@ class Account extends Component {
         this.getUserList()
       })
       .catch(() => {
-        this.setState({ dialogVisible: false })
+        this.setState({ dialogVisible: false, loading: false })
       })
   }
 
@@ -167,13 +169,7 @@ class Account extends Component {
     this.setState({ loading: true })
     ajaxReq
       .call(this, {
-        url: '/login/get_users',
-        params: {
-          user_name: this.state.user,
-          password: this.state.pwd,
-          is_super: this.state.isManager,
-          name: this.state.name
-        }
+        url: '/login/get_users'
       })
       .then(res => {
         this.setState({
@@ -181,10 +177,19 @@ class Account extends Component {
           loading: false
         })
       })
+      .catch(() => {
+        this.setState({ loading: false })
+      })
   }
 
   addAccount = () => {
-    let { user_name, password, is_super, name, id } = this.state.params
+    let {
+      user_name,
+      password,
+      is_super = '0',
+      name,
+      id = '0'
+    } = this.state.params
     if (!user_name.trim()) {
       msg('请输入用户名', false)
       return
@@ -227,7 +232,7 @@ class Account extends Component {
         this.getUserList()
       })
       .catch(() => {
-        this.setState({ dialogVisible: false })
+        this.setState({ dialogVisible: false, loading: false })
       })
   }
   componentWillMount() {
@@ -241,7 +246,7 @@ class Account extends Component {
             type="primary"
             className="add-btn"
             icon="edit"
-            onClick={this.openDialog.bind(this)}
+            onClick={this.openDialog.bind(this,false)}
           >
             新建管理员
           </Button>

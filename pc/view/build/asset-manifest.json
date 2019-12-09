@@ -1,0 +1,17 @@
+{
+  "main.css": "/static/css/main.7a682db5.chunk.css",
+  "main.js": "/static/js/main.09196546.chunk.js",
+  "main.js.map": "/static/js/main.09196546.chunk.js.map",
+  "runtime~main.js": "/static/js/runtime~main.a8a9905a.js",
+  "runtime~main.js.map": "/static/js/runtime~main.a8a9905a.js.map",
+  "static/css/2.d5ed2d48.chunk.css": "/static/css/2.d5ed2d48.chunk.css",
+  "static/js/2.f75279b9.chunk.js": "/static/js/2.f75279b9.chunk.js",
+  "static/js/2.f75279b9.chunk.js.map": "/static/js/2.f75279b9.chunk.js.map",
+  "index.html": "/index.html",
+  "precache-manifest.e6e51f7f70ea905a9d64c6bbe8dc2096.js": "/precache-manifest.e6e51f7f70ea905a9d64c6bbe8dc2096.js",
+  "service-worker.js": "/service-worker.js",
+  "static/css/2.d5ed2d48.chunk.css.map": "/static/css/2.d5ed2d48.chunk.css.map",
+  "static/css/main.7a682db5.chunk.css.map": "/static/css/main.7a682db5.chunk.css.map",
+  "static/media/bg.jpg": "/static/media/bg.859f278b.jpg",
+  "static/media/index.css": "/static/media/element-icons.d2f69a92.woff"
+}

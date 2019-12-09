@@ -10,14 +10,15 @@ import {
   Dialog,
   Input,
   Form,
-  MessageBox
+  MessageBox,
+  Pagination
 } from 'element-react'
 class Account extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      page: 0,
-      page_size: 0,
+      page: 1,
+      page_size: 20,
       params: {
         id: '',
         name: ''
@@ -113,8 +114,7 @@ class Account extends Component {
       })
       .then(() => {
         msg('删除成功')
-        this.setState({ dialogVisible: false })
-        this.getList()
+        this.setState({ dialogVisible: false, page: 1 }, this.getList)
       })
       .catch(() => {
         this.setState({ dialogVisible: false, loading: false })
@@ -158,7 +158,7 @@ class Account extends Component {
         }
       })
       .then(() => {
-        if (id === '0') {
+        if (id === 0) {
           msg('成功')
         } else {
           msg('修改成功')
@@ -185,13 +185,27 @@ class Account extends Component {
           >
             新建公告
           </Button>
-          <Table
-            style={{ width: '100%' }}
-            columns={this.state.columns}
-            data={this.state.data}
-            border={true}
-            highlightCurrentRow={true}
-          />
+          <div className="table-container">
+            <Table
+              style={{ width: '100%' }}
+              height="100%"
+              columns={this.state.columns}
+              data={this.state.data}
+              border={true}
+              highlightCurrentRow={true}
+            />
+          </div>
+          <div className="footer">
+            <Pagination
+              layout="total, prev, pager, next"
+              total={this.state.count}
+              pageSize={this.state.page_size}
+              currentPage={this.state.page}
+              onCurrentChange={page => {
+                this.setState({ page }, this.getList)
+              }}
+            />
+          </div>
           <Dialog
             title={this.state.params.id ? '修改公告' : '新增公告'}
             visible={this.state.dialogVisible}

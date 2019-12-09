@@ -2,6 +2,9 @@
   .add-info {
     width: 300px !important;
   }
+  .import-dialog {
+    width: 400px !important;
+  }
   .head {
     display: flex;
     align-items: center;
@@ -17,5 +20,22 @@
   }
   .right {
     display: flex;
+  }
+
+  .footer {
+    margin-top: 20px;
+    text-align: right;
+  }
+
+  .table-container {
+    width: 100%;
+    height: calc(100vh - 200px);
+  }
+}
+
+.el-table__body {
+  .el-button {
+    margin-bottom: 5px;
+    margin-top: 5px;
   }
 }
