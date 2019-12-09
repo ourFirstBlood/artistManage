@@ -170,7 +170,10 @@ class Account extends Component {
         this.setState({ dialogVisible: false, loading: false })
       })
   }
-  componentWillMount() {
+  async componentWillMount() {
+    await ajaxReq.call(this, {
+      url: '/user/get_user_info'
+    })
     this.getList()
   }
   render() {

@@ -56,6 +56,12 @@ class Header extends Component {
   }
 }
 
+const mapStateToProps = (state, ownProps) => {
+  return {
+    userInfo: state
+  }
+}
+
 const mapDispatchToProps = (
   dispatch,
   ownProps
@@ -67,4 +73,5 @@ const mapDispatchToProps = (
   };
 }
 
-export default connect(()=>{},mapDispatchToProps)(Header)
+
+export default connect(mapStateToProps,mapDispatchToProps)(Header)

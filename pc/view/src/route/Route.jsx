@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Route, Redirect, BrowserRouter } from 'react-router-dom'
-import Login from '../page/login/Login'
+import Login from '../page/login/Login.jsx'
 import Index from '../page/index/Index'
 
 export default class myRoute extends Component {

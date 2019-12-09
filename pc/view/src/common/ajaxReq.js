@@ -26,7 +26,6 @@ function ajaxReq({
         })
       })
       .then(res => {
-        console.log(res)
         if (res.status === 200) {
           if (!alert) {
             resolve(res.data)

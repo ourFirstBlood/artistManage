@@ -1,10 +1,15 @@
 import React, { Component } from 'react'
-import { NavLink } from 'react-router-dom'
 import './menu.scss'
 
 import { connect } from 'react-redux'
 
 class Menu extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      timestamp:''
+    }
+  }
   get menuList() {
     const list = [
       { path: '/index/notice', name: '通知公告' },
@@ -21,14 +26,29 @@ class Menu extends Component {
     }
   }
 
+  activeItem(path) {
+    return window.location.pathname.indexOf(path) !== -1 ? 'active' : ''
+  }
+
+  goPath (path) {
+    this.setState({timestamp:new Date().getTime()})
+    this.props.history.replace(path)
+  }
+
   render() {
     return (
       <div className="menu">
+        <span className="hide">{this.state.timestamp}</span>
         <ul className="menu-lists">
           {this.menuList.map((item, index) => {
             return (
               <li key={index}>
-                <NavLink to={item.path}>{item.name}</NavLink>
+                <span
+                  class={'item ' + this.activeItem(item.path)}
+                  onClick={this.goPath.bind(this, item.path)}
+                >
+                  {item.name}
+                </span>
               </li>
             )
           })}

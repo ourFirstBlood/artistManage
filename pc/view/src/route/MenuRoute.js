@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Route } from 'react-router-dom'
 import Header from '../component/header/Header'
-import Menu from '../component/menu/Menu'
+import Menu from '../component/menu/Menu.jsx'
 import Artists from '../page/artist/Artists'
 import Account from '../page/account/Account'
 import FormManage from '../component/form/FormManage'
@@ -36,7 +36,7 @@ class RouteView extends Component {
           height={height}
           fn={this.extentAvatar.bind(this, 83)}
         />
-        <Menu/>
+        <Menu history={this.props.history}/>
         <Route path="/index/notice" key="Notice" component={Notice} exact />
         <Route path="/index/notice/wage/:id" key="Wage" component={Wage} />
         <Route path="/index/artists" key="List" component={Artists} exact />

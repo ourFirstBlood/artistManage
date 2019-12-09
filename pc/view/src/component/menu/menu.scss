@@ -1,28 +1,33 @@
 .menu {
-    position: fixed;
-    left: 0;
-    top: 60px;
-    z-index: 9;
-    width: 260px;
-    height: 100%;
-    background-color: #393D49;
-    overflow: auto;
-    .menu-lists {
-        width: 100%;
-        min-height: 600px;
+  position: fixed;
+  left: 0;
+  top: 60px;
+  z-index: 9;
+  width: 260px;
+  height: 100%;
+  background-color: #393d49;
+  overflow: auto;
+  .hide {
+    display: none;
+  }
+  .menu-lists {
+    width: 100%;
+    min-height: 600px;
 
-        li {
-            display: inline-block;
-            width: 100%;
-            padding: 15px 0;
-            text-align: center;
-            a {
-                color: #fff;
-                text-decoration: none;
-            }
-            .active {
-                color: #20A0FF;
-            }
+    li {
+      display: inline-block;
+      width: 100%;
+      padding: 15px 0;
+      text-align: center;
+      .item {
+        color: #fff;
+        text-decoration: none;
+        cursor: pointer;
+        user-select: none;
+        &.active {
+          color: #20a0ff;
         }
+      }
     }
+  }
 }
