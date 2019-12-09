@@ -91,7 +91,7 @@ class Account extends Component {
     if (file.response.code !== 0) {
       msg(file.name + "导入失败 :" + file.response.msg, false, 10000);
     } else {
-      msg(file.name + "导入成功");
+      msg(file.name + "导入成功",true,3000);
       this.getList();
       let { fileList } = this.state;
       fileList.push(file);
