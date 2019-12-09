@@ -91,7 +91,7 @@ class Account extends Component {
     this.props.history.push(`/index/notice/wage/${id}`)
   }
 
-  openDialog({ id = '0', name = '' }) {
+  openDialog({ id = 0, name = '' }) {
     const params = {
       id,
       name
