@@ -75,12 +75,12 @@ router.get('*', (req, res) => {
   })
 })
 
-app.use('/artist', artist)
-app.use('/power', power)
-app.use('/user', user)
-app.use('/login', login)
-app.use('/notice', notice)
-app.use('/wage',multipartMiddleware, wage)
+app.use('/artist', multipartMiddleware, artist)
+app.use('/power', multipartMiddleware, power)
+app.use('/user', multipartMiddleware, user)
+app.use('/login', multipartMiddleware, login)
+app.use('/notice', multipartMiddleware, notice)
+app.use('/wage', multipartMiddleware, wage)
 app.use('/', router)
 
 app.listen('8081', () => {

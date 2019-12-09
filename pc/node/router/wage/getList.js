@@ -10,7 +10,7 @@ module.exports = (req, res) => {
     page,
     page_size
   } = req.body
-  var countSql = 'SELECT count(*) FROM wage'
+  var countSql = 'SELECT count(*) FROM wage where pid=' + pid
   sql_select(countSql, res).then(result => {
     let count = result[0]['count(*)']
     let sql =

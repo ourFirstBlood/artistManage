@@ -19,8 +19,7 @@ module.exports = (req, res) => {
     if (page == 0 && page_size == 0) {
       pageLimit = ''
     } else {
-      pageLimit = `limit ${(page - 1) * page_size},${page_size}
-limit ${(page - 1) * page_size},${page_size}`
+      pageLimit = `limit ${(page - 1) * page_size},${page_size}`
     }
     if (start_date && end_date) {
       sql =

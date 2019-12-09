@@ -58,7 +58,7 @@ const add_user = (req, res) => {
 
   getPower(req, res).then(() => {
     // 如果是编辑
-    if (id || id == 0) {
+    if (id && id != 0) {
 
       var selectSql =
         "SELECT * FROM user_admin WHERE id='" + id + "'"
