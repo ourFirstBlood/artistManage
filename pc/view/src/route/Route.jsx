@@ -26,7 +26,7 @@ export default class myRoute extends Component {
             key="power"
             component={Index}
           />
-          <Route path="/login" key="login" component={Login} />
+          <Route path="/login" key="login" component={props => <Login {...props}/>} />
         </div>
       </BrowserRouter>
     )
