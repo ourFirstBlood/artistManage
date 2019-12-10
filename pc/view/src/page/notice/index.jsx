@@ -171,9 +171,9 @@ class Account extends Component {
       })
   }
   async componentWillMount() {
-    await ajaxReq.call(this, {
-      url: '/user/get_user_info'
-    })
+    // await ajaxReq.call(this, {
+    //   url: '/user/get_user_info'
+    // })
     this.getList()
   }
   render() {
