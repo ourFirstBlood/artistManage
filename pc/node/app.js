@@ -27,7 +27,7 @@ app.use(
 app.use(cookieParase('_ivv_token_sign_key'))
 
 app.post('*', function (req, res, next) {
-  res.header('Access-Control-Allow-Origin', '*')
+  res.header('Access-Control-Allow-Origin', 'http://www.ivvmedia.cn')
   res.header('Access-Control-Allow-Headers', 'content-type')
   res.header('Access-Control-Allow-Methods', 'POST,GET')
   res.header('Content-Type', 'application/json;charset=utf-8')
