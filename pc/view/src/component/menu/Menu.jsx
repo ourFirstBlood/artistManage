@@ -44,7 +44,7 @@ class Menu extends Component {
             return (
               <li key={index}>
                 <span
-                  class={'item ' + this.activeItem(item.path)}
+                  className={'item ' + this.activeItem(item.path)}
                   onClick={this.goPath.bind(this, item.path)}
                 >
                   {item.name}

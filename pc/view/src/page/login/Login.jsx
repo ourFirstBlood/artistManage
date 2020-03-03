@@ -37,7 +37,6 @@ class Login extends Component {
         const res = await ajaxReq.call(this, {
           url: '/user/get_user_info'
         })
-        this.setState({ loading: false })
         this.props.setUserInfo(res.data)
         this.props.history.replace('/')
       })
