@@ -36,5 +36,5 @@
     "node-sass": "^4.11.0",
     "prettier": "1.18.2"
   },
-  "proxy": "http://www.ivvmedia.cn"
+  "proxy": "http://localhost:8081"
 }

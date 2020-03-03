@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
-import ajaxReq from '../../common/ajaxReq'
-import msg from '../../common/msg'
-import './index.scss'
+import React, { Component } from "react";
+import ajaxReq from "../../common/ajaxReq";
+import msg from "../../common/msg";
+import "./index.scss";
 import {
   Loading,
   Table,
@@ -12,41 +12,50 @@ import {
   MessageBox,
   Upload,
   Pagination
-} from 'element-react'
+} from "element-react";
 
-const source = {}
+const source = {};
 class Account extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       page: 1,
       page_size: 20,
-      name: '',
-      pid: '',
+      name: "",
+      pid: "",
       params: {
-        id: '',
-        name: '',
-        income: ''
+        id: "",
+        name: "",
+        income: "",
+        real_income: "",
+        company_ope: ""
       },
       columns: [
         {
-          type: 'selection'
+          type: "selection"
         },
         {
-          label: '名字',
-          prop: 'name',
+          label: "名字",
+          prop: "name",
           render: function(data) {
-            return <span>{data.name || '--'}</span>
+            return <span>{data.name || "--"}</span>;
           }
         },
         {
-          label: '收入',
-          prop: 'income',
-          width: 160
+          label: "收入",
+          prop: "income"
         },
         {
-          label: '操作',
-          prop: 'address',
+          label: "达人到手工资70%",
+          prop: "real_income"
+        },
+        {
+          label: "公司30%(税+员工成本+利润)",
+          prop: "company_ope"
+        },
+        {
+          label: "操作",
+          prop: "address",
           render: item => {
             return (
               <span>
@@ -65,7 +74,7 @@ class Account extends Component {
                   删除
                 </Button>
               </span>
-            )
+            );
           }
         }
       ],
@@ -75,66 +84,68 @@ class Account extends Component {
       loading: true,
       dialogVisible: false,
       excelDialogVisible: false
-    }
+    };
   }
 
   importExcel() {
     this.setState({
       excelDialogVisible: true
-    })
+    });
   }
   beforeUpload(file) {
-    let index = file.name.lastIndexOf('.')
-    const ext = file.name.slice(index + 1).toLowerCase()
-    const include = ['xls', 'xlsx'].includes(ext)
+    let index = file.name.lastIndexOf(".");
+    const ext = file.name.slice(index + 1).toLowerCase();
+    const include = ["xls", "xlsx"].includes(ext);
     if (!include) {
-      msg('只能上传.xlsx 或 .xls格式的文件', false, 2000)
+      msg("只能上传.xlsx 或 .xls格式的文件", false, 2000);
     }
-    return include
+    return include;
   }
   comfirmImport() {
     this.setState({
       excelDialogVisible: true
-    })
+    });
   }
 
   uploadChange(file) {
     if (file.response.code !== 0) {
-      msg(file.name + '导入失败 :' + file.response.msg, false, 10000)
+      msg(file.name + "导入失败 :" + file.response.msg, false, 10000);
     } else {
-      msg(file.name + '导入成功', true, 3000)
-      this.getList()
+      msg(file.name + "导入成功", true, 3000);
+      this.getList();
     }
   }
 
-  openDialog({ id = 0, name = '', income }) {
+  openDialog({ id = 0, name = "", income, real_income, company_ope }) {
     const params = {
       id,
       name,
-      income
-    }
-    this.setState({ params, dialogVisible: true })
+      income,
+      real_income,
+      company_ope
+    };
+    this.setState({ params, dialogVisible: true });
   }
 
   async deleteItem(ids) {
-    await MessageBox.confirm(`确定要删除？`, '提示', {
-      type: 'warning'
-    })
-    this.setState({ loading: true })
+    await MessageBox.confirm(`确定要删除？`, "提示", {
+      type: "warning"
+    });
+    this.setState({ loading: true });
     ajaxReq
       .call(this, {
-        url: '/wage/delete',
+        url: "/wage/delete",
         params: {
           id: ids
         }
       })
       .then(() => {
-        msg('删除成功')
-        this.setState({ dialogVisible: false, selected: [] }, this.getList)
+        msg("删除成功");
+        this.setState({ dialogVisible: false, selected: [] }, this.getList);
       })
       .catch(() => {
-        this.setState({ dialogVisible: false, loading: false })
-      })
+        this.setState({ dialogVisible: false, loading: false });
+      });
   }
 
   onSizeChange(page_size) {
@@ -143,7 +154,7 @@ class Account extends Component {
         page_size
       },
       this.getList
-    )
+    );
   }
   onCurrentChange(page) {
     this.setState(
@@ -151,71 +162,81 @@ class Account extends Component {
         page
       },
       this.getList
-    )
+    );
   }
 
   getList(initId) {
-    this.setState({ loading: true })
-    const { pid, page, page_size, name } = this.state
-    if (source.cancel) source.cancel('cancel')
+    this.setState({ loading: true });
+    const { pid, page, page_size, name } = this.state;
+    if (source.cancel) source.cancel("cancel");
     ajaxReq
       .call(this, {
-        url: '/wage/get_list',
+        url: "/wage/get_list",
         params: { pid: initId || pid, page, page_size, name },
         can: source
       })
       .then(res => {
-        const { list, count } = res.data
+        const { list, count } = res.data;
         this.setState({
           data: list,
           count,
           loading: false
-        })
+        });
       })
       .catch(() => {
-        this.setState({ dialogVisible: false, loading: false })
-      })
+        this.setState({ dialogVisible: false, loading: false });
+      });
   }
 
   addAccount = () => {
-    let { pid } = this.state
-    let { name, income, id } = this.state.params
+    let { pid } = this.state;
+    let { name, income, real_income, company_ope, id } = this.state.params;
     if (!name.trim()) {
-      msg('请输入姓名', false)
-      return
+      msg("请输入姓名", false);
+      return;
     }
     if (!income || income <= 0) {
-      msg('收入的格式错误', false)
-      return
+      msg("收入的格式错误", false);
+      return;
     }
-    this.setState({ loading: true })
+    if (!real_income || real_income <= 0) {
+      msg("员工实际收入的格式错误", false);
+      return;
+    }
+    if (!company_ope || company_ope <= 0) {
+      msg("公司扣除的格式错误", false);
+      return;
+    }
+    this.setState({ loading: true });
     ajaxReq
       .call(this, {
-        url: '/wage/add',
+        url: "/wage/add",
         params: {
           pid,
           name,
           id,
-          income
+          income,
+          real_income,
+          company_ope
         }
       })
       .then(() => {
         if (id === 0) {
-          msg('新建成功')
+          msg("新建成功");
         } else {
-          msg('修改成功')
+          msg("修改成功");
         }
-        this.setState({ dialogVisible: false })
-        this.getList()
+        this.setState({ dialogVisible: false });
+        this.getList();
       })
       .catch(() => {
-        this.setState({ dialogVisible: false, loading: false })
-      })
-  }
+        this.setState({ dialogVisible: false, loading: false });
+      });
+  };
   componentWillMount() {
-    const id = this.props.match.params.id
-    this.setState({ pid: id })
-    this.getList(id)
+    const id = this.props.match.params.id;
+    this.setState({ pid: id });
+    this.getList(id);
   }
 
   render() {
@@ -226,7 +247,7 @@ class Account extends Component {
             <Button
               icon="arrow-left"
               onClick={() => {
-                this.props.history.go(-1)
+                this.props.history.go(-1);
               }}
             >
               返回
@@ -250,7 +271,7 @@ class Account extends Component {
                       page: 1
                     },
                     this.getList
-                  )
+                  );
                 }}
               ></Input>
             </div>
@@ -276,8 +297,8 @@ class Account extends Component {
               border={true}
               highlightCurrentRow={true}
               onSelectChange={selection => {
-                const selected = selection.map(item => item.id)
-                this.setState({ selected })
+                const selected = selection.map(item => item.id);
+                this.setState({ selected });
               }}
             />
           </div>
@@ -294,14 +315,14 @@ class Account extends Component {
           </div>
           <Dialog
             className="add-info"
-            title={this.state.params.id ? '修改资料' : '新增资料'}
+            title={this.state.params.id ? "修改资料" : "新增资料"}
             visible={this.state.dialogVisible}
             closeOnClickModal={false}
             onCancel={() => this.setState({ dialogVisible: false })}
           >
             <Loading loading={this.state.loading && this.state.dialogVisible}>
               <Dialog.Body>
-                <Form labelWidth="80">
+                <Form labelWidth="120">
                   <Form.Item label="姓名">
                     <Input
                       placeholder="请输入姓名"
@@ -309,7 +330,7 @@ class Account extends Component {
                       onChange={value => {
                         this.setState({
                           params: { ...this.state.params, name: value }
-                        })
+                        });
                       }}
                     ></Input>
                   </Form.Item>
@@ -321,7 +342,31 @@ class Account extends Component {
                       onChange={value => {
                         this.setState({
                           params: { ...this.state.params, income: value }
-                        })
+                        });
+                      }}
+                    ></Input>
+                  </Form.Item>
+                  <Form.Item label="员工实际收入">
+                    <Input
+                      placeholder="请输入员工实际收入"
+                      type="number"
+                      value={this.state.params.real_income}
+                      onChange={value => {
+                        this.setState({
+                          params: { ...this.state.params, real_income: value }
+                        });
+                      }}
+                    ></Input>
+                  </Form.Item>
+                  <Form.Item label="公司扣除">
+                    <Input
+                      placeholder="请输入公司扣除"
+                      type="number"
+                      value={this.state.params.company_ope}
+                      onChange={value => {
+                        this.setState({
+                          params: { ...this.state.params, company_ope: value }
+                        });
                       }}
                     ></Input>
                   </Form.Item>
@@ -370,8 +415,8 @@ class Account extends Component {
           </Dialog>
         </Loading>
       </div>
-    )
+    );
   }
 }
 
-export default Account
+export default Account;
