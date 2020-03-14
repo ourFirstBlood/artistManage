@@ -15,7 +15,7 @@ module.exports = async (req, res) => {
   //获取总数
   var countSql = 'SELECT count(*) FROM wage where pid=' + pid
   const result = await sql_select(countSql, res)
-  const count = result[0]['count(*)']
+  let count = result[0]['count(*)']
 
   //获取类型
   var typeSql = 'SELECT type FROM notice where id=' + pid
@@ -35,6 +35,7 @@ module.exports = async (req, res) => {
   if (!userInfo.id && type === 1) {
     page = 1
     page_size = 1
+    count = count ? 1 : 0
   }
   //获取消息详情列表
   let sql =
