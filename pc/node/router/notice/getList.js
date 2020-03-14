@@ -23,7 +23,7 @@ module.exports = (req, res) => {
     }
     if (start_date && end_date) {
       sql =
-        `SELECT * FROM notice where name like '%${name}%' and time between '${start_date}' and '${end_date}' order by time desc ${pageLimit}`
+        `SELECT * FROM notice where name like "%${name}%" and time between '${start_date}' and '${end_date}' order by time desc ${pageLimit}`
     } else {
       sql =
       `SELECT * FROM notice where name like '%${name}%' order by time desc ${pageLimit}`

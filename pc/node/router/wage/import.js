@@ -8,7 +8,8 @@ const {
 module.exports = async function (req, res) {
   const file = req.files.file
   const {
-    pid
+    pid,
+    type
   } = req.body
 
   if (!pid || !file) {
@@ -24,15 +25,26 @@ module.exports = async function (req, res) {
   if (data.length) {
     const list = data.reduce((arr, item, index) => {
       if (index !== 0) {
-        const [name, imcome, ...others] = item
-        if (name && imcome) {
-          const otherVal = others.map(item => {
+        let name, income, others
+        //短视频
+        if (type == 0) {
+
+          name = item[0]
+          income = item[1]
+          others = ''
+          //直播
+        } else {
+          name = item[2]
+          income = item[10]
+          others = item.map(item => {
             if (typeof item === 'undefined') {
               return '-'
             }
             return item
-          })
-          const opt = [0, name, imcome, otherVal.join(','), pid]
+          }).join(',')
+        }
+        if (name && income) {
+          const opt = [0, name, income, others, pid]
           arr.push(opt)
         }
       }
