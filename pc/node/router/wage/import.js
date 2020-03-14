@@ -24,15 +24,21 @@ module.exports = async function (req, res) {
   if (data.length) {
     const list = data.reduce((arr, item, index) => {
       if (index !== 0) {
-        const [name, imcome, real_income, company_ope] = item
+        const [name, imcome, ...others] = item
         if (name && imcome) {
-          const opt = [0, name, imcome, real_income, company_ope, pid]
+          const otherVal = others.map(item => {
+            if (typeof item === 'undefined') {
+              return '-'
+            }
+            return item
+          })
+          const opt = [0, name, imcome, otherVal.join(','), pid]
           arr.push(opt)
         }
       }
       return arr
     }, [])
-    const sql = "INSERT INTO wage(`id`,`name`,`income`,`real_income`,`company_ope`,`pid`) VALUES ?"
+    const sql = "INSERT INTO wage(`id`,`name`,`income`,`others`,`pid`) VALUES ?"
     await sql_update(sql, [list], res)
     success(res)
   } else {

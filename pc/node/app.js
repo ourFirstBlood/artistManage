@@ -28,8 +28,7 @@ app.use(cookieParase('_ivv_token_sign_key'))
 
 app.post('*', function (req, res, next) {
   const allowOrigins = ['http://www.ivvmedia.cn', 'http://www.ivvmedia.com']
-
-  if (allowOrigins.includes(req.headers.origin)) {
+  if (allowOrigins.includes(req.headers.origin) || process.env.NODE_ENV === 'development') {
     res.header('Access-Control-Allow-Origin', req.headers.origin)
     res.header('Access-Control-Allow-Headers', 'content-type')
     res.header('Access-Control-Allow-Methods', 'POST,GET')

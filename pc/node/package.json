@@ -21,6 +21,7 @@
     "xtpl": "^3.4.0"
   },
   "scripts": {
-    "serve": "nodemon app.js"
+    "serve": "nodemon app.js",
+    "debug": "set NODE_ENV=development&&nodemon app.js"
   }
 }
