@@ -23,14 +23,14 @@ class Account extends Component {
       page_size: 20,
       name: "",
       pid: "",
+      type: 0,
+      others: new Array(16),
       params: {
         id: "",
         name: "",
-        income: "",
-        real_income: "",
-        company_ope: ""
+        income: ""
       },
-      columns: [
+      columns0: [
         {
           type: "selection"
         },
@@ -46,16 +46,154 @@ class Account extends Component {
           prop: "income"
         },
         {
-          label: "达人到手工资70%",
-          prop: "real_income"
+          label: "操作",
+          prop: "address",
+          render: item => {
+            return (
+              <span>
+                <Button
+                  type="primary"
+                  size="small"
+                  onClick={this.openDialog.bind(this, item)}
+                >
+                  编辑
+                </Button>
+                <Button
+                  onClick={this.deleteItem.bind(this, [item.id])}
+                  type="danger"
+                  size="small"
+                >
+                  删除
+                </Button>
+              </span>
+            );
+          }
+        }
+      ],
+      columns1: [
+        {
+          type: "selection"
         },
         {
-          label: "公司30%(税+员工成本+利润)",
-          prop: "company_ope"
+          label: "月份",
+          fixed: "left",
+          render: function({ others }) {
+            return <span>{others[0]}</span>;
+          },
+          width: "100"
+        },
+        {
+          label: "播主昵称",
+          fixed: "left",
+          render: function({ others }) {
+            return <span>{others[1]}</span>;
+          },
+          width: "120"
+        },
+        {
+          label: "播主姓名",
+          prop: "name",
+          render: function({ others }) {
+            return <span>{others[2]}</span>;
+          },
+          width: "100"
+        },
+        {
+          label: "陌陌号",
+          render: function({ others }) {
+            return <span>{others[3]}</span>;
+          },
+          width: "140"
+        },
+        {
+          label: "性别",
+          render: function({ others }) {
+            return <span>{others[4]}</span>;
+          },
+          width: "80"
+        },
+        {
+          label: "播主等级",
+          render: function({ others }) {
+            return <span>{others[5]}</span>;
+          },
+          width: "100"
+        },
+        {
+          label: "连麦陌币",
+          render: function({ others }) {
+            return <span>{others[6]}</span>;
+          },
+          width: "120"
+        },
+        {
+          label: "非连麦陌币",
+          render: function({ others }) {
+            return <span>{others[7]}</span>;
+          },
+          width: "120"
+        },
+        {
+          label: "总陌币",
+          render: function({ others }) {
+            return <span>{others[8]}</span>;
+          },
+          width: "120"
+        },
+        {
+          label: "结算方式",
+          render: function({ others }) {
+            return <span>{others[9]}</span>;
+          },
+          width: "100"
+        },
+        {
+          label: "播主分成金额(元)",
+          render: function({ others }) {
+            return <span>{others[10]}</span>;
+          },
+          width: "150"
+        },
+        {
+          label: "播主奖励(元)",
+          render: function({ others }) {
+            return <span>{others[11]}</span>;
+          },
+          width: "200"
+        },
+        {
+          label: "额外奖励(元)",
+          render: function({ others }) {
+            return <span>{others[12]}</span>;
+          },
+          width: "200"
+        },
+        {
+          label: "个税",
+          render: function({ others }) {
+            return <span>{others[13]}</span>;
+          },
+          width: "200"
+        },
+        {
+          label: "到手工资",
+          render: function({ others }) {
+            return <span>{others[14]}</span>;
+          },
+          width: "200"
+        },
+        {
+          label: "特殊情况",
+          render: function({ others }) {
+            return <span>{others[15]}</span>;
+          },
+          width: "200"
         },
         {
           label: "操作",
           prop: "address",
+          width: "150",
+          fixed: "right",
           render: item => {
             return (
               <span>
@@ -116,15 +254,17 @@ class Account extends Component {
     }
   }
 
-  openDialog({ id = 0, name = "", income, real_income, company_ope }) {
+  openDialog({ id = 0, name = "", income, others: itemO }) {
+    let { type, others } = this.state;
     const params = {
       id,
       name,
-      income,
-      real_income,
-      company_ope
+      income
     };
-    this.setState({ params, dialogVisible: true });
+    if (type === 1) {
+      others = itemO || new Array(16);
+    }
+    this.setState({ params, others, dialogVisible: true });
   }
 
   async deleteItem(ids) {
@@ -176,8 +316,15 @@ class Account extends Component {
         can: source
       })
       .then(res => {
-        const { list, count } = res.data;
+        let { list, count, type } = res.data;
+        if (type === 1) {
+          list = list.map(item => {
+            item.others = item.others.split(",");
+            return item;
+          });
+        }
         this.setState({
+          type,
           data: list,
           count,
           loading: false
@@ -189,22 +336,18 @@ class Account extends Component {
   }
 
   addAccount = () => {
-    let { pid } = this.state;
-    let { name, income, real_income, company_ope, id } = this.state.params;
+    let { pid, type, others } = this.state;
+    let { name, income, id } = this.state.params;
+    if (type === 1) {
+      name = others[2];
+      income = others[10];
+    }
     if (!name.trim()) {
       msg("请输入姓名", false);
       return;
     }
     if (!income || income <= 0) {
       msg("收入的格式错误", false);
-      return;
-    }
-    if (!real_income || real_income <= 0) {
-      msg("员工实际收入的格式错误", false);
-      return;
-    }
-    if (!company_ope || company_ope <= 0) {
-      msg("公司扣除的格式错误", false);
       return;
     }
     this.setState({ loading: true });
@@ -216,8 +359,14 @@ class Account extends Component {
           name,
           id,
           income,
-          real_income,
-          company_ope
+          others: others
+            .map(item => {
+              if (typeof item === "undefined") {
+                return "-";
+              }
+              return item;
+            })
+            .join(",")
         }
       })
       .then(() => {
@@ -233,6 +382,61 @@ class Account extends Component {
         this.setState({ dialogVisible: false, loading: false });
       });
   };
+
+  renderForm = () => {
+    const { type, others, columns1 } = this.state;
+    const { name, income } = this.state.params;
+    if (type === 0) {
+      return (
+        <Form labelWidth="120">
+          <Form.Item label="姓名">
+            <Input
+              placeholder="请输入姓名"
+              value={name}
+              onChange={value => {
+                this.setState({
+                  params: { ...this.state.params, name: value }
+                });
+              }}
+            ></Input>
+          </Form.Item>
+          <Form.Item label="收入">
+            <Input
+              placeholder="请输入收入"
+              type="number"
+              value={income}
+              onChange={value => {
+                this.setState({
+                  params: { ...this.state.params, income: value }
+                });
+              }}
+            ></Input>
+          </Form.Item>
+        </Form>
+      );
+    } else {
+      const fields = columns1.slice(1, -1);
+      return (
+        <Form labelWidth="120">
+          {fields.map((item, index) => (
+            <Form.Item key={index} label={item.label}>
+              <Input
+                placeholder={"请输入" + item.label}
+                value={others[index]}
+                onChange={value => {
+                  others[index] = value;
+                  this.setState({
+                    others
+                  });
+                }}
+              />
+            </Form.Item>
+          ))}
+        </Form>
+      );
+    }
+  };
+
   componentWillMount() {
     const id = this.props.match.params.id;
     this.setState({ pid: id });
@@ -292,7 +496,7 @@ class Account extends Component {
           <div className="table-container">
             <Table
               height="100%"
-              columns={this.state.columns}
+              columns={this.state["columns" + this.state.type]}
               data={this.state.data}
               border={true}
               highlightCurrentRow={true}
@@ -321,57 +525,7 @@ class Account extends Component {
             onCancel={() => this.setState({ dialogVisible: false })}
           >
             <Loading loading={this.state.loading && this.state.dialogVisible}>
-              <Dialog.Body>
-                <Form labelWidth="120">
-                  <Form.Item label="姓名">
-                    <Input
-                      placeholder="请输入姓名"
-                      value={this.state.params.name}
-                      onChange={value => {
-                        this.setState({
-                          params: { ...this.state.params, name: value }
-                        });
-                      }}
-                    ></Input>
-                  </Form.Item>
-                  <Form.Item label="收入">
-                    <Input
-                      placeholder="请输入收入"
-                      type="number"
-                      value={this.state.params.income}
-                      onChange={value => {
-                        this.setState({
-                          params: { ...this.state.params, income: value }
-                        });
-                      }}
-                    ></Input>
-                  </Form.Item>
-                  <Form.Item label="员工实际收入">
-                    <Input
-                      placeholder="请输入员工实际收入"
-                      type="number"
-                      value={this.state.params.real_income}
-                      onChange={value => {
-                        this.setState({
-                          params: { ...this.state.params, real_income: value }
-                        });
-                      }}
-                    ></Input>
-                  </Form.Item>
-                  <Form.Item label="公司扣除">
-                    <Input
-                      placeholder="请输入公司扣除"
-                      type="number"
-                      value={this.state.params.company_ope}
-                      onChange={value => {
-                        this.setState({
-                          params: { ...this.state.params, company_ope: value }
-                        });
-                      }}
-                    ></Input>
-                  </Form.Item>
-                </Form>
-              </Dialog.Body>
+              <Dialog.Body>{this.renderForm()}</Dialog.Body>
 
               <Dialog.Footer className="dialog-footer">
                 <Button onClick={() => this.setState({ dialogVisible: false })}>
@@ -398,7 +552,7 @@ class Account extends Component {
                   className="upload-demo"
                   drag
                   accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
-                  data={{ pid: this.state.pid }}
+                  data={{ pid: this.state.pid, type: this.state.type }}
                   action="/wage/import"
                   multiple
                   beforeUpload={this.beforeUpload.bind(this)}

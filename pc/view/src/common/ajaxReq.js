@@ -18,7 +18,7 @@ function ajaxReq({
     }
     axios({
         method: 'POST',
-        url: url,
+        url,
         data: formData,
         cancelToken: new axios.CancelToken((c) => {
           if (!can) return

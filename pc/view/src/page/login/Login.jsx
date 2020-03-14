@@ -23,11 +23,11 @@ class Login extends Component {
       pwd: ''
     })
   }
-  //登陆
+  //登录
   login = () => {
     this.setState({ loading: true })
     ajaxReq({
-      url: 'login',
+      url: '/login',
       params: {
         user_name: this.state.userVal,
         password: this.state.pwd
@@ -83,7 +83,7 @@ class Login extends Component {
                 onClick={this.login.bind(this)}
                 className="primary"
               >
-                登陆
+                登录
               </Button>
             </div>
           </div>
