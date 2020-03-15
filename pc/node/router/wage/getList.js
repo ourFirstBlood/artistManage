@@ -39,7 +39,7 @@ module.exports = async (req, res) => {
   }
   //获取消息详情列表
   let sql =
-    `SELECT * FROM wage where pid = ${pid} and name like "%${name}%" order by income desc limit ${(page - 1) * page_size},${page_size}`
+    `SELECT * FROM wage where pid = ${pid} and name like '%${name.replace("'","''")}%' order by income desc limit ${(page - 1) * page_size},${page_size}`
   //查
   const response = await sql_select(sql, res)
   success(res, {
