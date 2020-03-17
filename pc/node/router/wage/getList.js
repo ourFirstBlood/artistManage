@@ -32,7 +32,8 @@ module.exports = async (req, res) => {
   }
 
   // 当不是管理员身份时只给用户看第一条
-  if (!userInfo.id && type === 1) {
+  const special = !userInfo.id && type === 1
+  if (special) {
     page = 1
     page_size = 1
     count = count ? 1 : 0
@@ -40,6 +41,10 @@ module.exports = async (req, res) => {
   //获取消息详情列表
   let sql =
     `SELECT * FROM wage where pid = ${pid} and name like '%${name.replace("'","''")}%' order by income desc limit ${(page - 1) * page_size},${page_size}`
+  //当是直播种类并输入姓名时,只有输入全部匹配名字才能查询
+  if (special && name) {
+    sql = `SELECT * FROM wage where pid = ${pid} and name = '${name.replace("'","''")}'`
+  }
   //查
   const response = await sql_select(sql, res)
   success(res, {
