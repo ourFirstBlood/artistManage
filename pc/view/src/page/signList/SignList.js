@@ -6,7 +6,7 @@ import msg from '../../common/msg'
 import Box from '../../component/box/Box'
 
 import './signList.scss'
-const baseUrl = 'http://www.ivvmedia.com'
+const baseUrl = 'http://www.ivvmedia.com/api/'
 class List extends Component {
   constructor(props) {
     super(props)
@@ -167,7 +167,7 @@ class List extends Component {
     val = val || this.state.value
     ajaxReq
       .call(this, {
-        url: baseUrl + '/' + val,
+        url: `${baseUrl}/${val}`,
         alert: false
       })
       .then(res => {
