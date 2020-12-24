@@ -8,7 +8,7 @@ colors.setTheme({
 var mysql_config = {
   host: 'localhost',
   user: 'root',
-  password: 'root', //本地是root
+  password: '039547', //本地是root
   port: '3306',
   database: 'artist'
 }
