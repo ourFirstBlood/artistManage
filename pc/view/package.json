@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@hanyk/rc-viewer": "^0.0.3",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "css-loader": "^3.2.1",
     "element-react": "^1.4.33",
     "element-theme-default": "^1.4.13",
