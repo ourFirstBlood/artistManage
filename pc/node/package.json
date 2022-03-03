@@ -22,6 +22,9 @@
   },
   "scripts": {
     "serve": "nodemon app.js",
-    "debug": "set NODE_ENV=development&&nodemon app.js"
+    "debug": "cross-env NODE_ENV=development nodemon app.js"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3"
   }
 }
