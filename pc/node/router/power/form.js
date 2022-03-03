@@ -19,8 +19,8 @@ const edit_form = (req, res) => {
 
   var userModSql = 'UPDATE form_custom SET custom = ?,fixed = ? WHERE id = 4'
   var userModSql_Params = [
-    qs.stringify(qs.parse(req.body.custom)),
-    qs.stringify(qs.parse(req.body.fixed))
+    JSON.stringify(req.body.custom),
+    JSON.stringify(req.body.fixed)
   ]
   common.sql_update(userModSql, userModSql_Params, res).then(() => {
     common.success(res)
@@ -33,22 +33,24 @@ const get_form = (req, res) => {
       common.success(res, {
         data: {
           custom: (() => {
-            let arrStr = ''
-            for (let key in qs.parse(result[0].custom)) {
-              arrStr = key
+            let arr = []
+            try {
+              arr = JSON.parse(result[0].custom)
+            } catch(e) {
+              arr = []
             }
-            let arr = JSON.parse(arrStr)
             arr.forEach(item => {
               item.sign = 'custom'
             })
             return arr
           })(),
           fixed: (() => {
-            let arrStr = ''
-            for (let key in qs.parse(result[0].fixed)) {
-              arrStr = key
+            let arr = []
+            try {
+              arr = JSON.parse(result[0].fixed)
+            } catch(e) {
+              arr = []
             }
-            let arr = JSON.parse(arrStr)
             arr.forEach(item => {
               item.sign = 'fixed'
             })
