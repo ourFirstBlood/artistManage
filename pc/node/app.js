@@ -3,6 +3,7 @@ const xtpl = require('xtpl')
 const cookieParase = require('cookie-parser')
 const bodyParser = require('body-parser')
 const multipart = require('connect-multiparty');
+const path = require('path')
 
 const Ut = require('./router/utils/util.js')
 
@@ -60,9 +61,9 @@ app.post('*', function (req, res, next) {
 })
 
 // 设置静态资源文件夹为static
-app.use(express.static('../view/build'))
+app.use(express.static(path.resolve(__dirname, '../view/build')))
 //设置模板,会自动去views文件夹中查找.html
-app.set('views', '../view/build')
+app.set('views', path.resolve(__dirname, '../view/build'))
 //设置当前视图引擎中的模板的扩展名.html
 app.set('views engine', '.html')
 //设置解析views/.html模板的方法xtpl.renderFile,它会自动代替res.render()方法，从而使得程序的扩展性变强
