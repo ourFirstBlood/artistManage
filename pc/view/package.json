@@ -8,7 +8,7 @@
     "css-loader": "^3.2.1",
     "element-react": "^1.4.33",
     "element-theme-default": "^1.4.13",
-    "qs": "^6.6.0",
+    "qs": "^6.6.1",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
     "react-hot-loader": "^4.8.0",
